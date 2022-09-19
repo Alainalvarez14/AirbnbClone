@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Booking.belongsTo(models.User);
-      Booking.belongsTo(models.Spot);
+      Booking.belongsTo(models.User, { foreignKey: 'userId' });
+      Booking.belongsTo(models.Spot, { foreignKey: 'spotId' });
     }
   }
   Booking.init({
@@ -31,6 +31,21 @@ module.exports = (sequelize, DataTypes) => {
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
+      // validate: {
+      //   checkDate(endDate) {
+      //     if (endDate <= this.startDate) {
+      //       // const myError = {
+      //       //   "message": "Validation error",
+      //       //   "statusCode": 400,
+      //       //   "errors": {
+      //       //     "endDate": "endDate cannot be on or before startDate"
+      //       //   }
+      //       // }
+      //       // res.status(400).json(myError);
+      //       throw new Error("endDate cannot be on or before startDate");
+      //     }
+      //   }
+      // }
     },
   }, {
     sequelize,
