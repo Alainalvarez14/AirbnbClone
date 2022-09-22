@@ -44,19 +44,22 @@ const validateSignup = [
 
 
 // Sign up
-router.post(
-    '/',
-    validateSignup,
-    async (req, res) => {
-        const { email, password, username } = req.body;
-        const user = await User.signup({ email, username, password });
+router.post('/', validateSignup, async (req, res, next) => {
+    const { email, firstName, lastName, password, username } = req.body;
+
+    try {
+        const user = await User.signup({ email, firstName, lastName, username, password });
 
         await setTokenCookie(res, user);
 
         return res.json({
             user,
         });
+    } catch (e) {
+        e.status = 403;
+        next(e);
     }
+}
 );
 
 
