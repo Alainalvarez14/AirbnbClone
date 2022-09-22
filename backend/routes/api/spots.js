@@ -5,6 +5,9 @@ const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 const { Op } = require('sequelize');
 
+
+//  - review
+//  -image
 //get all spots owned by the current user
 router.get('/current', requireAuth, async (req, res) => {
     const mySpots = await Spot.findAll({

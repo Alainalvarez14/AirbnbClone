@@ -24,8 +24,8 @@ module.exports = {
         name: 'house of the beatles',
         description: 'most visitied house in all of Miami!',
         price: 1000.00,
-        avgRating: 1.5,
-        previewImage: 'imageback.com'
+        // avgRating: 1.5,
+        // previewImage: 'imageback.com'
       },
       {
         ownerId: 2,
@@ -38,8 +38,8 @@ module.exports = {
         name: 'The big house',
         description: 'largest house in all of LA!',
         price: 20000.00,
-        avgRating: 5,
-        previewImage: 'thisismyimage.com'
+        // avgRating: 5,
+        // previewImage: 'thisismyimage.com'
       },
       {
         ownerId: 3,
@@ -52,8 +52,8 @@ module.exports = {
         name: 'Alains House',
         description: 'Where people come to recieve a programmer life sentence!',
         price: 500.00,
-        avgRating: 4.5,
-        previewImage: 'preview.com'
+        // avgRating: 4.5,
+        // previewImage: 'preview.com'
       }
     ], {});
 
