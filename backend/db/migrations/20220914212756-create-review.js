@@ -13,8 +13,9 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-          onDelete: 'CASCADE',
+          // onDelete: 'CASCADE',
         },
+        onDelete: 'CASCADE',
         allowNull: false,
       },
       spotId: {
@@ -22,8 +23,9 @@ module.exports = {
         references: {
           model: 'Spots',
           key: 'id',
-          onDelete: 'CASCADE',
+          // onDelete: 'CASCADE',
         },
+        onDelete: 'CASCADE',
         allowNull: false,
       },
       review: {

@@ -17,8 +17,9 @@ module.exports = {
         references: {
           model: 'Reviews',
           key: 'id',
-          onDelete: 'CASCADE',
+          // onDelete: 'CASCADE',
         },
+        onDelete: 'CASCADE',
         // allowNull: false,
       },
       spotImageId: {
@@ -26,8 +27,9 @@ module.exports = {
         references: {
           model: 'Spots',
           key: 'id',
-          onDelete: 'CASCADE',
+          // onDelete: 'CASCADE',
         },
+        onDelete: 'CASCADE',
         // allowNull: false,
       },
       preview: {
@@ -39,8 +41,9 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-          onDelete: 'CASCADE',
+          // onDelete: 'CASCADE',
         },
+        onDelete: 'CASCADE',
         // allowNull: false,
       },
       createdAt: {

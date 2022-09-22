@@ -31,21 +31,11 @@ module.exports = (sequelize, DataTypes) => {
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      // validate: {
-      //   checkDate(endDate) {
-      //     if (endDate <= this.startDate) {
-      //       // const myError = {
-      //       //   "message": "Validation error",
-      //       //   "statusCode": 400,
-      //       //   "errors": {
-      //       //     "endDate": "endDate cannot be on or before startDate"
-      //       //   }
-      //       // }
-      //       // res.status(400).json(myError);
-      //       throw new Error("endDate cannot be on or before startDate");
-      //     }
-      //   }
-      // }
+      validate: {
+        endDateMustBeAfterStartDate(end) {
+          if (this.startDate >= end) throw new Error('end date must be after start date')
+        },
+      }
     },
   }, {
     sequelize,
