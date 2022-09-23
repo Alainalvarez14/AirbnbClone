@@ -297,7 +297,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     const image = await Image.create({ userId, spotImageId: req.params.spotId, url: req.body.url, preview: req.body.previewImage });
 
     if (image.preview) {
-        mySpot.update({
+        await mySpot.update({
             previewImage: image.url
         })
     }
