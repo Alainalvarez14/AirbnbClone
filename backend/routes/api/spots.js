@@ -268,43 +268,64 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
 
 });
 
-// add an image to a spot based on spot id
+// // add an image to a spot based on spot id
+// router.post('/:spotId/images', requireAuth, async (req, res) => {
+//     const mySpot = await Spot.findOne({
+//         where: {
+//             id: req.params.spotId
+//         }
+//     });
+
+//     if (!mySpot) {
+//         const myError = {
+//             message: "Spot couldn't be found",
+//             statusCode: 404,
+//         };
+//         return res.status(404).json(myError);
+//     };
+
+//     const userId = req.user.id;
+
+//     if (userId !== mySpot.ownerId) {
+//         const myError = {
+//             message: "only owners can add an image to a spot",
+//             statusCode: 403,
+//         };
+//         return res.status(403).json(myError);
+//     }
+
+//     const image = await Image.create({ userId, spotImageId: req.params.spotId, url: req.body.url, preview: req.body.previewImage });
+
+//     if (image.preview) {
+//         await mySpot.update({
+//             previewImage: image.url
+//         })
+//     }
+
+//     const { id, url, preview } = image;
+//     return res.status(201).json({ id, url, preview });
+
+// });
+
 router.post('/:spotId/images', requireAuth, async (req, res) => {
-    const mySpot = await Spot.findOne({
-        where: {
-            id: req.params.spotId
-        }
+    const spotId = await Spot.findByPk(req.params.spotId);
+
+    if (!spotId) return res.status(404).json({ "message": "Spot couldn't be found", "statusCode": 404 });
+
+    if (req.user.id !== spotId.ownerId) return res.status(403).json({ "message": "You must own this spot to post an image", "statusCode": 403 });
+
+    const newImage = await Image.create({
+        userId: req.user.id,
+        spotImageId: req.params.spotId,
+        url: req.body.url,
+        preview: req.body.previewImage
     });
 
-    if (!mySpot) {
-        const myError = {
-            message: "Spot couldn't be found",
-            statusCode: 404,
-        };
-        return res.status(404).json(myError);
-    };
+    if (newImage.preview === true) await spotId.update({ previewImage: newImage.url });
 
-    const userId = req.user.id;
+    const { id, url, preview } = newImage;
 
-    if (userId !== mySpot.ownerId) {
-        const myError = {
-            message: "only owners can add an image to a spot",
-            statusCode: 403,
-        };
-        return res.status(403).json(myError);
-    }
-
-    const image = await Image.create({ userId, spotImageId: req.params.spotId, url: req.body.url, preview: req.body.previewImage });
-
-    if (image.preview) {
-        await mySpot.update({
-            previewImage: image.url
-        })
-    }
-
-    const { id, url, preview } = image;
-    return res.status(201).json({ id, url, preview });
-
+    return res.json({ id, url, preview });
 });
 
 //get all reviews by a spot id
