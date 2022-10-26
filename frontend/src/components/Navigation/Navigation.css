@@ -1,0 +1,31 @@
+#profileButton {
+    margin-right: 50px;
+    float: right;
+    background-color: rgb(226, 43, 135);
+    color: yellow;
+    height: 40px;
+    width: 220px;
+}
+
+#profileButton:hover {
+    height: 70px;
+}
+
+.profile-dropdown {
+    margin-right: 50px;
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+
+.logoContainer {
+    list-style: none;
+    border-bottom: 1px solid rgb(226, 43, 135);
+}
+
+.logoText {
+    text-decoration: none;
+    color: rgb(226, 43, 135);
+    font-weight: bold;
+    font-size: 40px;
+}

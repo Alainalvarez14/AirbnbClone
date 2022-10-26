@@ -21,9 +21,9 @@ const Navigation = ({ isLoaded }) => {
     }
 
     return (
-        <ul>
+        <ul className="logoContainer">
             <li>
-                <NavLink exact to='/'>Home</NavLink>
+                <NavLink exact to='/' className='logoText'>airbnb</NavLink>
                 {isLoaded && sessionLinks}
             </li>
         </ul>
