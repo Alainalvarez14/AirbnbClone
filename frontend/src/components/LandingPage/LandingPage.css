@@ -8,3 +8,25 @@
 NavLink {
     text-decoration: none;
 }
+
+.spotListWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.ownedSpotsList {
+    margin-left: 450px;
+}
+
+.notOwnedSpotsList {
+    float: left;
+}
+
+.individualSpot {}
+
+.mock-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}

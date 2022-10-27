@@ -23,7 +23,7 @@ function App() {
           <Route exact path='/'>
 
           </Route>
-          <Route path='/home'>
+          <Route exact path='/home'>
             <LandingPage />
           </Route>
           <Route path='/login'>
