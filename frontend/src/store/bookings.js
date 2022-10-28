@@ -14,6 +14,13 @@ export const createBooking = (booking) => {
     })
 };
 
+export const deleteBooking = (booking) => {
+    return ({
+        type: 'DELETE_BOOKING',
+        payload: booking
+    })
+};
+
 export const getAllBookingsThunk = () => async dispatch => {
     const response = await csrfFetch(`/api/bookings/current`);
     console.log(response);
@@ -39,6 +46,15 @@ export const createBookingThunk = (booking) => async dispatch => {
     }
 };
 
+export const deleteBookingThunk = (booking) => async dispatch => {
+    const response = await csrfFetch(`/api/bookings/${booking.id}`, {
+        method: "DELETE"
+    });
+    if (response.ok) {
+        dispatch(deleteBooking(booking));
+    }
+};
+
 const defaultState = {};
 export const bookingsReducer = (state = defaultState, action) => {
     let newState;
@@ -52,6 +68,11 @@ export const bookingsReducer = (state = defaultState, action) => {
         case 'CREATE_BOOKING': {
             newState = { ...state };
             newState[action.payload.id] = action.payload;
+            return newState;
+        }
+        case 'DELETE_BOOKING': {
+            newState = { ...state };
+            delete newState[action.payload.id];
             return newState;
         }
         default: {

@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 import { createSpot } from "../../store/spots";
 import mockHome from '../../Images/mockHome.jpg'
 import { getAllBookingsThunk } from "../../store/bookings";
+import { deleteBookingThunk } from "../../store/bookings";
 
 const LandingPage = () => {
 
@@ -18,6 +19,7 @@ const LandingPage = () => {
     const spotList = useSelector(state => state.spots);
     // const userId = useSelector(state => state.session.user.id);
     const user = useSelector(state => state.session.user);
+    const bookingsList = useSelector(state => state.bookings);
 
     // const [showMenu, setShowMenu] = useState(false);
     const [showEditSpotForm, setShowEditSpotForm] = useState(false);
@@ -63,102 +65,117 @@ const LandingPage = () => {
     };
 
     return (
-        < div className="spotListWrapper">
-            <div className="notOwnedSpotsList">
-                <h2>Not Owned Spots</h2>
-                {
-                    Object.values(spotList)?.filter(spot => spot.ownerId !== user.id).map(spot => {
-                        return (
-                            <div key={spot.id} className='individualSpot'>
-                                <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
-                                    <img className="mock-image" src={mockHome}></img>
-                                    <div>{spot.name} </div>
-                                    <div>
-                                        <div>{spot.city},{spot.state} </div>
-                                        <div>{spot.avgRating} </div>
-                                    </div>
-                                    <div>{spot.price} </div>
-                                </NavLink>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+        <div>
+            < div className="spotListWrapper">
+                <div className="notOwnedSpotsList">
+                    <h2>Not Owned Spots</h2>
+                    {
+                        Object.values(spotList)?.filter(spot => spot.ownerId !== user.id).map(spot => {
+                            return (
+                                <div key={spot.id} className='individualSpot'>
+                                    <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
+                                        <img className="mock-image" src={mockHome}></img>
+                                        <div>{spot.name} </div>
+                                        <div>
+                                            <div>{spot.city},{spot.state} </div>
+                                            <div>{spot.avgRating} </div>
+                                        </div>
+                                        <div>{spot.price} </div>
+                                    </NavLink>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
 
-            <div className="ownedSpotsList">
-                <h2>My Spots</h2>
-                {
-                    Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
-                        return (
-                            <div key={spot.id} className="individualSpot">
+                <div className="ownedSpotsList">
+                    <h2>My Spots</h2>
+                    {
+                        Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
+                            return (
+                                <div key={spot.id} className="individualSpot">
 
-                                <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
-                                    <img className="mock-image" src={mockHome}></img>
-                                    <div>{spot.name} </div>
-                                    <div>
-                                        <div>{spot.city},{spot.state} </div>
-                                        <div>{spot.avgRating} </div>
-                                    </div>
-                                    <div>{spot.price} </div>
+                                    <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
+                                        <img className="mock-image" src={mockHome}></img>
+                                        <div>{spot.name} </div>
+                                        <div>
+                                            <div>{spot.city},{spot.state} </div>
+                                            <div>{spot.avgRating} </div>
+                                        </div>
+                                        <div>{spot.price} </div>
 
-                                </NavLink>
+                                    </NavLink>
 
-                                <button onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                <button onClick={() => openEditSpotForm(spot)}>Edit</button>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            {/* {showEditSpotForm && (
+                                    <button onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                                    <button onClick={() => openEditSpotForm(spot)}>Edit</button>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                {/* {showEditSpotForm && (
                 <div>IM IN THE FORMMMM</div>
             )
             } */}
-            {showEditSpotForm && (
-                <form>
-                    <ul>
-                        <div>
-                            <label>Name:</label>
-                            <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Description:</label>
-                            <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Address:</label>
-                            <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>City:</label>
-                            <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>State:</label>
-                            <input type="text" name="state" value={state} onChange={(e) => setTheState(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Country:</label>
-                            <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Lng:</label>
-                            <input type="number" name="lng" value={lng} onChange={(e) => setLng(Number(e.target.value))}></input>
-                        </div>
-                        <div>
-                            <label>Lat:</label>
-                            <input type="number" name="lat" value={lat} onChange={(e) => setLat(Number(e.target.value))}></input>
-                        </div>
-                        <div>
-                            <label>Price:</label>
-                            <input type="number" name="price" value={price} onChange={(e) => setPrice(Number(e.target.value))}></input>
-                        </div>
-                    </ul>
-                    <button onClick={(e) => handleSubmit(e)}>Submit</button>
-                </form>
+                {showEditSpotForm && (
+                    <form>
+                        <ul>
+                            <div>
+                                <label>Name:</label>
+                                <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>Description:</label>
+                                <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>Address:</label>
+                                <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>City:</label>
+                                <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>State:</label>
+                                <input type="text" name="state" value={state} onChange={(e) => setTheState(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>Country:</label>
+                                <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>Lng:</label>
+                                <input type="number" name="lng" value={lng} onChange={(e) => setLng(Number(e.target.value))}></input>
+                            </div>
+                            <div>
+                                <label>Lat:</label>
+                                <input type="number" name="lat" value={lat} onChange={(e) => setLat(Number(e.target.value))}></input>
+                            </div>
+                            <div>
+                                <label>Price:</label>
+                                <input type="number" name="price" value={price} onChange={(e) => setPrice(Number(e.target.value))}></input>
+                            </div>
+                        </ul>
+                        <button onClick={(e) => handleSubmit(e)}>Submit</button>
+                    </form>
 
-            )}
-        </div >
+                )}
+            </div >
+
+            <div>
+                {Object.values(bookingsList).map(booking => {
+                    return (
+                        <div>
+                            booking!!!!
+                            <div>{booking.startDate}</div>
+                            <div>{booking.endDate}</div>
+                            <button onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
     );
 }
 
