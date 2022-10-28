@@ -55,6 +55,23 @@ export const deleteBookingThunk = (booking) => async dispatch => {
     }
 };
 
+export const editBookingThunk = (booking) => async dispatch => {
+    console.log(booking);
+
+    const response = await csrfFetch(`/api/bookings/${booking.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(booking)
+    });
+
+    if (response.ok) {
+        const booking = await response.json();
+        dispatch(createBooking(booking));
+    }
+}
+
 const defaultState = {};
 export const bookingsReducer = (state = defaultState, action) => {
     let newState;
