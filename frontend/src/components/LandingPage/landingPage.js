@@ -10,6 +10,7 @@ import ProfileButton from '../Navigation/ProfileButton';
 import { useHistory } from "react-router-dom";
 import { createSpot } from "../../store/spots";
 import mockHome from '../../Images/mockHome.jpg'
+import { getAllBookingsThunk } from "../../store/bookings";
 
 const LandingPage = () => {
 
@@ -49,34 +50,9 @@ const LandingPage = () => {
 
     }
 
-    // const handleSubmitCreateSpot = (e) => {
-    //     e.preventDefault();
-    //  // setShowCreateSpotForm(true);
-    //     let spotObj = { address, city, state, country, lat, lng, name, description, price };
-    //     dispatch(createSpot(spotObj));
-    //     setShowCreateSpotForm(false);
-
-    //     setName('');
-    //     setDescription('');
-    //     setAddress('');
-    //     setCity('');
-    //     setCountry('');
-    //     setTheState('');
-    //     setLng(0);
-    //     setLat(0);
-    //     setPrice(0);
-    //     history.push("/home");
-    // };
-
-    // let test;
-
-    // const editSpecificSpot = (spot) => {
-    //     console.log(spot);
-    //     test = <div>hello test</div>;
-    // };
-
     useEffect(() => {
-        dispatch(getAllSpots())
+        dispatch(getAllSpots());
+        dispatch(getAllBookingsThunk());
     }, [dispatch])
 
     const handleSubmit = (e) => {
@@ -102,7 +78,6 @@ const LandingPage = () => {
                                         <div>{spot.avgRating} </div>
                                     </div>
                                     <div>{spot.price} </div>
-
                                 </NavLink>
                             </div>
                         )
