@@ -19,11 +19,9 @@ const LandingPage = () => {
     const spotList = useSelector(state => state.spots);
     // const userId = useSelector(state => state.session.user.id);
     const user = useSelector(state => state.session.user);
-    const bookingsList = useSelector(state => state.bookings);
 
     // const [showMenu, setShowMenu] = useState(false);
     const [showEditSpotForm, setShowEditSpotForm] = useState(false);
-    const [showEditBookingForm, setShowEditBookingForm] = useState(false);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [address, setAddress] = useState('');
@@ -34,11 +32,6 @@ const LandingPage = () => {
     const [lat, setLat] = useState(0);
     const [price, setPrice] = useState(0);
     const [id, setId] = useState(0);
-    const [userId, setUserId] = useState();
-    const [spotId, setSpotId] = useState();
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
-    const [bookingId, setBookingId] = useState();
     const history = useHistory();
 
     const openEditSpotForm = (spot) => {
@@ -55,22 +48,10 @@ const LandingPage = () => {
         setId(spot.id);
         console.log(spot);
         setShowEditSpotForm(true);
-
     }
-
-    const openEditBookingForm = (booking) => {
-        if (showEditBookingForm) return;
-        setUserId(booking.userId);
-        setSpotId(booking.spotId);
-        setStartDate(booking.startDate);
-        setEndDate(booking.endDate);
-        setBookingId(booking.id);
-        setShowEditBookingForm(true);
-    };
 
     useEffect(() => {
         dispatch(getAllSpots());
-        dispatch(getAllBookingsThunk());
     }, [dispatch])
 
     const handleSubmit = (e) => {
@@ -78,13 +59,6 @@ const LandingPage = () => {
         let spotObj = { id, address, city, state, country, lat, lng, name, description, price };
         dispatch(editSpot(spotObj));
         setShowEditSpotForm(false);
-    };
-
-    const handleSubmitBooking = (e) => {
-        e.preventDefault();
-        let bookingObj = { id: bookingId, userId, spotId, startDate, endDate };
-        dispatch(editBookingThunk(bookingObj));
-        setShowEditBookingForm(false);
     };
 
     return (
@@ -186,36 +160,6 @@ const LandingPage = () => {
                 )}
             </div >
 
-            <div>
-                {Object.values(bookingsList).map(booking => {
-                    return (
-                        <div>
-                            booking!!!!
-                            <div>{booking.startDate}</div>
-                            <div>{booking.endDate}</div>
-                            <button onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
-                            <button onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
-                        </div>
-                    );
-                })}
-            </div>
-            {showEditBookingForm && (
-                <form>
-                    <ul>
-                        <div>
-                            <label>Check-in:</label>
-                            <input type="date" name="startDate" onChange={(e) => setStartDate(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Check-out:</label>
-                            <input type="date" name="endDate" onChange={(e) => setEndDate(e.target.value)}></input>
-                        </div>
-                        <button onClick={(e) => handleSubmitBooking(e)}>Book Now!</button>
-                        <p>You won't be charged yet</p>
-                    </ul>
-                    {/* <button onClick={(e) => handleSubmitBooking(e)}>Book Now!</button> */}
-                </form>
-            )}
         </div>
     );
 }

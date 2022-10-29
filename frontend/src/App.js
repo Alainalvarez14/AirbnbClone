@@ -7,6 +7,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage/landingPage";
 import SpecificSpotDetails from "./components/SpecificSpotDetails/specificSpotDetails";
+import UserProfile from "./components/UserProfile/userProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path='/spots/:spotId'>
             <SpecificSpotDetails />
+          </Route>
+          <Route path='/user-profile'>
+            <UserProfile />
           </Route>
         </Switch>
       )}

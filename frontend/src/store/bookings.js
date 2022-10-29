@@ -23,10 +23,8 @@ export const deleteBooking = (booking) => {
 
 export const getAllBookingsThunk = () => async dispatch => {
     const response = await csrfFetch(`/api/bookings/current`);
-    console.log(response);
     if (response.ok) {
         const allBookings = await response.json();
-        console.log(allBookings);
         dispatch(getAllBookings(allBookings.Bookings));
     }
 };

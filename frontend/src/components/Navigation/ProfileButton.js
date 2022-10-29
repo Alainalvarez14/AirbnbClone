@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as sessionActions from '../../store/session';
-// import createSpotForm from "../CreateSpotForm/createSpotForm";
 import { createSpot } from "../../store/spots";
 import { useHistory } from "react-router-dom";
 
@@ -42,9 +41,6 @@ function ProfileButton({ user }) {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
-    // useEffect(() => {
-
-    // }, [name]);
     const history = useHistory();
 
     const logout = (e) => {
@@ -75,6 +71,10 @@ function ProfileButton({ user }) {
         history.push("/home");
     };
 
+    const handleOpenProfile = () => {
+        history.push('/user-profile');
+    };
+
     return (
         <>
             <button onClick={openMenu} id='profileButton'>
@@ -89,6 +89,9 @@ function ProfileButton({ user }) {
                     </li>
                     <li>
                         <button onClick={logout}>Log Out</button>
+                    </li>
+                    <li>
+                        <button onClick={handleOpenProfile}>Profile</button>
                     </li>
                 </ul>
             )}
