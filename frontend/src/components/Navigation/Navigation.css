@@ -2,14 +2,17 @@
     margin-right: 50px;
     float: right;
     background-color: rgb(226, 43, 135);
-    color: yellow;
+    /* color: yellow; */
+    color: white;
+    font-size: 16px;
     height: 40px;
-    width: 220px;
+    width: 150px;
+    border-radius: 20px;
 }
 
-#profileButton:hover {
+/* #profileButton:hover {
     height: 70px;
-}
+} */
 
 .profile-dropdown {
     margin-right: 50px;
@@ -39,4 +42,26 @@ label {
     width: 100px;
     margin-bottom: 10px;
     text-align: right;
+}
+
+.loginButton {
+    background-color: white;
+    border-color: rgb(226, 43, 135);
+    border-radius: 10px;
+    color: rgb(226, 43, 135);
+    text-decoration: none;
+    float: right;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 25px;
+}
+
+.signupButton {
+    background-color: pink;
+    border-radius: 10px;
+    color: rgb(226, 43, 135);
+    text-decoration: none;
+    float: right;
+    margin-top: 10px;
+    font-size: 25px;
 }

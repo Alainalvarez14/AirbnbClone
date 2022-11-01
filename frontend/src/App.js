@@ -8,12 +8,14 @@ import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage/landingPage";
 import SpecificSpotDetails from "./components/SpecificSpotDetails/specificSpotDetails";
 import UserProfile from "./components/UserProfile/userProfile";
+import { getAllSpots } from "./store/spots";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(getAllSpots());
   }, [dispatch]);
 
   return isLoaded && (

@@ -1,3 +1,31 @@
-.background {
-    background-color: red;
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px;
+    background-color: rgb(208, 189, 189);
+    width: 300px;
+    height: 400px;
+    border-radius: 20px;
+    justify-content: center;
+    color: white;
+    margin: 0 auto;
+    margin-top: 200px;
+}
+
+.userNameAndEmail {}
+
+.password {}
+
+.LoginButton {
+    width: 100px;
+    border-radius: 10px;
+}
+
+.userNameInputBox {
+    border-radius: 10px;
+}
+
+.passwordInputBox {
+    border-radius: 10px;
 }

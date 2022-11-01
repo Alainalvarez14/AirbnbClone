@@ -26,29 +26,31 @@ const LoginFormPage = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='loginForm'>
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
-            <label>
+            <label className="userNameAndEmail">
                 Username or Email
                 <input
                     type="text"
                     value={credential}
                     onChange={(e) => setCredential(e.target.value)}
                     required
+                    className="userNameInputBox"
                 />
             </label>
-            <label>
+            <label className="password">
                 Password
                 <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="passwordInputBox"
                 />
             </label>
-            <button type="submit">Log In</button>
+            <button type="submit" className="LoginButton">Log In</button>
         </form>
     );
 

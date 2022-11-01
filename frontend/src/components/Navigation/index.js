@@ -14,8 +14,8 @@ const Navigation = ({ isLoaded }) => {
     } else {
         sessionLinks = (
             <>
-                <NavLink to="/login">Log In</NavLink>
-                <NavLink to="/signup">Sign Up</NavLink>
+                <NavLink to="/login" className='loginButton'>Log In</NavLink>
+                <NavLink to="/signup" className='signupButton'>Sign Up</NavLink>
             </>
         );
     }
@@ -23,7 +23,7 @@ const Navigation = ({ isLoaded }) => {
     return (
         <ul className="logoContainer">
             <li>
-                <NavLink exact to='/' className='logoText'>airbnb</NavLink>
+                <NavLink exact to='/home' className='logoText'>airbnb</NavLink>
                 {isLoaded && sessionLinks}
             </li>
         </ul>

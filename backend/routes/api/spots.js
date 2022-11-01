@@ -508,7 +508,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         });
     }
 
-    const myReservation = await Booking.build({ spotId: req.params.spotId, userId, startDate, endDate });
+    const myReservation = await Booking.build({ spotId: Number(req.params.spotId), userId, startDate, endDate });
 
     function isSameDate(date1, date2) {
         return date1.getFullYear() === date2.getFullYear()
@@ -551,7 +551,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     }
 
     await myReservation.save();
-
+    console.log(myReservation);
     return res.json(myReservation);
 });
 
@@ -579,6 +579,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
                 spotId: req.params.spotId
             },
             attributes: [
+                'id',
                 'spotId',
                 'startDate',
                 'endDate'
@@ -595,6 +596,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             model: User,
             attributes: [
                 'id',
+                // 'spotId',
                 'firstName',
                 'lastName'
             ]

@@ -4,23 +4,13 @@ import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from 'react-router-dom';
-import { deleteSpot } from "../../store/spots";
 import { editSpot } from "../../store/spots";
-import ProfileButton from '../Navigation/ProfileButton';
-import { useHistory } from "react-router-dom";
-import { createSpot } from "../../store/spots";
 import mockHome from '../../Images/mockHome.jpg'
-import { editBookingThunk, getAllBookingsThunk } from "../../store/bookings";
-import { deleteBookingThunk } from "../../store/bookings";
 
 const LandingPage = () => {
 
     const dispatch = useDispatch();
     const spotList = useSelector(state => state.spots);
-    // const userId = useSelector(state => state.session.user.id);
-    const user = useSelector(state => state.session.user);
-
-    // const [showMenu, setShowMenu] = useState(false);
     const [showEditSpotForm, setShowEditSpotForm] = useState(false);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
@@ -32,27 +22,10 @@ const LandingPage = () => {
     const [lat, setLat] = useState(0);
     const [price, setPrice] = useState(0);
     const [id, setId] = useState(0);
-    const history = useHistory();
 
-    const openEditSpotForm = (spot) => {
-        if (showEditSpotForm) return;
-        setName(spot.name);
-        setDescription(spot.description);
-        setAddress(spot.address);
-        setCity(spot.city);
-        setTheState(spot.state);
-        setCountry(spot.country);
-        setLng(spot.lng);
-        setLat(spot.lat);
-        setPrice(spot.price);
-        setId(spot.id);
-        console.log(spot);
-        setShowEditSpotForm(true);
-    }
-
-    useEffect(() => {
-        dispatch(getAllSpots());
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(getAllSpots());
+    // }, [dispatch])
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -65,9 +38,9 @@ const LandingPage = () => {
         <div>
             < div className="spotListWrapper">
                 <div className="notOwnedSpotsList">
-                    <h2>Not Owned Spots</h2>
+                    <h2>All Spots</h2>
                     {
-                        Object.values(spotList)?.filter(spot => spot.ownerId !== user.id).map(spot => {
+                        Object.values(spotList)?.map(spot => {
                             return (
                                 <div key={spot.id} className='individualSpot'>
                                     <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
@@ -75,45 +48,15 @@ const LandingPage = () => {
                                         <div>{spot.name} </div>
                                         <div>
                                             <div>{spot.city},{spot.state} </div>
-                                            <div>{spot.avgRating} </div>
+                                            {/* <div>{spot.avgRating} </div> */}
                                         </div>
-                                        <div>{spot.price} </div>
+                                        <div>${spot.price} night </div>
                                     </NavLink>
                                 </div>
                             )
                         })
                     }
                 </div>
-
-                <div className="ownedSpotsList">
-                    <h2>My Spots</h2>
-                    {
-                        Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
-                            return (
-                                <div key={spot.id} className="individualSpot">
-
-                                    <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
-                                        <img className="mock-image" src={mockHome}></img>
-                                        <div>{spot.name} </div>
-                                        <div>
-                                            <div>{spot.city},{spot.state} </div>
-                                            <div>{spot.avgRating} </div>
-                                        </div>
-                                        <div>{spot.price} </div>
-
-                                    </NavLink>
-
-                                    <button onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                    <button onClick={() => openEditSpotForm(spot)}>Edit</button>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                {/* {showEditSpotForm && (
-                <div>IM IN THE FORMMMM</div>
-            )
-            } */}
                 {showEditSpotForm && (
                     <form>
                         <ul>
@@ -156,10 +99,8 @@ const LandingPage = () => {
                         </ul>
                         <button onClick={(e) => handleSubmit(e)}>Submit</button>
                     </form>
-
                 )}
             </div >
-
         </div>
     );
 }

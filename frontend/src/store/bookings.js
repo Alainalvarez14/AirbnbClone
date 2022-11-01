@@ -21,11 +21,28 @@ export const deleteBooking = (booking) => {
     })
 };
 
+export const getAllBookingsBySpotId = (list) => {
+    return ({
+        type: 'GET_ALL_BOOKINGS_BY_SPOT_ID',
+        payload: list
+    });
+};
+
 export const getAllBookingsThunk = () => async dispatch => {
     const response = await csrfFetch(`/api/bookings/current`);
     if (response.ok) {
         const allBookings = await response.json();
+        console.log('all', allBookings);
         dispatch(getAllBookings(allBookings.Bookings));
+    }
+};
+
+export const getAllBookingsBySpotIdThunk = (spotId) => async dispatch => {
+    const response = await csrfFetch(`/api/spots/${spotId}/bookings`);
+    if (response.ok) {
+        const allBookings = await response.json();
+        console.log('spotId', allBookings);
+        dispatch(getAllBookingsBySpotId(allBookings.Bookings));
     }
 };
 
@@ -77,6 +94,11 @@ export const bookingsReducer = (state = defaultState, action) => {
         case 'GET_ALL_BOOKINGS': {
             newState = { ...state };
             // normalize data here
+            action.payload.forEach(booking => newState[booking.id] = booking);
+            return newState;
+        }
+        case 'GET_ALL_BOOKINGS_BY_SPOT_ID': {
+            newState = {};
             action.payload.forEach(booking => newState[booking.id] = booking);
             return newState;
         }
