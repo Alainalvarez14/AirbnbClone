@@ -96,7 +96,7 @@ function ProfileButton({ user }) {
                 </ul>
             )}
             {showCreateSpotForm && (
-                <div>
+                <div className="createSpotFormWrapper">
                     <form className='createSpotForm'>
                         <div className="createYourSpotMessage">Create your Spot</div>
                         <ul className="inputBoxFieldsWrapper">
