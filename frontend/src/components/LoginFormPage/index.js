@@ -26,32 +26,38 @@ const LoginFormPage = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className='loginForm'>
-            <ul>
-                {errors.map((error, idx) => <li key={idx}>{error}</li>)}
-            </ul>
-            <label className="userNameAndEmail">
-                Username or Email
-                <input
-                    type="text"
-                    value={credential}
-                    onChange={(e) => setCredential(e.target.value)}
-                    required
-                    className="userNameInputBox"
-                />
-            </label>
-            <label className="password">
-                Password
-                <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="passwordInputBox"
-                />
-            </label>
-            <button type="submit" className="LoginButton">Log In</button>
-        </form>
+        <div className="formWrapper">
+            <form onSubmit={handleSubmit} className='loginForm'>
+                <div className="welcomeMessage">Welcome to Airbnb</div>
+                <ul>
+                    {errors.map((error, idx) => <li key={idx}>{error}</li>)}
+                </ul>
+                <label className="textLabelWrapper">
+                    {/* <div className="textLabel">Username or Email</div> */}
+                    <input
+                        type="text"
+                        value={credential}
+                        placeholder='Username or email'
+                        onChange={(e) => setCredential(e.target.value)}
+                        required
+                        className="inputBox"
+                    />
+                </label>
+                <label className="textLabelWrapper">
+                    {/* <div className="textLabel">Password</div> */}
+                    <input
+                        type="password"
+                        value={password}
+                        placeholder='Password'
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        className="inputBox"
+                    />
+                </label>
+                <button type="submit" className="LoginButton">Log In</button>
+            </form>
+        </div>
+
     );
 
 }

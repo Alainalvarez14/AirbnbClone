@@ -156,7 +156,7 @@ const UserProfile = () => {
                                     <div>{spot.name} </div>
                                     <div>
                                         <div>{spot.city}, {spot.state} </div>
-                                        <div>{spot.avgRating} </div>
+                                        {/* <div>{spot.avgRating} </div> */}
                                     </div>
                                     <div>${spot.price} </div>
 

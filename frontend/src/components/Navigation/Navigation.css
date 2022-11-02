@@ -1,13 +1,15 @@
 #profileButton {
     margin-right: 50px;
     float: right;
-    background-color: rgb(226, 43, 135);
-    /* color: yellow; */
-    color: white;
+    /* background-color: rgb(230, 30, 77); */
+    /* background-color: rgb(181, 180, 180); */
+    /* color: white; */
+    color: rgb(98, 97, 97);
     font-size: 16px;
     height: 40px;
     width: 150px;
-    border-radius: 20px;
+    border-radius: 8px;
+    border: 1px solid rgb(181, 180, 180);
 }
 
 /* #profileButton:hover {
@@ -23,45 +25,98 @@
 
 .logoContainer {
     list-style: none;
-    border-bottom: 1px solid rgb(226, 43, 135);
+    /* border-bottom: 1px solid rgb(230, 30, 77); */
+    border-bottom: 0.7px solid rgb(181, 180, 180);
 }
 
 .logoText {
     text-decoration: none;
-    color: rgb(226, 43, 135);
+    color: rgb(230, 30, 77);
     font-weight: bold;
     font-size: 40px;
 }
 
 .createSpotForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-bottom: 10px;
+    border: 1.2px solid rgb(181, 180, 180);
+    border-radius: 20px;
+    height: 500px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1.2px solid rgb(181, 180, 180);
+    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
 }
 
-label {
+/* label {
     display: inline-block;
     width: 100px;
     margin-bottom: 10px;
     text-align: right;
+} */
+
+.inputBoxFieldsWrapper {
+    margin-bottom: 10px;
+
+}
+
+.inputBoxFields {
+    margin-bottom: 10px;
+    /* height: 50px; */
+    display: flex;
+    flex-direction: column;
+    /* width: 100%; */
+    /* align-items: center; */
+    /* text-align: center; */
 }
 
 .loginButton {
-    background-color: white;
-    border-color: rgb(226, 43, 135);
-    border-radius: 10px;
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    border-radius: 8px;
     color: rgb(226, 43, 135);
     text-decoration: none;
     float: right;
     margin-top: 10px;
     margin-left: 20px;
     font-size: 25px;
+    font-weight: bold;
 }
 
 .signupButton {
-    background-color: pink;
-    border-radius: 10px;
-    color: rgb(226, 43, 135);
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    border-radius: 8px;
+    color: rgb(230, 30, 77);
     text-decoration: none;
     float: right;
     margin-top: 10px;
+    /* margin-left: 20px; */
     font-size: 25px;
+    font-weight: bold;
+}
+
+.hostSpotSubmitButton {
+    width: 200px;
+    border-radius: 8px;
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
+    color: white;
+    height: 40px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.createYourSpotMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
 }

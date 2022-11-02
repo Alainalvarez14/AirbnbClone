@@ -98,45 +98,46 @@ function ProfileButton({ user }) {
             {showCreateSpotForm && (
                 <div>
                     <form className='createSpotForm'>
-                        <ul>
-                            <div>
-                                <label>Name:</label>
-                                <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                        <div className="createYourSpotMessage">Create your Spot</div>
+                        <ul className="inputBoxFieldsWrapper">
+                            <div className="inputBoxFields">
+                                {/* <label>Name:</label> */}
+                                <input type="text" name="name" value={name} placeholder='Name' onChange={(e) => setName(e.target.value)}></input>
                             </div>
-                            <div>
-                                <label>Description:</label>
-                                <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>Description:</label> */}
+                                <input type="text" name="description" value={description} placeholder='Description' onChange={(e) => setDescription(e.target.value)}></input>
                             </div>
-                            <div>
-                                <label>Address:</label>
-                                <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>Address:</label> */}
+                                <input type="text" name="address" value={address} placeholder='Address' onChange={(e) => setAddress(e.target.value)}></input>
                             </div>
-                            <div>
-                                <label>City:</label>
-                                <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>City:</label> */}
+                                <input type="text" name="city" value={city} placeholder='City' onChange={(e) => setCity(e.target.value)}></input>
                             </div>
-                            <div>
-                                <label>State:</label>
-                                <input type="text" name="state" value={state} onChange={(e) => setTheState(e.target.value)}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>State:</label> */}
+                                <input type="text" name="state" value={state} placeholder='State' onChange={(e) => setTheState(e.target.value)}></input>
                             </div>
-                            <div>
-                                <label>Country:</label>
-                                <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>Country:</label> */}
+                                <input type="text" name="country" value={country} placeholder='Country' onChange={(e) => setCountry(e.target.value)}></input>
                             </div>
-                            <div>
-                                <label>Lng:</label>
-                                <input type="number" name="lng" value={lng} onChange={(e) => setLng(Number(e.target.value))}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>Lng:</label> */}
+                                <input type="number" name="lng" value={lng} placeholder='Longitude' onChange={(e) => setLng(Number(e.target.value))}></input>
                             </div>
-                            <div>
-                                <label>Lat:</label>
-                                <input type="number" name="lat" value={lat} onChange={(e) => setLat(Number(e.target.value))}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>Lat:</label> */}
+                                <input type="number" name="lat" value={lat} placeholder='Latitude' onChange={(e) => setLat(Number(e.target.value))}></input>
                             </div>
-                            <div>
-                                <label>Price:</label>
-                                <input type="number" name="price" value={price} onChange={(e) => setPrice(Number(e.target.value))}></input>
+                            <div className="inputBoxFields">
+                                {/* <label>Price:</label> */}
+                                <input type="number" name="price" value={price} placeholder='Price' onChange={(e) => setPrice(Number(e.target.value))}></input>
                             </div>
                         </ul>
-                        <button onClick={(e) => handleSubmitCreateSpot(e)}>Submit</button>
+                        <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton'>Submit</button>
                     </form>
                 </div>
             )}
