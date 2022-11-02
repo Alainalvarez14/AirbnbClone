@@ -79,6 +79,9 @@ function ProfileButton({ user }) {
         <>
             <button onClick={openMenu} id='profileButton'>
                 {user.username}
+                <div className="profileIcon">
+                    {/* <i class="fa-thin fa-user"></i> */}
+                </div>
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">

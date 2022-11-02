@@ -79,17 +79,30 @@ const UserProfile = () => {
         setShowEditSpotForm(false);
     };
 
+    // const formatDate = (date) => {
+    //     let myDate = new Date(date);
+    //     let formattedDay = myDate.getDate() + 1;
+    //     if (formattedDay < 10) {
+    //         formattedDay = '0' + formattedDay
+    //     }
+    //     let formattedMonth = myDate.getMonth() + 1;
+    //     if (formattedMonth < 10) {
+    //         formattedMonth = '0' + formattedMonth
+    //     }
+    //     let formattedYear = myDate.getFullYear();
+    //     return formattedMonth + "/" + formattedDay + "/" + formattedYear;
+    // };
     const formatDate = (date) => {
         let myDate = new Date(date);
-        let formattedDay = myDate.getDate() + 1;
+        let formattedDay = myDate.getUTCDate();
         if (formattedDay < 10) {
             formattedDay = '0' + formattedDay
         }
-        let formattedMonth = myDate.getMonth() + 1;
+        let formattedMonth = myDate.getUTCMonth() + 1;
         if (formattedMonth < 10) {
             formattedMonth = '0' + formattedMonth
         }
-        let formattedYear = myDate.getFullYear();
+        let formattedYear = myDate.getUTCFullYear();
         return formattedMonth + "/" + formattedDay + "/" + formattedYear;
     };
 

@@ -1,29 +1,30 @@
-.eachSpotOnLandingPage {
-    text-decoration: none !important;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; */
-    margin-top: 50px;
-}
-
-NavLink {
-    text-decoration: none;
-}
-
-.spotListWrapper {
+/* .spotListWrapper {
     display: flex;
     flex-direction: row;
     width: 100%;
-}
-
-.ownedSpotsList {
-    margin-left: 450px;
-}
+} */
 
 .notOwnedSpotsList {
     float: left;
 }
 
-.individualSpot {}
+.individualSpot {
+    /* background-color: red; */
+}
+
+.eachSpotOnLandingPage {
+    text-decoration: none !important;
+    /* display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr; */
+    margin-top: 50px;
+    /* display: flex;
+    flex-direction: column; */
+    /* background-color: red; */
+}
+
+NavLink {
+    text-decoration: none;
+}
 
 .mock-image {
     width: 150px;
