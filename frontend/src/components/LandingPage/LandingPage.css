@@ -5,7 +5,8 @@
 } */
 
 .notOwnedSpotsList {
-    float: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 .individualSpot {
@@ -14,8 +15,6 @@
 
 .eachSpotOnLandingPage {
     text-decoration: none !important;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; */
     margin-top: 50px;
     /* display: flex;
     flex-direction: column; */

@@ -37,8 +37,8 @@ const LandingPage = () => {
     return (
         <div>
             < div className="spotListWrapper">
+                <h2>All Spots</h2>
                 <div className="notOwnedSpotsList">
-                    <h2>All Spots</h2>
                     {
                         Object.values(spotList)?.map(spot => {
                             return (

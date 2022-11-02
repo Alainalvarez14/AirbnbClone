@@ -12,7 +12,7 @@ const LoginFormPage = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     if (sessionUser) return (
-        <Redirect to='/home' />
+        <Redirect to='/' />
     );
 
     const handleSubmit = (e) => {

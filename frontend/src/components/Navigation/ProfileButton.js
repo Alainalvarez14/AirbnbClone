@@ -68,7 +68,7 @@ function ProfileButton({ user }) {
         setLng(0);
         setLat(0);
         setPrice(0);
-        history.push("/home");
+        history.push("/");
     };
 
     const handleOpenProfile = () => {
