@@ -25,6 +25,16 @@
     font-size: 20px;
 }
 
+.windowCloseIcon {
+    color: red;
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-left: 330px;
+    width: 40px;
+}
+
 /* #profileButton:hover {
     height: 70px;
 } */
@@ -174,4 +184,16 @@
     background-color: white;
     left: 50%;
     transform: translate(-50%, 50%);
+}
+
+.profileButton {
+    width: 100%;
+}
+
+.logOutButton {
+    width: 100%;
+}
+
+.hostASpotButton {
+    width: 100%;
 }

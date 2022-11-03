@@ -112,6 +112,21 @@ function ProfileButton({ user }) {
         history.push('/user-profile');
     };
 
+    const handleCloseForm = (e) => {
+        e.preventDefault();
+        setShowCreateSpotForm(false)
+        setName('');
+        setDescription('');
+        setAddress('');
+        setCity('');
+        setCountry('');
+        setTheState('');
+        setLng(0);
+        setLat(0);
+        setPrice(0);
+        setErrors([]);
+    }
+
     return (
         <>
             <button onClick={openMenu} id='profileButton'>
@@ -128,13 +143,13 @@ function ProfileButton({ user }) {
                     <li>{user.username}</li>
                     <li>{user.email}</li>
                     <li>
-                        <button onClick={openCreateSpotForm}>Host a Spot</button>
+                        <button onClick={openCreateSpotForm} className='hostASpotButton'>Host a Spot</button>
                     </li>
                     <li>
-                        <button onClick={logout}>Log Out</button>
+                        <button onClick={logout} className='logOutButton'>Log Out</button>
                     </li>
                     <li>
-                        <button onClick={handleOpenProfile}>Profile</button>
+                        <button onClick={handleOpenProfile} className='profileButton'>Profile</button>
                     </li>
                 </ul>
             )}
@@ -146,6 +161,9 @@ function ProfileButton({ user }) {
                                 {errors}
                             </ul>
                         )}
+                        <button className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>
+                            <i class="far fa-window-close"></i>
+                        </button>
                         <div className="createYourSpotMessage">Create your Spot</div>
                         <ul className="inputBoxFieldsWrapper">
                             <div className="inputBoxFields">

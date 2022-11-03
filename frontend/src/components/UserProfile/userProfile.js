@@ -93,6 +93,20 @@ const UserProfile = () => {
         return formattedMonth + "/" + formattedDay + "/" + formattedYear;
     };
 
+    const handleCloseForm = (e) => {
+        e.preventDefault();
+        setShowEditSpotForm(false);
+        setName('');
+        setDescription('');
+        setAddress('');
+        setCity('');
+        setCountry('');
+        setTheState('');
+        setLng(0);
+        setLat(0);
+        setPrice(0);
+    }
+
     return (
         <div>
             <div>
@@ -168,48 +182,54 @@ const UserProfile = () => {
                 }
             </div>
             {showEditSpotForm && (
-                <form>
-                    <ul>
-                        <div>
-                            <label>Name:</label>
-                            <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Description:</label>
-                            <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Address:</label>
-                            <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>City:</label>
-                            <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>State:</label>
-                            <input type="text" name="state" value={state} onChange={(e) => setTheState(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Country:</label>
-                            <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
-                        </div>
-                        <div>
-                            <label>Lng:</label>
-                            <input type="number" name="lng" value={lng} onChange={(e) => setLng(Number(e.target.value))}></input>
-                        </div>
-                        <div>
-                            <label>Lat:</label>
-                            <input type="number" name="lat" value={lat} onChange={(e) => setLat(Number(e.target.value))}></input>
-                        </div>
-                        <div>
-                            <label>Price:</label>
-                            <input type="number" name="price" value={price} onChange={(e) => setPrice(Number(e.target.value))}></input>
-                        </div>
-                    </ul>
-                    <button onClick={(e) => handleSubmit(e)}>Submit</button>
-                </form>
 
+                <div className="editSpotFormWrapper">
+                    <form className="editSpotForm">
+                        <ul className="editSpotInputBoxFieldsWrapper">
+                            <button className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>
+                                <i class="far fa-window-close"></i>
+                            </button>
+                            <h2 className="editYourSpotMessage">Edit your spot</h2>
+                            <div className="editSpotInputBoxFields">
+                                <label>Name:</label>
+                                <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>Description:</label>
+                                <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>Address:</label>
+                                <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>City:</label>
+                                <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>State:</label>
+                                <input type="text" name="state" value={state} onChange={(e) => setTheState(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>Country:</label>
+                                <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>Lng:</label>
+                                <input type="number" name="lng" value={lng} onChange={(e) => setLng(Number(e.target.value))}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>Lat:</label>
+                                <input type="number" name="lat" value={lat} onChange={(e) => setLat(Number(e.target.value))}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <label>Price:</label>
+                                <input type="number" name="price" value={price} onChange={(e) => setPrice(Number(e.target.value))}></input>
+                            </div>
+                        </ul>
+                        <button onClick={(e) => handleSubmit(e)} className='editSpotFormSubmitButton'>Submit</button>
+                    </form>
+                </div>
             )}
         </div>
     )
