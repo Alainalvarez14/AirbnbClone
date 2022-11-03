@@ -140,8 +140,6 @@ function ProfileButton({ user }) {
             </button>
             {showMenu && (
                 <ul className="profile-dropdown">
-                    <li>{user.username}</li>
-                    <li>{user.email}</li>
                     <li>
                         <button onClick={openCreateSpotForm} className='hostASpotButton'>Host a Spot</button>
                     </li>
@@ -161,9 +159,9 @@ function ProfileButton({ user }) {
                                 {errors}
                             </ul>
                         )}
-                        <button className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>
+                        <div className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>
                             <i class="far fa-window-close"></i>
-                        </button>
+                        </div>
                         <div className="createYourSpotMessage">Create your Spot</div>
                         <ul className="inputBoxFieldsWrapper">
                             <div className="inputBoxFields">

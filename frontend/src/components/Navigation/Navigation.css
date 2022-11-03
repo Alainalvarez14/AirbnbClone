@@ -12,6 +12,7 @@
     border: 1px solid rgb(181, 180, 180);
     display: inline-block;
     position: relative;
+    /* cursor: pointer; */
 }
 
 .profileIcon {
@@ -26,7 +27,7 @@
 }
 
 .windowCloseIcon {
-    color: red;
+    color: rgb(181, 180, 180);
     font-size: 25px;
     display: flex;
     flex-direction: row;
@@ -54,6 +55,7 @@
     right: 60px;
     padding-inline-start: 0;
     border-radius: 12px;
+    background-color: white;
 }
 
 /* #profileButton:hover {
@@ -69,7 +71,8 @@
 
 .profile-dropdown li:hover {
     color: #FFFFFF;
-    background-color: rgb(181, 180, 180);
+    /* background-color: rgb(229, 229, 229); */
+    opacity: 0.9;
     border-radius: 20px;
 }
 
@@ -99,6 +102,7 @@
     margin-right: auto;
     border: 1.2px solid rgb(181, 180, 180);
     box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+    background-color: white;
 }
 
 /* label {
@@ -181,7 +185,6 @@
 .createSpotFormWrapper {
     position: fixed;
     z-index: 9999;
-    background-color: white;
     left: 50%;
     transform: translate(-50%, 50%);
 }
