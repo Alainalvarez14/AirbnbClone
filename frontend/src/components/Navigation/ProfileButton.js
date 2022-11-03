@@ -18,6 +18,10 @@ function ProfileButton({ user }) {
     const [lng, setLng] = useState(0);
     const [lat, setLat] = useState(0);
     const [price, setPrice] = useState(0);
+    const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
+
+    //errors = [{name : 'error'}, {},{}]
 
     const openMenu = () => {
         if (showMenu) return;
@@ -28,6 +32,33 @@ function ProfileButton({ user }) {
         if (showCreateSpotForm) return;
         setShowCreateSpotForm(true);
     }
+
+    useEffect(() => {
+        const errorsArray = [];
+
+        if (!name.length || typeof name !== 'string') {
+            errorsArray.push("Name field must be alpha characters");
+        }
+
+        if (!description) {
+            errorsArray.push("Description field must be filled");
+        }
+
+        if (!address) {
+            errorsArray.push("Must have an address");
+        }
+        if (!city) {
+            errorsArray.push("Must have an city");
+        }
+        if (!state) {
+            errorsArray.push("Must have an state");
+        }
+        if (!country) {
+            errorsArray.push("Must have an country");
+        }
+
+        setErrors(errorsArray)
+    }, [name, description, address, city, state, country])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -52,23 +83,29 @@ function ProfileButton({ user }) {
 
     const handleSubmitCreateSpot = (e) => {
         e.preventDefault();
-        let spotObj = { address, city, state, country, lat, lng, name, description, price };
-        dispatch(createSpot(spotObj));
-        console.log(spotObj);
-        setShowCreateSpotForm(false);
-        // Object.keys(spotObj).forEach(key => {
-        //     spotObj[key] = '';
-        // });
-        setName('');
-        setDescription('');
-        setAddress('');
-        setCity('');
-        setCountry('');
-        setTheState('');
-        setLng(0);
-        setLat(0);
-        setPrice(0);
-        history.push("/");
+        if (errors.length) {
+            setShowErrors(true);
+        }
+        else {
+            let spotObj = { address, city, state, country, lat, lng, name, description, price };
+            dispatch(createSpot(spotObj));
+            console.log(spotObj);
+            setShowCreateSpotForm(false);
+            // Object.keys(spotObj).forEach(key => {
+            //     spotObj[key] = '';
+            // });
+            setName('');
+            setDescription('');
+            setAddress('');
+            setCity('');
+            setCountry('');
+            setTheState('');
+            setLng(0);
+            setLat(0);
+            setPrice(0);
+            setErrors([]);
+            history.push("/");
+        }
     };
 
     const handleOpenProfile = () => {
@@ -78,9 +115,12 @@ function ProfileButton({ user }) {
     return (
         <>
             <button onClick={openMenu} id='profileButton'>
-                {user.username}
+                {/* {user.username} */}
                 <div className="profileIcon">
-                    {/* <i class="fa-thin fa-user"></i> */}
+                    <i className="fas fa-user-circle" />
+                </div>
+                <div className="hamburgerMenuIcon">
+                    <i className="fas fa-bars" />
                 </div>
             </button>
             {showMenu && (
@@ -101,6 +141,11 @@ function ProfileButton({ user }) {
             {showCreateSpotForm && (
                 <div className="createSpotFormWrapper">
                     <form className='createSpotForm'>
+                        {showErrors && (
+                            <ul className="errors">
+                                {errors}
+                            </ul>
+                        )}
                         <div className="createYourSpotMessage">Create your Spot</div>
                         <ul className="inputBoxFieldsWrapper">
                             <div className="inputBoxFields">

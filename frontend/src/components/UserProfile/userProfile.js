@@ -102,7 +102,7 @@ const UserProfile = () => {
             </div>
             <h2>Reservations</h2>
             {bookingsList && (
-                <div>
+                <div className="individualSpotsWrapper">
                     {Object.values(bookingsList).filter(booking => booking.userId === user.id)
                         .map(booking => {
                             const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
@@ -110,7 +110,7 @@ const UserProfile = () => {
                             // let formattedEndDate = formatDate(booking.endDate);
                             return (
                                 <div>
-                                    <NavLink key={booking.id} to={`/spots/${specificSpot.id}`}>
+                                    <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
 
                                         <img className="mock-image" src={mockHome}></img>
                                         <div>{specificSpot.name}</div>
@@ -144,14 +144,13 @@ const UserProfile = () => {
                     {/* <button onClick={(e) => handleSubmitBooking(e)}>Book Now!</button> */}
                 </form>
             )}
-            <div className="ownedSpotsList">
-                <h2>My Spots</h2>
+            <h2>My Spots</h2>
+            <div className="individualSpotsWrapper">
                 {
                     Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
                         return (
-                            <div key={spot.id} className="individualSpot">
-
-                                <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
+                            <div key={spot.id}>
+                                <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img className="mock-image" src={mockHome}></img>
                                     <div>{spot.name} </div>
                                     <div>
@@ -159,7 +158,6 @@ const UserProfile = () => {
                                         {/* <div>{spot.avgRating} </div> */}
                                     </div>
                                     <div>${spot.price} </div>
-
                                 </NavLink>
 
                                 <button onClick={() => dispatch(deleteSpot(spot))}>Delete</button>

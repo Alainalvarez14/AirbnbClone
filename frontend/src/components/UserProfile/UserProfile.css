@@ -1,8 +1,17 @@
-.eachSpotOnLandingPage {
+/* .eachSpotOnLandingPage {
     text-decoration: none !important;
-    /* display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr; */
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     margin-top: 50px;
+} */
+
+.individualSpotsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.eachSpotOnUserProfilePage {
+    text-decoration: none !important;
 }
 
 NavLink {
@@ -22,8 +31,6 @@ NavLink {
 .notOwnedSpotsList {
     float: left;
 }
-
-.individualSpot {}
 
 .mock-image {
     width: 150px;
