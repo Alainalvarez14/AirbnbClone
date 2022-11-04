@@ -77,6 +77,20 @@ const SpecificSpotDetails = () => {
             <div>no bookings for this property</div>
     }
 
+    // const handleCloseFormCreateBooking = (e) => {
+    //     // e.preventDefault();
+    //     // // setShowEditBookingForm(false);
+    //     // setName('');
+    //     // setDescription('');
+    //     // setAddress('');
+    //     // setCity('');
+    //     // setCountry('');
+    //     // setTheState('');
+    //     // setLng(0);
+    //     // setLat(0);
+    //     // setPrice(0);
+    // };
+
     return (
         <>
             {selectedSpot && (
@@ -90,20 +104,26 @@ const SpecificSpotDetails = () => {
                             Confirmed Bookings:
                             {allBookings && hasBookings()}
                         </div> :
-                        <form>
-                            <ul>
-                                <div>
-                                    <label>Check-in:</label>
-                                    <input type="date" name="startDate" onChange={(e) => setStartDate(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <label>Check-out:</label>
-                                    <input type="date" name="endDate" onChange={(e) => setEndDate(e.target.value)}></input>
-                                </div>
-                                <button onClick={(e) => handleClick(e)}>Book Now!</button>
-                                <p>You won't be charged yet</p>
-                            </ul>
-                        </form>}
+                        <div className="createBookingFormWrapper">
+                            {/* <div className="windowCloseIconButtonCreateBookingForm" onClick={(e) => handleCloseFormCreateBooking(e)}>
+                                <i className="far fa-window-close"></i>
+                            </div> */}
+                            <div className="bookYourStayMessage">Book your stay</div>
+                            <form className="createBookingForm">
+                                <ul className="createBookingFormInputFieldsWrapper">
+                                    <div className='createBookingFormInputFields'>
+                                        <label>Check-in:</label>
+                                        <input type="date" name="startDate" onChange={(e) => setStartDate(e.target.value)}></input>
+                                    </div>
+                                    <div className='createBookingFormInputFields'>
+                                        <label>Check-out:</label>
+                                        <input type="date" name="endDate" onChange={(e) => setEndDate(e.target.value)}></input>
+                                    </div>
+                                    <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
+                                    <p>You won't be charged yet</p>
+                                </ul>
+                            </form>
+                        </div>}
                 </div>
             )}
         </>
