@@ -173,6 +173,7 @@ const UserProfile = () => {
             )}
             {showEditBookingForm && (
                 <div className="editBookingFormWrapper">
+                    <div className="editYourReservationMessage">Edit your reservation</div>
                     <form className="editBookingForm">
                         <ul className="editBookingFormInputFieldsWrapper">
                             <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
@@ -182,7 +183,7 @@ const UserProfile = () => {
                                 <label>Check-in:</label>
                                 <input type="date" name="startDate" onChange={(e) => setStartDate(e.target.value)}></input>
                             </div>
-                            <div>
+                            <div className="editBookingFormInputFields">
                                 <label>Check-out:</label>
                                 <input type="date" name="endDate" onChange={(e) => setEndDate(e.target.value)}></input>
                             </div>

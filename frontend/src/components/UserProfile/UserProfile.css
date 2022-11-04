@@ -118,15 +118,19 @@ NavLink {
     transform: translate(-50%, 50%);
     height: 400px;
     width: 300px;
-    background-color: blue;
+    background-color: white;
+    border-radius: 8px;
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .editBookingForm {
     width: 200px;
     border-radius: 8px;
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
-    color: white;
-    height: 40px;
+    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
+    /* height: 40px; */
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
@@ -148,13 +152,13 @@ NavLink {
 
 .editBookingFormInputFields>input {
     height: 30px;
-    width: 200px;
+    width: 180px;
     border-radius: 5px;
     border: 1.2px solid rgb(181, 180, 180);
 }
 
 .editBookingFormSubmitButton {
-    width: 200px;
+    width: 180px;
     border-radius: 8px;
     background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
     color: white;
@@ -162,15 +166,25 @@ NavLink {
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .windowCloseIconButtonEditBookingForm {
-    /* color: red; */
     font-size: 25px;
     display: flex;
     flex-direction: row;
     justify-content: right;
-    /* margin-left: 330px; */
     width: 40px;
     color: rgb(181, 180, 180);
+    margin-left: 180px;
+}
+
+.editYourReservationMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
 }
