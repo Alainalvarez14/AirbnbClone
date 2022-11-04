@@ -15,9 +15,9 @@ function ProfileButton({ user }) {
     const [city, setCity] = useState('');
     const [state, setTheState] = useState('');
     const [country, setCountry] = useState('');
-    const [lng, setLng] = useState(0);
-    const [lat, setLat] = useState(0);
-    const [price, setPrice] = useState(0);
+    const [lng, setLng] = useState();
+    const [lat, setLat] = useState();
+    const [price, setPrice] = useState();
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
 
@@ -56,6 +56,9 @@ function ProfileButton({ user }) {
         if (!country) {
             errorsArray.push("Must have an country");
         }
+        if (typeof lat !== 'number') {
+            errorsArray.push("Latitude must be a number!");
+        }
 
         setErrors(errorsArray)
     }, [name, description, address, city, state, country])
@@ -87,22 +90,19 @@ function ProfileButton({ user }) {
             setShowErrors(true);
         }
         else {
-            let spotObj = { address, city, state, country, lat, lng, name, description, price };
+            let spotObj = { address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
             dispatch(createSpot(spotObj));
             console.log(spotObj);
             setShowCreateSpotForm(false);
-            // Object.keys(spotObj).forEach(key => {
-            //     spotObj[key] = '';
-            // });
             setName('');
             setDescription('');
             setAddress('');
             setCity('');
             setCountry('');
             setTheState('');
-            setLng(0);
-            setLat(0);
-            setPrice(0);
+            setLng();
+            setLat();
+            setPrice();
             setErrors([]);
             history.push("/");
         }
@@ -121,9 +121,9 @@ function ProfileButton({ user }) {
         setCity('');
         setCountry('');
         setTheState('');
-        setLng(0);
-        setLat(0);
-        setPrice(0);
+        setLng();
+        setLat();
+        setPrice();
         setErrors([]);
     }
 
@@ -190,15 +190,15 @@ function ProfileButton({ user }) {
                             </div>
                             <div className="inputBoxFields">
                                 {/* <label>Lng:</label> */}
-                                <input type="number" name="lng" value={lng} placeholder='Longitude' onChange={(e) => setLng(Number(e.target.value))}></input>
+                                <input type="text" name="lng" value={lng} placeholder='Longitude' onChange={(e) => setLng(e.target.value)}></input>
                             </div>
                             <div className="inputBoxFields">
                                 {/* <label>Lat:</label> */}
-                                <input type="number" name="lat" value={lat} placeholder='Latitude' onChange={(e) => setLat(Number(e.target.value))}></input>
+                                <input type="text" name="lat" value={lat} placeholder='Latitude' onChange={(e) => setLat(e.target.value)}></input>
                             </div>
                             <div className="inputBoxFields">
                                 {/* <label>Price:</label> */}
-                                <input type="number" name="price" value={price} placeholder='Price' onChange={(e) => setPrice(Number(e.target.value))}></input>
+                                <input type="text" name="price" value={price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
                         <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton'>Submit</button>
