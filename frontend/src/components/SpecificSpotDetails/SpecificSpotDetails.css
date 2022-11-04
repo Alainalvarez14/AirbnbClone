@@ -1,6 +1,7 @@
 .spotName {
     margin-bottom: 0;
     font-size: 30px;
+    margin-top: 0;
 }
 
 .spotAddress {
@@ -8,6 +9,28 @@
 }
 
 .spotPrice {}
+
+.confirmedBookingsTitle {
+    font-size: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.bookingNameAndDates {
+    width: 200px;
+    border-radius: 8px;
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bookingNameAndDatesWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 20px;
+}
 
 .createBookingFormWrapper {
     position: fixed;

@@ -61,12 +61,12 @@ const SpecificSpotDetails = () => {
 
     const hasBookings = () => {
         return selectedSpot.ownerId === userId && Object.values(allBookings).length ?
-            <div>
+            <div className="bookingNameAndDatesWrapper">
                 {Object.values(allBookings).map(
                     booking =>
                         // startDateFormat = formatDate(booking.startDate)
                         // endDateFormat = formatDate(booking.endDate)
-                        <div>
+                        <div className="bookingNameAndDates">
                             <p>User: {booking.User?.firstName} {booking.User?.lastName}</p>
                             {/* <p>Check-in: {booking.startDate}</p> */}
                             <p>Check-in: {formatDate(booking.startDate)}</p>
@@ -98,10 +98,10 @@ const SpecificSpotDetails = () => {
                     <img className="mock-image" src={mockHome}></img>
                     <h3 className="spotName">{selectedSpot.name}</h3>
                     <p className="spotAddress">{selectedSpot.city}, {selectedSpot.state}, {selectedSpot.country}</p>
-                    <p className="spotPrice">price: ${selectedSpot.price} night</p>
+                    <p className="spotPrice">${selectedSpot.price} night</p>
                     {selectedSpot.ownerId === userId ?
                         <div>
-                            Confirmed Bookings:
+                            <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
                             {allBookings && hasBookings()}
                         </div> :
                         <div className="createBookingFormWrapper">
