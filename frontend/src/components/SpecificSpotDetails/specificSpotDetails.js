@@ -6,6 +6,7 @@ import { createBookingThunk } from "../../store/bookings";
 import { useDispatch } from "react-redux";
 import { getAllBookingsBySpotIdThunk } from "../../store/bookings";
 import mockHome from '../../Images/mockHome.jpg'
+import { useHistory } from "react-router-dom";
 
 const SpecificSpotDetails = () => {
 
@@ -17,11 +18,13 @@ const SpecificSpotDetails = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const handleClick = (e) => {
         e.preventDefault();
         const bookingObj = { userId, spotId: parseInt(spotId), startDate, endDate };
         dispatch(createBookingThunk(bookingObj));
+        history.push("/user-profile");
     };
 
     useEffect(() => {

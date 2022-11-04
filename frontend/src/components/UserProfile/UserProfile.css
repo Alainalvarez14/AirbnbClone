@@ -189,3 +189,7 @@ NavLink {
     align-items: center;
     font-size: 30px;
 }
+
+.individualSpotsWrapper>div {
+    margin-bottom: 20px;
+}

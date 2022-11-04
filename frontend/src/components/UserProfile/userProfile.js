@@ -30,9 +30,9 @@ const UserProfile = () => {
     const [city, setCity] = useState('');
     const [state, setTheState] = useState('');
     const [country, setCountry] = useState('');
-    const [lng, setLng] = useState(0);
-    const [lat, setLat] = useState(0);
-    const [price, setPrice] = useState(0);
+    const [lng, setLng] = useState();
+    const [lat, setLat] = useState();
+    const [price, setPrice] = useState();
     const [id, setId] = useState(0);
 
     const openEditBookingForm = (booking) => {
@@ -74,7 +74,7 @@ const UserProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let spotObj = { id, address, city, state, country, lat, lng, name, description, price };
+        let spotObj = { id, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
         dispatch(editSpot(spotObj));
         setShowEditSpotForm(false);
     };
@@ -102,9 +102,9 @@ const UserProfile = () => {
         setCity('');
         setCountry('');
         setTheState('');
-        setLng(0);
-        setLat(0);
-        setPrice(0);
+        setLng();
+        setLat();
+        setPrice();
     }
     const handleCloseFormEditBooking = (e) => {
         e.preventDefault();
@@ -115,9 +115,9 @@ const UserProfile = () => {
         setCity('');
         setCountry('');
         setTheState('');
-        setLng(0);
-        setLat(0);
-        setPrice(0);
+        setLng();
+        setLat();
+        setPrice();
     }
 
     return (
@@ -156,15 +156,15 @@ const UserProfile = () => {
                             </div>
                             <div className="editSpotInputBoxFields">
                                 {/* <label>Lng:</label> */}
-                                <input type="number" name="lng" value={lng} onChange={(e) => setLng(Number(e.target.value))}></input>
+                                <input type="text" name="lng" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}></input>
                             </div>
                             <div className="editSpotInputBoxFields">
                                 {/* <label>Lat:</label> */}
-                                <input type="number" name="lat" value={lat} onChange={(e) => setLat(Number(e.target.value))}></input>
+                                <input type="text" name="lat" placeholder="Latitude" value={lat} onChange={(e) => setLat(e.target.value)}></input>
                             </div>
                             <div className="editSpotInputBoxFields">
                                 {/* <label>Price:</label> */}
-                                <input type="number" name="price" value={price} onChange={(e) => setPrice(Number(e.target.value))}></input>
+                                <input type="text" name="price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
                         <button onClick={(e) => handleSubmit(e)} className='editSpotFormSubmitButton'>Submit</button>
