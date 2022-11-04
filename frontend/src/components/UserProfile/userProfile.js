@@ -173,12 +173,15 @@ const UserProfile = () => {
             )}
             {showEditBookingForm && (
                 <div className="editBookingFormWrapper">
+                    <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
+                        <i className="far fa-window-close"></i>
+                    </div>
                     <div className="editYourReservationMessage">Edit your reservation</div>
                     <form className="editBookingForm">
                         <ul className="editBookingFormInputFieldsWrapper">
-                            <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
+                            {/* <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
                                 <i className="far fa-window-close"></i>
-                            </div>
+                            </div> */}
                             <div className="editBookingFormInputFields">
                                 <label>Check-in:</label>
                                 <input type="date" name="startDate" onChange={(e) => setStartDate(e.target.value)}></input>

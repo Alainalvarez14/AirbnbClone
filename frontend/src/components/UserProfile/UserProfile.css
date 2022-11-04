@@ -117,7 +117,7 @@ NavLink {
     left: 50%;
     transform: translate(-50%, 50%);
     height: 400px;
-    width: 300px;
+    width: 350px;
     background-color: white;
     border-radius: 8px;
     border: 1.2px solid rgb(181, 180, 180);
@@ -179,7 +179,8 @@ NavLink {
     justify-content: right;
     width: 40px;
     color: rgb(181, 180, 180);
-    margin-left: 180px;
+    margin-left: 280px;
+    margin-bottom: 20px;
 }
 
 .editYourReservationMessage {
