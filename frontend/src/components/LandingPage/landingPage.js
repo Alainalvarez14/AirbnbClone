@@ -43,7 +43,7 @@ const LandingPage = () => {
                     {
                         Object.values(spotList)?.map(spot => {
                             return (
-                                <div key={spot.id}>
+                                <div key={spot.id} className='indivSpot'>
                                     <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
                                         <img className="mock-image" src={mockHome}></img>
                                         <div>{spot.name} </div>

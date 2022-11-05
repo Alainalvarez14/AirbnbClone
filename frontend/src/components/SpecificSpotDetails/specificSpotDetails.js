@@ -116,11 +116,11 @@ const SpecificSpotDetails = () => {
                                 <ul className="createBookingFormInputFieldsWrapper">
                                     <div className='createBookingFormInputFields'>
                                         <label>Check-in:</label>
-                                        <input type="date" name="startDate" onChange={(e) => setStartDate(e.target.value)}></input>
+                                        <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
                                     </div>
                                     <div className='createBookingFormInputFields'>
                                         <label>Check-out:</label>
-                                        <input type="date" name="endDate" onChange={(e) => setEndDate(e.target.value)}></input>
+                                        <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                                     </div>
                                     <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
                                     <p>You won't be charged yet</p>

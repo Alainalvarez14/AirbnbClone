@@ -56,12 +56,18 @@ function ProfileButton({ user }) {
         if (!country) {
             errorsArray.push("Must have an country");
         }
-        if (typeof lat !== 'number') {
-            errorsArray.push("Latitude must be a number!");
+        // if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN) {
+        //     errorsArray.push("Latitude must be a number!");
+        // }
+        // if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN) {
+        //     errorsArray.push("Latitude must be a number!");
+        // }
+        if (price <= 0) {
+            errorsArray.push("Must have a valid price per night!");
         }
 
         setErrors(errorsArray)
-    }, [name, description, address, city, state, country])
+    }, [name, description, address, city, state, country, price])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -94,6 +100,7 @@ function ProfileButton({ user }) {
             dispatch(createSpot(spotObj));
             console.log(spotObj);
             setShowCreateSpotForm(false);
+            setShowErrors(false);
             setName('');
             setDescription('');
             setAddress('');
@@ -114,7 +121,8 @@ function ProfileButton({ user }) {
 
     const handleCloseForm = (e) => {
         e.preventDefault();
-        setShowCreateSpotForm(false)
+        setShowCreateSpotForm(false);
+        setShowErrors(false);
         setName('');
         setDescription('');
         setAddress('');
@@ -188,17 +196,23 @@ function ProfileButton({ user }) {
                                 {/* <label>Country:</label> */}
                                 <input type="text" name="country" value={country} placeholder='Country' onChange={(e) => setCountry(e.target.value)}></input>
                             </div>
-                            <div className="inputBoxFields">
-                                {/* <label>Lng:</label> */}
+                            {/* <div className="inputBoxFields">
                                 <input type="text" name="lng" value={lng} placeholder='Longitude' onChange={(e) => setLng(e.target.value)}></input>
-                            </div>
+                            </div> */}
                             <div className="inputBoxFields">
-                                {/* <label>Lat:</label> */}
+                                <input type="number" name="lng" value={lng} placeholder='Longitude' onChange={(e) => setLng(e.target.value)}></input>
+                            </div>
+                            {/* <div className="inputBoxFields">
                                 <input type="text" name="lat" value={lat} placeholder='Latitude' onChange={(e) => setLat(e.target.value)}></input>
-                            </div>
+                            </div> */}
                             <div className="inputBoxFields">
-                                {/* <label>Price:</label> */}
-                                <input type="text" name="price" value={price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
+                                <input type="number" name="lat" value={lat} placeholder='Latitude' onChange={(e) => setLat(e.target.value)}></input>
+                            </div>
+                            {/* <div className="inputBoxFields">
+                                <input type="text" name="price" min="0" value={price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
+                            </div> */}
+                            <div className="inputBoxFields">
+                                <input type="number" name="price" min="0.00" value={price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
                         <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton'>Submit</button>

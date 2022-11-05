@@ -34,6 +34,8 @@ const UserProfile = () => {
     const [lat, setLat] = useState();
     const [price, setPrice] = useState();
     const [id, setId] = useState(0);
+    const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
 
     const openEditBookingForm = (booking) => {
         if (showEditBookingForm || showEditSpotForm) return;
@@ -63,7 +65,43 @@ const UserProfile = () => {
 
     useEffect(() => {
         dispatch(getAllBookingsThunk());
-    }, [dispatch])
+    }, [dispatch]);
+
+    useEffect(() => {
+        const errorsArray = [];
+
+        if (!name.length || typeof name !== 'string') {
+            errorsArray.push("Name field must be alpha characters");
+        }
+
+        if (!description) {
+            errorsArray.push("Description field must be filled");
+        }
+
+        if (!address) {
+            errorsArray.push("Must have an address");
+        }
+        if (!city) {
+            errorsArray.push("Must have an city");
+        }
+        if (!state) {
+            errorsArray.push("Must have an state");
+        }
+        if (!country) {
+            errorsArray.push("Must have an country");
+        }
+        // if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN) {
+        //     errorsArray.push("Latitude must be a number!");
+        // }
+        // if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN) {
+        //     errorsArray.push("Latitude must be a number!");
+        // }
+        if (price <= 0) {
+            errorsArray.push("Must have a valid price per night!");
+        }
+
+        setErrors(errorsArray)
+    }, [name, description, address, city, state, country, price]);
 
     const handleSubmitBooking = (e) => {
         e.preventDefault();
@@ -74,9 +112,25 @@ const UserProfile = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        let spotObj = { id, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
-        dispatch(editSpot(spotObj));
-        setShowEditSpotForm(false);
+        if (errors.length) {
+            setShowErrors(true);
+        }
+        else {
+            let spotObj = { id, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
+            dispatch(editSpot(spotObj));
+            setShowEditSpotForm(false);
+            setShowErrors(false);
+            setName('');
+            setDescription('');
+            setAddress('');
+            setCity('');
+            setCountry('');
+            setTheState('');
+            setLng();
+            setLat();
+            setPrice();
+            setErrors([]);
+        }
     };
 
     const formatDate = (date) => {
@@ -96,6 +150,7 @@ const UserProfile = () => {
     const handleCloseFormEditSpot = (e) => {
         e.preventDefault();
         setShowEditSpotForm(false);
+        setShowErrors(false);
         setName('');
         setDescription('');
         setAddress('');
@@ -105,6 +160,7 @@ const UserProfile = () => {
         setLng();
         setLat();
         setPrice();
+        setErrors([]);
     }
     const handleCloseFormEditBooking = (e) => {
         e.preventDefault();
@@ -125,6 +181,11 @@ const UserProfile = () => {
             {showEditSpotForm && (
                 <div className="editSpotFormWrapper">
                     <form className="editSpotForm">
+                        {showErrors && (
+                            <ul className="errors">
+                                {errors}
+                            </ul>
+                        )}
                         <ul className="editSpotInputBoxFieldsWrapper">
                             <div className="windowCloseIconButton" onClick={(e) => handleCloseFormEditSpot(e)}>
                                 <i className="far fa-window-close"></i>
@@ -154,17 +215,23 @@ const UserProfile = () => {
                                 {/* <label>Country:</label> */}
                                 <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
                             </div>
-                            <div className="editSpotInputBoxFields">
-                                {/* <label>Lng:</label> */}
+                            {/* <div className="editSpotInputBoxFields">
                                 <input type="text" name="lng" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}></input>
                             </div>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>Lat:</label> */}
                                 <input type="text" name="lat" placeholder="Latitude" value={lat} onChange={(e) => setLat(e.target.value)}></input>
                             </div>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>Price:</label> */}
                                 <input type="text" name="price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
+                            </div> */}
+                            <div className="editSpotInputBoxFields">
+                                <input type="number" name="lng" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <input type="number" name="lat" placeholder="Latitude" value={lat} onChange={(e) => setLat(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                <input type="number" name="price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
                         <button onClick={(e) => handleSubmit(e)} className='editSpotFormSubmitButton'>Submit</button>
@@ -184,11 +251,11 @@ const UserProfile = () => {
                             </div> */}
                             <div className="editBookingFormInputFields">
                                 <label>Check-in:</label>
-                                <input type="date" name="startDate" onChange={(e) => setStartDate(e.target.value)}></input>
+                                <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
                             </div>
                             <div className="editBookingFormInputFields">
                                 <label>Check-out:</label>
-                                <input type="date" name="endDate" onChange={(e) => setEndDate(e.target.value)}></input>
+                                <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                             </div>
                             <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton'>Book Now!</button>
                             {/* <p>You won't be charged yet</p> */}

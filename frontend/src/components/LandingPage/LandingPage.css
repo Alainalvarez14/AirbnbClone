@@ -34,3 +34,7 @@ NavLink {
     height: 150px;
     border-radius: 20px;
 }
+
+.indivSpot {
+    margin-bottom: 20px;
+}
