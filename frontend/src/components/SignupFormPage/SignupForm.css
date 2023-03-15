@@ -1,0 +1,41 @@
+.SignUpForm {
+    display: flex;
+    flex-direction: column;
+    /* background-color: white; */
+    width: 300px;
+    height: 500px;
+    border-radius: 20px;
+    justify-content: center;
+    color: black;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+    border: 1.2px solid rgb(181, 180, 180);
+    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+}
+
+.SignUpFormWrapper {}
+
+.SignUpHereMessage {
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.InputBox {
+    height: 30px;
+    border-radius: 5px;
+    border: 1.2px solid rgb(181, 180, 180);
+    margin-bottom: 10px;
+}
+
+.SignupButton {
+    width: 200px;
+    border-radius: 8px;
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
+    color: white;
+    height: 40px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}

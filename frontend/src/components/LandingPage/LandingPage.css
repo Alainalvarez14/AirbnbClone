@@ -1,0 +1,40 @@
+/* .spotListWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+} */
+
+.notOwnedSpotsList {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* justify-content: space-around; */
+}
+
+.eachSpotOnLandingPage {
+    text-decoration: none !important;
+    margin-top: 50px;
+    /* display: flex;
+    flex-direction: column; */
+    /* background-color: red; */
+}
+
+.allSpotsTitle {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+NavLink {
+    text-decoration: none;
+}
+
+.mock-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.indivSpot {
+    margin-bottom: 20px;
+}

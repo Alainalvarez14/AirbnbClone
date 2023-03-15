@@ -17,25 +17,21 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Image.init({
+    userId: {
+      type: DataTypes.INTEGER,
+    },
+    spotImageId: {
+      type: DataTypes.INTEGER,
+    },
+    reviewImageId: {
+      type: DataTypes.INTEGER,
+    },
     url: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    reviewImageId: {
-      type: DataTypes.INTEGER,
-      // allowNull: false,
-    },
-    spotImageId: {
-      type: DataTypes.INTEGER,
-      // allowNull: false,
-    },
     preview: {
       type: DataTypes.BOOLEAN,
-      // allowNull: false,
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-      // allowNull: false,
     },
   }, {
     sequelize,

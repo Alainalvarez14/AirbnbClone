@@ -152,7 +152,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             return res.status(403).json(myError);
         }
 
-        if (new Date(startDate) >= reservation.startDate && new Date(startDate) <= reservation.endDate) {
+        if (new Date(startDate) >= reservation.startDate && new Date(startDate) <= reservation.endDate && reservation.id !== myBooking.id) {
             console.log('start')
             const myError = {
                 "message": "Start date conflicts with an existing booking",
@@ -161,7 +161,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
             return res.status(403).json(myError);
         }
 
-        if (new Date(endDate) <= reservation.endDate && new Date(endDate) >= reservation.startDate) {
+        if (new Date(endDate) <= reservation.endDate && new Date(endDate) >= reservation.startDate && reservation.id !== myBooking.id) {
             console.log('end')
 
             const myError = {

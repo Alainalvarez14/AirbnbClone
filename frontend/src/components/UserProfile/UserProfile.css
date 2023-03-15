@@ -1,0 +1,195 @@
+/* .eachSpotOnLandingPage {
+    text-decoration: none !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-top: 50px;
+} */
+
+.individualSpotsWrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.eachSpotOnUserProfilePage {
+    text-decoration: none !important;
+}
+
+NavLink {
+    text-decoration: none;
+}
+
+.spotListWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.ownedSpotsList {
+    margin-left: 450px;
+}
+
+.notOwnedSpotsList {
+    float: left;
+}
+
+.mock-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 20px;
+}
+
+.editSpotFormWrapper {
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.editSpotForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    border: 1.2px solid rgb(181, 180, 180);
+    border-radius: 20px;
+    height: 600px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1.2px solid rgb(181, 180, 180);
+    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+    background-color: white;
+}
+
+.editSpotInputBoxFieldsWrapper {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding-inline-start: 0;
+}
+
+.editSpotInputBoxFields {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editSpotInputBoxFields>input {
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1.2px solid rgb(181, 180, 180);
+}
+
+.editSpotFormSubmitButton {
+    width: 200px;
+    border-radius: 8px;
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
+    color: white;
+    height: 40px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.editYourSpotMessage {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+
+.windowCloseIconButton {
+    /* color: red; */
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-left: 330px;
+    width: 40px;
+    color: rgb(181, 180, 180);
+}
+
+.editBookingFormWrapper {
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    height: 400px;
+    width: 350px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.editBookingForm {
+    width: 200px;
+    border-radius: 8px;
+    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
+    /* height: 40px; */
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.editBookingFormInputFieldsWrapper {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding-inline-start: 0;
+    /* background-color: blue; */
+}
+
+.editBookingFormInputFields {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editBookingFormInputFields>input {
+    height: 30px;
+    width: 180px;
+    border-radius: 5px;
+    border: 1.2px solid rgb(181, 180, 180);
+}
+
+.editBookingFormSubmitButton {
+    width: 180px;
+    border-radius: 8px;
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
+    color: white;
+    height: 40px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.windowCloseIconButtonEditBookingForm {
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 40px;
+    color: rgb(181, 180, 180);
+    margin-left: 280px;
+    margin-bottom: 20px;
+}
+
+.editYourReservationMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+}
+
+.individualSpotsWrapper>div {
+    margin-bottom: 20px;
+}

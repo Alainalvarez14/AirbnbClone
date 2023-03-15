@@ -1,0 +1,202 @@
+#profileButton {
+    margin-right: 50px;
+    float: right;
+    /* background-color: rgb(230, 30, 77); */
+    /* background-color: rgb(181, 180, 180); */
+    /* color: white; */
+    color: rgb(98, 97, 97);
+    font-size: 16px;
+    height: 40px;
+    width: 80px;
+    border-radius: 20px;
+    border: 1px solid rgb(181, 180, 180);
+    display: inline-block;
+    position: relative;
+    /* cursor: pointer; */
+}
+
+.profileIcon {
+    font-size: 20px;
+    display: inline-block;
+    margin-right: 7px;
+}
+
+.hamburgerMenuIcon {
+    display: inline-block;
+    font-size: 20px;
+}
+
+.windowCloseIcon {
+    color: rgb(181, 180, 180);
+    font-size: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    margin-left: 330px;
+    width: 40px;
+}
+
+/* #profileButton:hover {
+    height: 70px;
+} */
+
+.profile-dropdown {
+    /* margin-right: 50px;
+    float: right;
+    position: relative;
+    display: inline-block; */
+
+
+    /* display: none; */
+    position: absolute;
+    width: 150px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    right: 60px;
+    padding-inline-start: 0;
+    border-radius: 12px;
+    background-color: white;
+}
+
+/* #profileButton:hover {
+    display: block;
+} */
+
+.profile-dropdown li {
+    display: block;
+    color: #000000;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.profile-dropdown li:hover {
+    color: #FFFFFF;
+    /* background-color: rgb(229, 229, 229); */
+    opacity: 0.9;
+    border-radius: 20px;
+}
+
+.logoContainer {
+    list-style: none;
+    /* border-bottom: 1px solid rgb(230, 30, 77); */
+    border-bottom: 0.7px solid rgb(181, 180, 180);
+}
+
+.logoText {
+    text-decoration: none;
+    color: rgb(230, 30, 77);
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.createSpotForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+    border: 1.2px solid rgb(181, 180, 180);
+    border-radius: 20px;
+    height: 600px;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1.2px solid rgb(181, 180, 180);
+    box-shadow: rgb(0 0 0 / 28%) 0px 8px 28px;
+    background-color: white;
+}
+
+/* label {
+    display: inline-block;
+    width: 100px;
+    margin-bottom: 10px;
+    text-align: right;
+} */
+
+.inputBoxFieldsWrapper {
+    margin-bottom: 10px;
+    margin-top: 20px;
+    padding-inline-start: 0;
+
+}
+
+.inputBoxFields {
+    margin-bottom: 10px;
+    /* height: 50px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.inputBoxFields>input {
+    height: 30px;
+    width: 200px;
+    border-radius: 5px;
+    border: 1.2px solid rgb(181, 180, 180);
+}
+
+.loginButton {
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    border-radius: 8px;
+    color: rgb(226, 43, 135);
+    text-decoration: none;
+    float: right;
+    margin-top: 10px;
+    margin-left: 20px;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.signupButton {
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    border-radius: 8px;
+    color: rgb(230, 30, 77);
+    text-decoration: none;
+    float: right;
+    margin-top: 10px;
+    /* margin-left: 20px; */
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.hostSpotSubmitButton {
+    width: 200px;
+    border-radius: 8px;
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
+    color: white;
+    height: 40px;
+    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.createYourSpotMessage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 30px;
+}
+
+.createSpotFormWrapper {
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+.profileButton {
+    width: 100%;
+}
+
+.logOutButton {
+    width: 100%;
+}
+
+.hostASpotButton {
+    width: 100%;
+}

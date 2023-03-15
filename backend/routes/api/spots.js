@@ -4,6 +4,8 @@ const { Spot, Image, User, Review, Booking } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 const { Op } = require('sequelize');
+const { validationGetAllUsersEndpoint } = require('../../utils/validation');
+
 
 //get all spots owned by the current user
 router.get('/current', requireAuth, async (req, res) => {
@@ -36,9 +38,66 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json({ Spots: mySpots });
 });
 
+
 // get all spots
-router.get('/', async (req, res) => {
-    const allSpots = await Spot.findAll();
+router.get('/', validationGetAllUsersEndpoint, async (req, res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    if (!page || isNaN(page) || page < 0) {
+        page = 0;
+    }
+    if (!size || isNaN(size) || size < 0 || size > 20) {
+        size = 20;
+    }
+
+    let offset = (page > 0 && size > 0) ? (size * (page - 1)) : 0;
+
+    const filterBy = {};
+
+    if (minLat && maxLat) {
+        filterBy['lat'] = { [Op.lt]: Number(req.query.maxLat), [Op.gt]: Number(req.query.minLat) }
+    }
+
+    if (minLat && !maxLat) {
+        filterBy['lat'] = { [Op.gt]: Number(minLat) };
+    }
+
+    if (maxLat && !minLat) {
+        filterBy['lat'] = { [Op.lt]: Number(maxLat) };
+    }
+
+    if (minLng && maxLng) {
+        filterBy['lng'] = { [Op.lt]: Number(req.query.maxLng), [Op.gt]: Number(req.query.minLng) }
+    }
+
+    if (minLng && !maxLng) {
+        filterBy['lng'] = { [Op.gt]: Number(minLng) };
+    }
+
+    if (maxLng && !minLng) {
+        filterBy['lng'] = { [Op.lt]: Number(maxLng) };
+    }
+
+    if (minPrice && maxPrice) {
+        filterBy['price'] = { [Op.lt]: Number(req.query.maxPrice), [Op.gt]: Number(req.query.minPrice) };
+    }
+
+    if (minPrice && !maxPrice) {
+        filterBy['price'] = { [Op.gt]: Number(minPrice) };
+    }
+
+    if (maxPrice && !minPrice) {
+        filterBy['price'] = { [Op.lt]: Number(maxPrice) };
+    }
+
+    const allSpots = Object.keys(filterBy).length ? await Spot.findAll({
+        where: filterBy,
+        limit: size,
+        offset
+    }) : await Spot.findAll({
+        limit: size,
+        offset
+    });
 
     for (let i = 0; i < allSpots.length; i++) {
         const allSpotReviews = await Review.findAll({
@@ -59,8 +118,9 @@ router.get('/', async (req, res) => {
         allSpots[i]["avgRating"] = Math.round(sumOfStars * 10) / 10;
     }
 
-    return res.json({ Spots: allSpots });
+    return res.json({ Spots: allSpots, page, size });
 });
+
 
 // create a spot
 router.post('/', requireAuth, async (req, res, next) => {
@@ -292,15 +352,14 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     }
 
     const image = await Image.create({ userId, spotImageId: req.params.spotId, url: req.body.url, preview: req.body.previewImage });
+    // if (image.preview) {
+    mySpot.update({
+        previewImage: image.url
+    })
+    // }
 
-    if (image.preview) {
-        mySpot.update({
-            previewImage: image.url
-        })
-    }
-
-    const { id, url, preview } = image;
-    return res.status(201).json({ id, url, preview });
+    const { id, spotImageId, url, preview } = image;
+    return res.status(201).json(mySpot);
 
 });
 
@@ -448,7 +507,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
         });
     }
 
-    const myReservation = await Booking.build({ spotId: req.params.spotId, userId, startDate, endDate });
+    const myReservation = await Booking.build({ spotId: Number(req.params.spotId), userId, startDate, endDate });
 
     function isSameDate(date1, date2) {
         return date1.getFullYear() === date2.getFullYear()
@@ -491,7 +550,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     }
 
     await myReservation.save();
-
+    console.log(myReservation);
     return res.json(myReservation);
 });
 
@@ -519,6 +578,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
                 spotId: req.params.spotId
             },
             attributes: [
+                'id',
                 'spotId',
                 'startDate',
                 'endDate'
@@ -535,6 +595,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res) => {
             model: User,
             attributes: [
                 'id',
+                // 'spotId',
                 'firstName',
                 'lastName'
             ]
