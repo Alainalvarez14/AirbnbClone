@@ -45,7 +45,7 @@ const LandingPage = () => {
                             return (
                                 <div key={spot.id} className='indivSpot'>
                                     <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
-                                        <img className="mock-image" src={mockHome}></img>
+                                        <img className="mock-image" src={spot.previewImage ? spot.previewImage : mockHome}></img>
                                         <div>{spot.name} </div>
                                         <div>
                                             <div>{spot.city},{spot.state} </div>

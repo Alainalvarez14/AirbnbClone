@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as sessionActions from '../../store/session';
-import { createSpot } from "../../store/spots";
+import { createSpot, getAllSpots } from "../../store/spots";
 import { useHistory } from "react-router-dom";
+import { createImageThunk } from "../../store/images";
+import { useSelector } from "react-redux";
 
 function ProfileButton({ user }) {
     const dispatch = useDispatch();
@@ -12,6 +14,7 @@ function ProfileButton({ user }) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [address, setAddress] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
     const [city, setCity] = useState('');
     const [state, setTheState] = useState('');
     const [country, setCountry] = useState('');
@@ -20,6 +23,7 @@ function ProfileButton({ user }) {
     const [price, setPrice] = useState();
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
+    const spots = useSelector(state => state.spots);
 
     //errors = [{name : 'error'}, {},{}]
 
@@ -97,12 +101,21 @@ function ProfileButton({ user }) {
         }
         else {
             let spotObj = { address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
-            dispatch(createSpot(spotObj));
-            console.log(spotObj);
+
+            dispatch(createSpot(spotObj))
+            // dispatch(getAllSpots())
+
+            // let spotsArr = Object.values(spots)
+            // let spotImageId = spotsArr[spotsArr.length - 1].id
+            // let imageObj = { userId: user.id, spotImageId, reviewImageId: null, url: imageUrl, preview: true };
+            // dispatch(createImageThunk(imageObj))
+
+
             setShowCreateSpotForm(false);
             setShowErrors(false);
             setName('');
             setDescription('');
+            setImageUrl('')
             setAddress('');
             setCity('');
             setCountry('');
@@ -126,6 +139,7 @@ function ProfileButton({ user }) {
         setName('');
         setDescription('');
         setAddress('');
+        setImageUrl('')
         setCity('');
         setCountry('');
         setTheState('');
@@ -179,6 +193,10 @@ function ProfileButton({ user }) {
                             <div className="inputBoxFields">
                                 {/* <label>Description:</label> */}
                                 <input type="text" name="description" value={description} placeholder='Description' onChange={(e) => setDescription(e.target.value)}></input>
+                            </div>
+                            <div className="inputBoxFields">
+                                {/* <label>Address:</label> */}
+                                <input type="text" name="image" value={imageUrl} placeholder='Image URL must be set on Edit' onChange={(e) => setImageUrl(e.target.value)} disabled></input>
                             </div>
                             <div className="inputBoxFields">
                                 {/* <label>Address:</label> */}

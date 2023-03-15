@@ -8,8 +8,9 @@ import { useEffect } from "react";
 import './UserProfile.css';
 import { NavLink } from "react-router-dom";
 import mockHome from '../../Images/mockHome.jpg'
-import { deleteSpot } from "../../store/spots";
+import { deleteSpot, getAllSpots } from "../../store/spots";
 import { editSpot } from "../../store/spots";
+import { createImageThunk } from "../../store/images";
 
 const UserProfile = () => {
 
@@ -33,6 +34,7 @@ const UserProfile = () => {
     const [lng, setLng] = useState();
     const [lat, setLat] = useState();
     const [price, setPrice] = useState();
+    const [imageUrl, setImageUrl] = useState('');
     const [id, setId] = useState(0);
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
@@ -59,7 +61,7 @@ const UserProfile = () => {
         setLat(spot.lat);
         setPrice(spot.price);
         setId(spot.id);
-        console.log(spot);
+        setImageUrl(spot.previewImage ? spot.previewImage : '')
         setShowEditSpotForm(true);
     }
 
@@ -118,6 +120,9 @@ const UserProfile = () => {
         else {
             let spotObj = { id, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
             dispatch(editSpot(spotObj));
+            let imageObj = { userId: user.id, spotImageId: id, reviewImageId: null, url: imageUrl, preview: true };
+            dispatch(createImageThunk(imageObj))
+            // dispatch(getAllSpots())
             setShowEditSpotForm(false);
             setShowErrors(false);
             setName('');
@@ -126,6 +131,7 @@ const UserProfile = () => {
             setCity('');
             setCountry('');
             setTheState('');
+            setImageUrl('')
             setLng();
             setLat();
             setPrice();
@@ -157,6 +163,7 @@ const UserProfile = () => {
         setCity('');
         setCountry('');
         setTheState('');
+        setImageUrl('')
         setLng();
         setLat();
         setPrice();
@@ -198,6 +205,10 @@ const UserProfile = () => {
                             <div className="editSpotInputBoxFields">
                                 {/* <label>Description:</label> */}
                                 <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
+                            </div>
+                            <div className="editSpotInputBoxFields">
+                                {/* <label>Address:</label> */}
+                                <input type="text" name="image" value={imageUrl} placeholder='Image URL' onChange={(e) => setImageUrl(e.target.value)} required></input>
                             </div>
                             <div className="editSpotInputBoxFields">
                                 {/* <label>Address:</label> */}
@@ -281,7 +292,7 @@ const UserProfile = () => {
                                 <div>
                                     <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
 
-                                        <img className="mock-image" src={mockHome}></img>
+                                        <img className="mock-image" src={specificSpot.previewImage ? specificSpot.previewImage : mockHome}></img>
                                         <div>{specificSpot.name}</div>
                                         <div>{specificSpot.city}, {specificSpot.state}</div>
                                         {/* <div>{booking.startDate}</div>
@@ -304,7 +315,7 @@ const UserProfile = () => {
                         return (
                             <div key={spot.id}>
                                 <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
-                                    <img className="mock-image" src={mockHome}></img>
+                                    <img className="mock-image" src={spot.previewImage ? spot.previewImage : mockHome}></img>
                                     <div>{spot.name} </div>
                                     <div>
                                         <div>{spot.city}, {spot.state} </div>
