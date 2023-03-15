@@ -124,7 +124,7 @@ const SpecificSpotDetails = () => {
                             {allBookings && hasBookings()}
                         </div> :
                         <div>
-                            <button onClick={(e) => setLeaveReviewForm(!leaveReviewForm)}>Leave a review</button>
+                            <button type="button" class="btn btn-primary" onClick={(e) => setLeaveReviewForm(!leaveReviewForm)}>Leave a review</button>
                             <div className="createBookingFormWrapper">
                                 <div className="bookYourStayMessage">Book your stay</div>
                                 <form className="createBookingForm">
