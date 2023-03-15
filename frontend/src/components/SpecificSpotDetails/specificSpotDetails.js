@@ -9,13 +9,15 @@ import mockHome from '../../Images/mockHome.jpg'
 import { useHistory } from "react-router-dom";
 import { getAllReviewsThunk } from "../../store/reviews";
 import { createReviewThunk } from "../../store/reviews";
+import { deleteReviewThunk } from "../../store/reviews";
+import { editReviewThunk } from "../../store/reviews";
 
 const SpecificSpotDetails = () => {
 
     const { spotId } = useParams();
     const allSpots = useSelector(state => state.spots);
     const allBookings = useSelector(state => state.bookings);
-    // const allReviews = useSelector(state => state.reviews);
+    const allReviews = useSelector(state => state.reviews);
     const selectedSpot = Object.values(allSpots).find(spot => spot.id === parseInt(spotId));
     const userId = useSelector(state => state.session.user.id);
     const [startDate, setStartDate] = useState(new Date());
@@ -25,6 +27,8 @@ const SpecificSpotDetails = () => {
     const [leaveReviewForm, setLeaveReviewForm] = useState(false);
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
+    const [openEditReviewForm, setOpenEditReviewForm] = useState(false);
+    const [reviewId, setReviewId] = useState('');
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -52,23 +56,6 @@ const SpecificSpotDetails = () => {
         return formattedMonth + "/" + formattedDay + "/" + formattedYear;
     };
 
-
-    // const hasBookings = selectedSpot.ownerId === userId && Object.values(allBookings).filter(booking => booking.Spot.id === spotId).length ?
-    //     <div>
-    //         {Object.values(allBookings).filter(booking => booking.Spot.id === spotId).map(
-    //             booking =>
-    //                 // startDateFormat = formatDate(booking.startDate)
-    //                 // endDateFormat = formatDate(booking.endDate)
-    //                 <div>
-    //                     <p>User: {booking.User?.firstName} {booking.User?.lastName}</p>
-    //                     {/* <p>Check-in: {booking.startDate}</p> */}
-    //                     <p>Check-in: {formatDate(booking.startDate)}</p>
-    //                     <p>Check-out: {formatDate(booking.endDate)}</p>
-    //                 </div>
-    //         )}
-    //     </div> :
-    //     <div>no bookings for this property</div>
-
     const hasBookings = () => {
         return selectedSpot.ownerId === userId && Object.values(allBookings).length ?
             <div className="bookingNameAndDatesWrapper">
@@ -87,25 +74,39 @@ const SpecificSpotDetails = () => {
             <div>no bookings for this property</div>
     }
 
-    // const handleCloseFormCreateBooking = (e) => {
-    //     // e.preventDefault();
-    //     // // setShowEditBookingForm(false);
-    //     // setName('');
-    //     // setDescription('');
-    //     // setAddress('');
-    //     // setCity('');
-    //     // setCountry('');
-    //     // setTheState('');
-    //     // setLng(0);
-    //     // setLat(0);
-    //     // setPrice(0);
-    // };
+    const hasReviews = () => {
+        return Object.values(allReviews).length
+            ? <div>{Object.values(allReviews).map(review => {
+                return <div>
+                    <div>{review.review}</div>
+                    <div>{review.stars}</div>
+                    <button onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
+                    <button onClick={(e) => handleEditReview(e, review)}>Edit Review</button>
+                </div>
+            })}</div>
+            : <div>Be the first to leave a review!!</div>
+    }
+
+    const handleEditReview = (e, review) => {
+        e.preventDefault();
+        console.log(review);
+        setReviewId(review.id);
+        setReview(review.review);
+        setStars(review.stars);
+        setOpenEditReviewForm(true);
+    }
 
     const handleSubmitReviewForm = (e) => {
         e.preventDefault();
         const reviewObj = { userId, spotId: parseInt(spotId), review, stars: Number(stars) };
         console.log(reviewObj);
         dispatch(createReviewThunk(reviewObj));
+    }
+
+    const submitEditReview = (e) => {
+        e.preventDefault();
+        let editedReviewObj = { id: reviewId, userId, spotId: parseInt(spotId), review, stars: Number(stars) };
+        dispatch(editReviewThunk(editedReviewObj));
     }
 
     return (
@@ -153,6 +154,23 @@ const SpecificSpotDetails = () => {
                                 <input onChange={(e) => setStars(e.target.value)}></input>
                             </div>
                             <button onClick={(e) => handleSubmitReviewForm(e)}>Submit</button>
+                        </form>
+                    )}
+                    {selectedSpot.numReviews >= 1 && (
+                        <div>{hasReviews()}</div>
+                    )}
+                    {openEditReviewForm && (
+                        <form>
+                            <div>
+                                <label>Review:</label>
+                                <input onChange={(e) => setReview(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>Stars:</label>
+                                <input onChange={(e) => setStars(e.target.value)}></input>
+                            </div>
+                            <button onClick={(e) => submitEditReview(e)}>Submit</button>
+                            <button onClick={() => setOpenEditReviewForm(false)}>Close Edit Form</button>
                         </form>
                     )}
                 </div>
