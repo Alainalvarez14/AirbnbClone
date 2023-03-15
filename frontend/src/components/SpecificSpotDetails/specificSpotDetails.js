@@ -7,18 +7,24 @@ import { useDispatch } from "react-redux";
 import { getAllBookingsBySpotIdThunk } from "../../store/bookings";
 import mockHome from '../../Images/mockHome.jpg'
 import { useHistory } from "react-router-dom";
+import { getAllReviewsThunk } from "../../store/reviews";
+import { createReviewThunk } from "../../store/reviews";
 
 const SpecificSpotDetails = () => {
 
     const { spotId } = useParams();
     const allSpots = useSelector(state => state.spots);
     const allBookings = useSelector(state => state.bookings);
+    // const allReviews = useSelector(state => state.reviews);
     const selectedSpot = Object.values(allSpots).find(spot => spot.id === parseInt(spotId));
     const userId = useSelector(state => state.session.user.id);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const dispatch = useDispatch();
     const history = useHistory();
+    const [leaveReviewForm, setLeaveReviewForm] = useState(false);
+    const [review, setReview] = useState('');
+    const [stars, setStars] = useState('');
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -29,6 +35,7 @@ const SpecificSpotDetails = () => {
 
     useEffect(() => {
         dispatch(getAllBookingsBySpotIdThunk(spotId));
+        dispatch(getAllReviewsThunk(spotId));
     }, [dispatch]);
 
     const formatDate = (date) => {
@@ -94,6 +101,13 @@ const SpecificSpotDetails = () => {
     //     // setPrice(0);
     // };
 
+    const handleSubmitReviewForm = (e) => {
+        e.preventDefault();
+        const reviewObj = { userId, spotId: parseInt(spotId), review, stars: Number(stars) };
+        console.log(reviewObj);
+        dispatch(createReviewThunk(reviewObj));
+    }
+
     return (
         <>
             {selectedSpot && (
@@ -102,31 +116,45 @@ const SpecificSpotDetails = () => {
                     <h3 className="spotName">{selectedSpot.name}</h3>
                     <p className="spotAddress">{selectedSpot.city}, {selectedSpot.state}, {selectedSpot.country}</p>
                     <p className="spotPrice">${selectedSpot.price} night</p>
+                    {console.log(selectedSpot)}
                     {selectedSpot.ownerId === userId ?
                         <div>
                             <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
                             {allBookings && hasBookings()}
                         </div> :
-                        <div className="createBookingFormWrapper">
-                            {/* <div className="windowCloseIconButtonCreateBookingForm" onClick={(e) => handleCloseFormCreateBooking(e)}>
-                                <i className="far fa-window-close"></i>
-                            </div> */}
-                            <div className="bookYourStayMessage">Book your stay</div>
-                            <form className="createBookingForm">
-                                <ul className="createBookingFormInputFieldsWrapper">
-                                    <div className='createBookingFormInputFields'>
-                                        <label>Check-in:</label>
-                                        <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
-                                    </div>
-                                    <div className='createBookingFormInputFields'>
-                                        <label>Check-out:</label>
-                                        <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
-                                    </div>
-                                    <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
-                                    <p>You won't be charged yet</p>
-                                </ul>
-                            </form>
+                        <div>
+                            <button onClick={(e) => setLeaveReviewForm(!leaveReviewForm)}>Leave a review</button>
+                            <div className="createBookingFormWrapper">
+                                <div className="bookYourStayMessage">Book your stay</div>
+                                <form className="createBookingForm">
+                                    <ul className="createBookingFormInputFieldsWrapper">
+                                        <div className='createBookingFormInputFields'>
+                                            <label>Check-in:</label>
+                                            <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
+                                        </div>
+                                        <div className='createBookingFormInputFields'>
+                                            <label>Check-out:</label>
+                                            <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
+                                        </div>
+                                        <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
+                                        <p>You won't be charged yet</p>
+                                    </ul>
+                                </form>
+                            </div>
                         </div>}
+                    {leaveReviewForm && (
+                        <form>
+                            <div>
+                                <label>Review:</label>
+                                <input onChange={(e) => setReview(e.target.value)}></input>
+                            </div>
+                            <div>
+                                <label>Stars:</label>
+                                <input onChange={(e) => setStars(e.target.value)}></input>
+                            </div>
+                            <button onClick={(e) => handleSubmitReviewForm(e)}>Submit</button>
+                        </form>
+                    )}
                 </div>
             )}
         </>
