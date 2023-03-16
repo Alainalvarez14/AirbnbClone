@@ -29,6 +29,10 @@ const SpecificSpotDetails = () => {
     const [stars, setStars] = useState('');
     const [openEditReviewForm, setOpenEditReviewForm] = useState(false);
     const [reviewId, setReviewId] = useState('');
+    let disabled = false;
+    const [reviewToEdit, setReviewToEdit] = useState('');
+    const [editedReview, setEditedReview] = useState(reviewToEdit.review);
+    const [editedStars, setEditedStars] = useState(reviewToEdit.stars);
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -74,14 +78,21 @@ const SpecificSpotDetails = () => {
             <div>no bookings for this property</div>
     }
 
+    const handleReviewToEdit = (review) => {
+        setReviewToEdit(review)
+        setEditedStars(review.stars)
+        setEditedReview(review.review)
+    }
+
     const hasReviews = () => {
         return Object.values(allReviews).length
             ? <div>{Object.values(allReviews).map(review => {
                 return <div>
+                    {/* <div style={{ fontWeight: 'bold' }}>{review.User.firstName}</div> */}
                     <div>{review.review}</div>
-                    <div>{review.stars}</div>
-                    <button onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
-                    <button onClick={(e) => handleEditReview(e, review)}>Edit Review</button>
+                    <div>Stars: {review.stars}</div>
+                    <button type="button" class="btn btn airbnbColor" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
+                    <button type="button" class="btn btn airbnbColor" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
                 </div>
             })}</div>
             : <div>Be the first to leave a review!!</div>
@@ -105,77 +116,134 @@ const SpecificSpotDetails = () => {
 
     const submitEditReview = (e) => {
         e.preventDefault();
-        let editedReviewObj = { id: reviewId, userId, spotId: parseInt(spotId), review, stars: Number(stars) };
+        let editedReviewObj = { id: reviewToEdit.id, userId, spotId: parseInt(spotId), review: editedReview, stars: Number(editedStars) };
         dispatch(editReviewThunk(editedReviewObj));
     }
 
     return (
-        <>
+        <div>
             {selectedSpot && (
-                <div key={selectedSpot.id}>
-                    <img className="mock-image" src={mockHome}></img>
-                    <h3 className="spotName">{selectedSpot.name}</h3>
-                    <p className="spotAddress">{selectedSpot.city}, {selectedSpot.state}, {selectedSpot.country}</p>
-                    <p className="spotPrice">${selectedSpot.price} night</p>
-                    {console.log(selectedSpot)}
-                    {selectedSpot.ownerId === userId ?
+                <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto' }}>
+                    <img src={mockHome} class="card-img-top" alt="..." />
+                    <div class="card-body">
+                        <h3 class="card-text">{selectedSpot.name}</h3>
                         <div>
-                            <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
-                            {allBookings && hasBookings()}
-                        </div> :
-                        <div>
-                            <button type="button" class="btn btn-primary" onClick={(e) => setLeaveReviewForm(!leaveReviewForm)}>Leave a review</button>
-                            <div className="createBookingFormWrapper">
-                                <div className="bookYourStayMessage">Book your stay</div>
-                                <form className="createBookingForm">
-                                    <ul className="createBookingFormInputFieldsWrapper">
-                                        <div className='createBookingFormInputFields'>
-                                            <label>Check-in:</label>
-                                            <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
-                                        </div>
-                                        <div className='createBookingFormInputFields'>
-                                            <label>Check-out:</label>
-                                            <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
-                                        </div>
-                                        <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
-                                        <p>You won't be charged yet</p>
-                                    </ul>
-                                </form>
-                            </div>
-                        </div>}
-                    {leaveReviewForm && (
-                        <form>
-                            <div>
-                                <label>Review:</label>
-                                <input onChange={(e) => setReview(e.target.value)}></input>
-                            </div>
-                            <div>
-                                <label>Stars:</label>
-                                <input onChange={(e) => setStars(e.target.value)}></input>
-                            </div>
-                            <button onClick={(e) => handleSubmitReviewForm(e)}>Submit</button>
-                        </form>
-                    )}
-                    {selectedSpot.numReviews >= 1 && (
-                        <div>{hasReviews()}</div>
-                    )}
-                    {openEditReviewForm && (
-                        <form>
-                            <div>
-                                <label>Review:</label>
-                                <input onChange={(e) => setReview(e.target.value)}></input>
-                            </div>
-                            <div>
-                                <label>Stars:</label>
-                                <input onChange={(e) => setStars(e.target.value)}></input>
-                            </div>
-                            <button onClick={(e) => submitEditReview(e)}>Submit</button>
-                            <button onClick={() => setOpenEditReviewForm(false)}>Close Edit Form</button>
-                        </form>
-                    )}
+                            <p className="spotAddress">{selectedSpot.city}, {selectedSpot.state}, {selectedSpot.country}</p>
+                            <p className="spotPrice">${selectedSpot.price} night</p>
+                            {selectedSpot.ownerId === userId ?
+                                <div className="confirmedBookingsList">
+                                    <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
+                                    <div>{allBookings && hasBookings()}</div>
+                                </div> :
+                                <div style={{ maxHeight: '23vh', marginBottom: '8vh' }}>
+                                    <button type="button" class="btn btn airbnbColor" /* onClick={(e) => setLeaveReviewForm(!leaveReviewForm)} */ data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
+                                    <div className="createBookingFormWrapper">
+                                        <div className="bookYourStayMessage">Book your stay</div>
+                                        <form className="createBookingForm">
+                                            <ul className="createBookingFormInputFieldsWrapper">
+                                                <div className='createBookingFormInputFields'>
+                                                    <label>Check-in:</label>
+                                                    <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
+                                                </div>
+                                                <div className='createBookingFormInputFields'>
+                                                    <label>Check-out:</label>
+                                                    <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
+                                                </div>
+                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
+                                                <p>You won't be charged yet</p>
+                                            </ul>
+                                        </form>
+                                    </div>
+                                </div>}
+                        </div>
+                        <div class="card" style={{ width: '35vw', maxWidth: '650px', marginTop: '-22vh', maxHeight: '195px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{selectedSpot.description}fhsrthsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrshtrfhsrthtrshtrshtrshrth</li>
+                            </ul>
+                        </div>
+                        {/* {leaveReviewForm && (
+                            <form>
+                                <div>
+                                    <label>Review:</label>
+                                    <input onChange={(e) => setReview(e.target.value)}></input>
+                                </div>
+                                <div>
+                                    <label>Stars:</label>
+                                    <input onChange={(e) => setStars(e.target.value)}></input>
+                                </div>
+                                <button onClick={(e) => handleSubmitReviewForm(e)}>Submit</button>
+                            </form>
+                        )} */}
+                        {selectedSpot.numReviews >= 1 && (
+                            <div style={{ marginTop: '10vh' }}>{hasReviews()}</div>
+                        )}
+                        {/* {openEditReviewForm && (
+                            <form>
+                                <div>
+                                    <label>Review:</label>
+                                    <input onChange={(e) => setReview(e.target.value)}></input>
+                                </div>
+                                <div>
+                                    <label>Stars:</label>
+                                    <input onChange={(e) => setStars(e.target.value)}></input>
+                                </div>
+                                <button onClick={(e) => submitEditReview(e)}>Submit</button>
+                                <button onClick={() => setOpenEditReviewForm(false)}>Close Edit Form</button>
+                            </form>
+                        )} */}
+                    </div>
                 </div>
             )}
-        </>
+
+            <div class="modal fade" id="leaveReviewModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Leave a review!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={(e) => handleSubmitReviewForm(e)}>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Review' value={review} onChange={(e) => setReview(e.target.value)}></input>
+                                </div>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input type="number" min="1" max="5" class="form-control" placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
+                                    <small>Stars must be from 1-5</small>
+                                </div>
+                                {review && stars && stars > 0 && stars <= 5 && (
+                                    disabled = false
+                                )}
+                                <button type="submit" data-bs-dismiss="modal" class="btn btn airbnbColor" disabled={disabled}>Submit review</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="EditReviewModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Edit a review!</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form onSubmit={(e) => submitEditReview(e)}>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input class="form-control" placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setEditedReview(e.target.value)}></input>
+                                </div>
+                                <div class="form-group" style={{ marginBottom: '0.5vh' }}>
+                                    <input type="number" min="1" max="5" class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setEditedStars(e.target.value)}></input>
+                                    <small>Stars must be from 1-5</small>
+                                </div>
+                                <button type='submit' data-bs-dismiss="modal" class="btn btn airbnbColor" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
 }
 

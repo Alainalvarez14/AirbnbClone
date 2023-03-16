@@ -184,7 +184,7 @@ const UserProfile = () => {
     }
 
     return (
-        <div>
+        <div style={{ marginLeft: '2vw', marginRight: '2vw' }}>
             {showEditSpotForm && (
                 <div className="editSpotFormWrapper">
                     <form className="editSpotForm">
@@ -282,34 +282,49 @@ const UserProfile = () => {
             </div>
             <h2>Reservations</h2>
             {bookingsList && (
+                // <div className="individualSpotsWrapper">
+                //     {Object.values(bookingsList).filter(booking => booking.userId === user.id).map(booking => {
+                //         const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
+                //         return (
+                //             <div>
+                //                 <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
+                //                     <img className="mock-image" src={specificSpot.previewImage ? specificSpot.previewImage : mockHome}></img>
+                //                     <div>{specificSpot.name}</div>
+                //                     <div>{specificSpot.city}, {specificSpot.state}</div>
+                //                     <div>Check-in: {formatDate(booking.startDate)}</div>
+                //                     <div>Check-out: {formatDate(booking.endDate)}</div>
+                //                 </NavLink>
+                //                 <button className="btn airbnbColor" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
+                //                 <button className="btn airbnbColor" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
+                //             </div>
+                //         );
+                //     })}
+                // </div>
                 <div className="individualSpotsWrapper">
-                    {Object.values(bookingsList).filter(booking => booking.userId === user.id)
-                        .map(booking => {
-                            const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
-                            // let formattedStartDate = formatDate(booking.startDate);
-                            // let formattedEndDate = formatDate(booking.endDate);
-                            return (
-                                <div>
-                                    <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
-
-                                        <img className="mock-image" src={specificSpot.previewImage ? specificSpot.previewImage : mockHome}></img>
-                                        <div>{specificSpot.name}</div>
-                                        <div>{specificSpot.city}, {specificSpot.state}</div>
-                                        {/* <div>{booking.startDate}</div>
-                                    <div>{booking.endDate}</div> */}
-                                        <div>Check-in: {formatDate(booking.startDate)}</div>
-                                        <div>Check-out: {formatDate(booking.endDate)}</div>
-                                    </NavLink>
-                                    <button onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
-                                    <button onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
-                                </div>
-                            );
-                        })}
+                    {Object.values(bookingsList).filter(booking => booking.userId === user.id).map(booking => {
+                        const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
+                        return (
+                            <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
+                                <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
+                                    <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <div class="card-text">{specificSpot.name}</div>
+                                        <div class="card-text">{specificSpot.city}, {specificSpot.state}</div>
+                                        <div class="card-text">Check-in: {formatDate(booking.startDate)}</div>
+                                        <div class="card-text">Check-out: {formatDate(booking.endDate)}</div>
+                                    </div>
+                                </NavLink>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
+                                <button className="btn airbnbColor" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
+                            </div>
+                        );
+                    })}
                 </div>
+
             )}
 
             <h2>My Spots</h2>
-            <div className="individualSpotsWrapper">
+            {/* <div className="individualSpotsWrapper">
                 {
                     Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
                         return (
@@ -319,20 +334,53 @@ const UserProfile = () => {
                                     <div>{spot.name} </div>
                                     <div>
                                         <div>{spot.city}, {spot.state} </div>
-                                        {/* <div>{spot.avgRating} </div> */}
                                     </div>
                                     <div>${spot.price} </div>
                                 </NavLink>
 
-                                <button onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                <button onClick={() => openEditSpotForm(spot)}>Edit</button>
+                                <button className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                                <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
+                            </div>
+                        )
+                    })
+                }
+            </div> */}
+
+            <div className="individualSpotsWrapper">
+                {
+                    Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
+                        return (
+                            // <div key={spot.id}>
+                            //     <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
+                            //         <img className="mock-image" src={spot.previewImage ? spot.previewImage : mockHome}></img>
+                            //         <div>{spot.name} </div>
+                            //         <div>
+                            //             <div>{spot.city}, {spot.state} </div>
+                            //         </div>
+                            //         <div>${spot.price} </div>
+                            //     </NavLink>
+
+                            //     <button className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                            //     <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
+                            // </div>
+                            <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
+                                <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
+                                    <img style={{ height: '20vh' }} src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." />
+                                    <div class="card-body">
+                                        <div class="card-text">{spot.name}</div>
+                                        <div class="card-text">{spot.city}, {spot.state}</div>
+                                        <div>${spot.price} </div>
+                                    </div>
+                                </NavLink>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                                <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
                             </div>
                         )
                     })
                 }
             </div>
 
-        </div>
+        </div >
     )
 };
 
