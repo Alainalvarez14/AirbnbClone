@@ -15,6 +15,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    /* margin-top: 10vh; */
 }
 
 .bookingNameAndDates {
@@ -24,19 +25,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 1vh;
 }
 
 .bookingNameAndDatesWrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin-top: 20px;
+    /* display: grid; */
+    /* grid-template-columns: 1fr 1fr 1fr 1fr; */
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .createBookingFormWrapper {
-    position: fixed;
+    position: sticky;
     z-index: 9999;
-    left: 50%;
-    transform: translate(-50%, 50%);
+    left: 52%;
+    transform: translate(-2vw, -11vh);
     height: 400px;
     width: 350px;
     background-color: white;
@@ -45,6 +50,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    box-shadow: rgb(0 0 0 / 42%) 0px 6px 16px;
 }
 
 .createBookingForm {
@@ -91,6 +97,7 @@
     align-items: center;
 }
 
+
 /* .windowCloseIconButtonCreateBookingForm {
     font-size: 25px;
     display: flex;
@@ -106,4 +113,34 @@
     flex-direction: column;
     align-items: center;
     font-size: 30px;
+}
+
+
+/* ANYTHING ABOVE IS PREVIOUS CSS BEFORE BOOTSTRAP IMPLEMENTATION */
+.airbnbColor {
+    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
+    color: white;
+}
+
+.specificSpotImage {
+    /* max-width: 90vw; */
+    max-height: 50vh;
+}
+
+.confirmedBookingsList {
+    position: sticky;
+    z-index: 9999;
+    left: 52%;
+    transform: translate(-2vw, -8vh);
+    height: 400px;
+    width: 350px;
+    background-color: white;
+    border-radius: 8px;
+    border: 1.2px solid rgb(181, 180, 180);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: rgb(0 0 0 / 42%) 0px 6px 16px;
+    overflow-y: scroll;
+
 }

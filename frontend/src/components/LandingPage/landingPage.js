@@ -36,10 +36,10 @@ const LandingPage = () => {
 
     return (
         <div>
-            <h2 className="allSpotsTitle">All Spots</h2>
-            < div>
-                {/* <h2 className="allSpotsTitle">All Spots</h2> */}
-                <div className="notOwnedSpotsList">
+            {/* <h2 className="allSpotsTitle">All Spots</h2> */}
+
+            <div>
+                {/* <div className="notOwnedSpotsList">
                     {
                         Object.values(spotList)?.map(spot => {
                             return (
@@ -49,9 +49,28 @@ const LandingPage = () => {
                                         <div>{spot.name} </div>
                                         <div>
                                             <div>{spot.city},{spot.state} </div>
-                                            {/* <div>{spot.avgRating} </div> */}
                                         </div>
                                         <div>${spot.price} night </div>
+                                    </NavLink>
+                                </div>
+                            )
+                        })
+                    }
+                </div> */}
+                <div className="notOwnedSpotsList">
+                    {
+                        Object.values(spotList)?.map(spot => {
+                            return (
+                                <div class="card" style={{ width: "18rem", marginTop: '1vh', marginLeft: '1vh', marginRight: '1vh', marginBottom: '1vh' }}>
+                                    <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
+                                        <img src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." style={{ height: '20vh' }} />
+                                        <div class="card-body">
+                                            <div class="card-text" style={{ fontWeight: 'bold' }}>{spot.name}</div>
+                                            <div style={{ fontWeight: 'lighter' }}>
+                                                <div>{spot.city}, {spot.state} </div>
+                                            </div>
+                                            <div style={{ fontWeight: 'bold' }}>${spot.price} night </div>
+                                        </div>
                                     </NavLink>
                                 </div>
                             )
