@@ -92,16 +92,9 @@ const UserProfile = () => {
         if (!country) {
             errorsArray.push("Must have an country");
         }
-        // if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN) {
-        //     errorsArray.push("Latitude must be a number!");
-        // }
-        // if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN) {
-        //     errorsArray.push("Latitude must be a number!");
-        // }
         if (price <= 0) {
             errorsArray.push("Must have a valid price per night!");
         }
-
         setErrors(errorsArray)
     }, [name, description, address, city, state, country, price]);
 
@@ -307,15 +300,15 @@ const UserProfile = () => {
                             <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." />
-                                    <div class="card-body">
+                                    <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>
                                         <div class="card-text">{specificSpot.name}</div>
                                         <div class="card-text">{specificSpot.city}, {specificSpot.state}</div>
                                         <div class="card-text">Check-in: {formatDate(booking.startDate)}</div>
                                         <div class="card-text">Check-out: {formatDate(booking.endDate)}</div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
-                                <button className="btn airbnbColor" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor userProfileButtons" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
+                                <button className="btn airbnbColor userProfileButtons" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
                             </div>
                         );
                     })}
@@ -366,14 +359,14 @@ const UserProfile = () => {
                             <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img style={{ height: '20vh' }} src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." />
-                                    <div class="card-body">
+                                    <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>
                                         <div class="card-text">{spot.name}</div>
                                         <div class="card-text">{spot.city}, {spot.state}</div>
                                         <div>${spot.price} </div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor userProfileButtons" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                                <button className="btn airbnbColor userProfileButtons" onClick={() => openEditSpotForm(spot)}>Edit</button>
                             </div>
                         )
                     })
