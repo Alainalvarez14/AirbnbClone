@@ -1,9 +1,6 @@
 #profileButton {
     margin-right: 50px;
     float: right;
-    /* background-color: rgb(230, 30, 77); */
-    /* background-color: rgb(181, 180, 180); */
-    /* color: white; */
     color: rgb(98, 97, 97);
     font-size: 16px;
     height: 40px;
@@ -17,14 +14,14 @@
 }
 
 .profileIcon {
-    font-size: 20px;
+    font-size: 25px;
     display: inline-block;
     margin-right: 7px;
 }
 
 .hamburgerMenuIcon {
     display: inline-block;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .windowCloseIcon {
@@ -37,18 +34,7 @@
     width: 40px;
 }
 
-/* #profileButton:hover {
-    height: 70px;
-} */
-
 .profile-dropdown {
-    /* margin-right: 50px;
-    float: right;
-    position: relative;
-    display: inline-block; */
-
-
-    /* display: none; */
     position: absolute;
     width: 150px;
     overflow: auto;
@@ -60,10 +46,6 @@
     z-index: 10000000;
 }
 
-/* #profileButton:hover {
-    display: block;
-} */
-
 .profile-dropdown li {
     display: block;
     color: #000000;
@@ -73,14 +55,12 @@
 
 .profile-dropdown li:hover {
     color: #FFFFFF;
-    /* background-color: rgb(229, 229, 229); */
     opacity: 0.9;
     border-radius: 20px;
 }
 
 .logoContainer {
     list-style: none;
-    /* border-bottom: 1px solid rgb(230, 30, 77); */
     border-bottom: 0.7px solid rgb(181, 180, 180);
 }
 
@@ -108,13 +88,6 @@
     background-color: white;
 }
 
-/* label {
-    display: inline-block;
-    width: 100px;
-    margin-bottom: 10px;
-    text-align: right;
-} */
-
 .inputBoxFieldsWrapper {
     margin-bottom: 10px;
     margin-top: 20px;
@@ -124,7 +97,6 @@
 
 .inputBoxFields {
     margin-bottom: 10px;
-    /* height: 50px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -162,7 +134,6 @@
     text-decoration: none;
     float: right;
     margin-top: 10px;
-    /* margin-left: 20px; */
     font-size: 25px;
     font-weight: bold;
 }
