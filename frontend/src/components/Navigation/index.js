@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import { useSelector } from "react-redux";
 import './Navigation.css';
+import SearchBar from "../SearchBar/SearchBar";
 
 const Navigation = ({ isLoaded }) => {
     const sessionUser = useSelector(state => state.session.user);
@@ -25,6 +26,7 @@ const Navigation = ({ isLoaded }) => {
             <li>
                 <NavLink exact to='/' className='logoText'>airbnb</NavLink>
                 {isLoaded && sessionLinks}
+                <SearchBar />
             </li>
         </ul>
     );
