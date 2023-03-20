@@ -91,8 +91,8 @@ const SpecificSpotDetails = () => {
                     {/* <div style={{ fontWeight: 'bold' }}>{review.User.firstName}</div> */}
                     <div>{review.review}</div>
                     <div>Stars: {review.stars}</div>
-                    <button type="button" class="btn btn airbnbColor" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
-                    <button type="button" class="btn btn airbnbColor" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
+                    <button type="button" class="btn btn nomadColor" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
+                    <button type="button" class="btn btn nomadColor" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
                 </div>
             })}</div>
             : <div>Be the first to leave a review!!</div>
@@ -123,7 +123,7 @@ const SpecificSpotDetails = () => {
     return (
         <div>
             {selectedSpot && (
-                <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto' }}>
+                <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh' }}>
                     <img src={mockHome} class="card-img-top" alt="..." />
                     <div class="card-body">
                         <h3 class="card-text">{selectedSpot.name}</h3>
@@ -136,7 +136,7 @@ const SpecificSpotDetails = () => {
                                     <div>{allBookings && hasBookings()}</div>
                                 </div> :
                                 <div style={{ maxHeight: '23vh', marginBottom: '8vh' }}>
-                                    <button type="button" class="btn btn airbnbColor" /* onClick={(e) => setLeaveReviewForm(!leaveReviewForm)} */ data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
+                                    <button type="button" class="btn btn nomadColor" /* onClick={(e) => setLeaveReviewForm(!leaveReviewForm)} */ data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
                                     <div className="createBookingFormWrapper">
                                         <div className="bookYourStayMessage">Book your stay</div>
                                         <form className="createBookingForm">
@@ -149,7 +149,7 @@ const SpecificSpotDetails = () => {
                                                     <label>Check-out:</label>
                                                     <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                                                 </div>
-                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
+                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton nomadColor'>Book Now!</button>
                                                 <p>You won't be charged yet</p>
                                             </ul>
                                         </form>
@@ -214,7 +214,7 @@ const SpecificSpotDetails = () => {
                                 {review && stars && stars > 0 && stars <= 5 && (
                                     disabled = false
                                 )}
-                                <button type="submit" data-bs-dismiss="modal" class="btn btn airbnbColor" disabled={disabled}>Submit review</button>
+                                <button type="submit" data-bs-dismiss="modal" class="btn btn nomadColor" disabled={disabled}>Submit review</button>
                             </form>
                         </div>
                     </div>
@@ -237,7 +237,7 @@ const SpecificSpotDetails = () => {
                                     <input type="number" min="1" max="5" class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setEditedStars(e.target.value)}></input>
                                     <small>Stars must be from 1-5</small>
                                 </div>
-                                <button type='submit' data-bs-dismiss="modal" class="btn btn airbnbColor" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn btn nomadColor" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
                             </form>
                         </div>
                     </div>
