@@ -151,7 +151,7 @@ function ProfileButton({ user }) {
 
     return (
         <>
-            <button onClick={openMenu} id='profileButton'>
+            <button onClick={openMenu} id='profileButton' style={{ borderColor: 'lightseagreen', color: 'lightseagreen', background: 'white' }}>
                 {/* {user.username} */}
                 <div className="profileIcon">
                     <i className="fas fa-user-circle" />

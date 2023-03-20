@@ -49,7 +49,7 @@ const SpecificCity = () => {
                     {
                         filteredSpots?.map(spot => {
                             return (
-                                <div class="card" style={{ width: "18rem", marginTop: '1vh', marginLeft: '1vh', marginRight: '1vh', marginBottom: '1vh' }}>
+                                <div class="card spot" style={{ width: "18rem", marginTop: '1vh', marginLeft: '1vh', marginRight: '1vh', marginBottom: '1vh' }}>
                                     <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'>
                                         <img src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." style={{ height: '20vh' }} />
                                         <div class="card-body">

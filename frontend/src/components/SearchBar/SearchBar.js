@@ -36,9 +36,9 @@ const SearchBar = () => {
     return (
         // <nav class="navbar bg-body-tertiary">
         <div>
-            <div class="container-fluid" style={{ maxWidth: '400px', marginTop: '-3.5vh', marginBottom: '1vh' }}>
+            <div class="container-fluid" style={{ maxWidth: '400px', marginTop: '-4.8vh', marginBottom: '1vh' }}>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search by city" aria-label="Search" style={{ borderRadius: '20px' }} onChange={(e) => setCity(e.target.value)} />
+                    <input class="form-control me-2" type="search" placeholder="Search by city" aria-label="Search" style={{ borderRadius: '20px', borderColor: 'lightseagreen' }} onChange={(e) => setCity(e.target.value)} />
                 </form>
             </div>
 
@@ -49,7 +49,7 @@ const SearchBar = () => {
                     maxHeight: '15rem',
                     overflow: 'auto',
                     zIndex: '100',
-                    marginLeft: '30vw'
+                    marginLeft: '23rem'
                 }}>
                     {searchResults.map(spot => {
                         return (

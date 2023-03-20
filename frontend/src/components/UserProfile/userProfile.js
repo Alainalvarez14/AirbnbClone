@@ -297,7 +297,7 @@ const UserProfile = () => {
                     {Object.values(bookingsList).filter(booking => booking.userId === user.id).map(booking => {
                         const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
                         return (
-                            <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
+                            <div class="card spot" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." />
                                     <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>
@@ -356,7 +356,7 @@ const UserProfile = () => {
                             //     <button className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
                             //     <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
                             // </div>
-                            <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
+                            <div class="card spot" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img style={{ height: '20vh' }} src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." />
                                     <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>

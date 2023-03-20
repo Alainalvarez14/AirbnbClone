@@ -25,7 +25,7 @@ const Navigation = ({ isLoaded }) => {
     return (
         <ul className="logoContainer">
             <li>
-                <NavLink exact to='/'><img src={`${logo}`} style={{ height: '4vh', width: '20vw', marginTop: '2vh', marginBottom: '0.5vh' }} /></NavLink>
+                <NavLink exact to='/'><img src={`${logo}`} style={{ height: '4vh', width: '20vw', marginTop: '1.5vh', marginBottom: '1.5vh' }} /></NavLink>
                 {isLoaded && sessionLinks}
                 <SearchBar />
             </li>
