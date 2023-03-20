@@ -64,13 +64,13 @@
     border-bottom: 0.7px solid rgb(181, 180, 180);
 }
 
-.logoText {
+/* .logoText {
     text-decoration: none;
     color: rgb(230, 30, 77);
     font-weight: bold;
     font-size: 40px;
     margin-left: 1.8vw;
-}
+} */
 
 .createSpotForm {
     display: flex;
