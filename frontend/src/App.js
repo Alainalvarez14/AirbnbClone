@@ -10,6 +10,7 @@ import SpecificSpotDetails from "./components/SpecificSpotDetails/specificSpotDe
 import UserProfile from "./components/UserProfile/userProfile";
 import { getAllSpots } from "./store/spots";
 import SpecificCity from "./components/SpecificCity/SpecificCity";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ function App() {
   return isLoaded && (
     <>
       <Navigation isLoaded={isLoaded} />
+      <Footer />
       {isLoaded && (
         <Switch>
           <Route exact path='/'>

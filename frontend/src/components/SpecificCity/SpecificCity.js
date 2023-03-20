@@ -45,7 +45,7 @@ const SpecificCity = () => {
 
             <div>
 
-                <div className="notOwnedSpotsList">
+                <div className="notOwnedSpotsList" style={{ marginBottom: '7vh' }}>
                     {
                         filteredSpots?.map(spot => {
                             return (

@@ -57,7 +57,7 @@ const LandingPage = () => {
                         })
                     }
                 </div> */}
-                <div className="notOwnedSpotsList">
+                <div className="notOwnedSpotsList" style={{ marginBottom: '7vh' }}>
                     {
                         Object.values(spotList)?.map(spot => {
                             return (
