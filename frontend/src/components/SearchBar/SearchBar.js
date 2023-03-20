@@ -2,12 +2,14 @@ import { useState } from "react";
 import "./SearchBar.css"
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 
 const SearchBar = () => {
 
     const [city, setCity] = useState('');
     const allSpots = useSelector(state => state.spots);
     const [searchResults, setSearchResults] = useState('');
+    const history = useHistory();
 
 
     useEffect(() => {
@@ -25,7 +27,8 @@ const SearchBar = () => {
 
     const handleSearchSelection = (e, city) => {
         e.preventDefault();
-
+        history.push(`/${city}`);
+        // history.push("/Miami");
     }
 
 
@@ -42,20 +45,22 @@ const SearchBar = () => {
             {searchResults && city && (
                 <ul class="list-group" style={{
                     position: 'absolute',
-                    width: '12.7rem',
+                    width: '23.7rem',
                     maxHeight: '15rem',
                     overflow: 'auto',
-                    zIndex: '100'
+                    zIndex: '100',
+                    marginLeft: '30vw'
                 }}>
                     {searchResults.map(spot => {
                         return (
                             <li style={{
                                 cursor: "pointer",
-                                display: 'flex'
+                                display: 'flex',
                             }} class="list-group-item list-group-item-action">
                                 <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} onClick={(e) => handleSearchSelection(e, spot.city)}>
-                                    {spot.name}
-                                    <small><br></br>{spot.city}</small>
+                                    {/* {spot.name}
+                                    <small><br></br>{spot.city}</small> */}
+                                    {spot.city}
                                 </div>
                             </li>
                         )

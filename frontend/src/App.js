@@ -9,6 +9,7 @@ import LandingPage from "./components/LandingPage/landingPage";
 import SpecificSpotDetails from "./components/SpecificSpotDetails/specificSpotDetails";
 import UserProfile from "./components/UserProfile/userProfile";
 import { getAllSpots } from "./store/spots";
+import SpecificCity from "./components/SpecificCity/SpecificCity";
 
 function App() {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path='/user-profile'>
             <UserProfile />
+          </Route>
+          <Route path='/:specificCity'>
+            <SpecificCity />
           </Route>
         </Switch>
       )}
