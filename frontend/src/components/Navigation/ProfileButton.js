@@ -163,13 +163,13 @@ function ProfileButton({ user }) {
             {showMenu && (
                 <ul className="profile-dropdown">
                     <li>
-                        <button onClick={openCreateSpotForm} className='btn btn airbnbColor hostASpotButton'>Host a Spot</button>
+                        <button onClick={openCreateSpotForm} className='btn btn nomadColor hostASpotButton'>Host a Spot</button>
                     </li>
                     <li>
-                        <button onClick={logout} className='btn btn airbnbColor logOutButton'>Log Out</button>
+                        <button onClick={logout} className='btn btn nomadColor logOutButton'>Log Out</button>
                     </li>
                     <li>
-                        <button onClick={handleOpenProfile} className='btn btn airbnbColor profileButton'>Profile</button>
+                        <button onClick={handleOpenProfile} className='btn btn nomadColor profileButton'>Profile</button>
                     </li>
                 </ul>
             )}

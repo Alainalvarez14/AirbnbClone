@@ -174,3 +174,8 @@
 .hostASpotButton {
     width: 100%;
 }
+
+.nomadColor {
+    color: white;
+    background-color: lightseagreen;
+}

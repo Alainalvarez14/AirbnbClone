@@ -307,8 +307,8 @@ const UserProfile = () => {
                                         <div class="card-text">Check-out: {formatDate(booking.endDate)}</div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor userProfileButtons" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
-                                <button className="btn airbnbColor userProfileButtons" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
+                                <button className="btn nomadColor userProfileButtons" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
                             </div>
                         );
                     })}
@@ -339,7 +339,7 @@ const UserProfile = () => {
                 }
             </div> */}
 
-            <div className="individualSpotsWrapper">
+            <div className="individualSpotsWrapper" style={{ marginBottom: '6vh' }}>
                 {
                     Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
                         return (
@@ -365,8 +365,8 @@ const UserProfile = () => {
                                         <div>${spot.price} </div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor userProfileButtons" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                <button className="btn airbnbColor userProfileButtons" onClick={() => openEditSpotForm(spot)}>Edit</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                                <button className="btn nomadColor userProfileButtons" onClick={() => openEditSpotForm(spot)}>Edit</button>
                             </div>
                         )
                     })
