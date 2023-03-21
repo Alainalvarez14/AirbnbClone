@@ -163,13 +163,13 @@ function ProfileButton({ user }) {
             {showMenu && (
                 <ul className="profile-dropdown">
                     <li>
-                        <button onClick={openCreateSpotForm} className='btn btn nomadColor hostASpotButton'>Host a Spot</button>
+                        <button onClick={openCreateSpotForm} className='btn nomadColor hostASpotButton'>Host a Spot</button>
                     </li>
                     <li>
-                        <button onClick={logout} className='btn btn nomadColor logOutButton'>Log Out</button>
+                        <button onClick={logout} className='btn nomadColor logOutButton'>Log Out</button>
                     </li>
                     <li>
-                        <button onClick={handleOpenProfile} className='btn btn nomadColor profileButton'>Profile</button>
+                        <button onClick={handleOpenProfile} className='btn nomadColor profileButton'>Profile</button>
                     </li>
                 </ul>
             )}
@@ -233,7 +233,7 @@ function ProfileButton({ user }) {
                                 <input type="number" name="price" min="0.00" value={price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
-                        <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton'>Submit</button>
+                        <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton nomadColor'>Submit</button>
                     </form>
                 </div>
             )}

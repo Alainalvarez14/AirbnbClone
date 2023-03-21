@@ -7,7 +7,7 @@ import logo from "../../Logos/nomadTransparentBackground.png"
 const Footer = () => {
     return (
         <div>
-            <nav class="navbar fixed-bottom navbar-light bg-light">
+            <nav class="navbar fixed-bottom navbar-light bg-light entireFooter">
                 <a class="navbar-brand" href="#" target="blank"><img src={`${logo}`} style={{ marginLeft: '2vw', height: '3vh', width: '10vw' }}></img></a>
                 <div>
                     <a class="navbar-brand" href="https://github.com/Alainalvarez14" target="blank"><img src={`${githubLogo}`} class="logo"></img></a>

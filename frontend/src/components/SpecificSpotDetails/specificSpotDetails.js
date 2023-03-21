@@ -121,9 +121,9 @@ const SpecificSpotDetails = () => {
     }
 
     return (
-        <div>
+        <div style={{ background: 'lightseagreen' }}>
             {selectedSpot && (
-                <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh' }}>
+                <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh', paddingBottom: '5vh' }}>
                     <img src={mockHome} class="card-img-top" alt="..." />
                     <div class="card-body">
                         <h3 class="card-text">{selectedSpot.name}</h3>

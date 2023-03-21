@@ -56,11 +56,12 @@ const SearchBar = () => {
                             <li style={{
                                 cursor: "pointer",
                                 display: 'flex',
-                            }} class="list-group-item list-group-item-action" onClick={(e) => handleSearchSelection(e, spot.city)}>
+                            }} class="list-group-item list-group-item-action nomadColor" onClick={(e) => handleSearchSelection(e, spot.city)}>
                                 <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                     {/* {spot.name}
                                     <small><br></br>{spot.city}</small> */}
-                                    {spot.city}
+                                    {spot.city}, {spot.state}
+
                                 </div>
                             </li>
                         )

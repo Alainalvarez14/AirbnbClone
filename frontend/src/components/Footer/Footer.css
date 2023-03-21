@@ -2,3 +2,7 @@
     height: 50px;
     width: 60px;
 }
+
+.entireFooter {
+    z-index: 10000;
+}
