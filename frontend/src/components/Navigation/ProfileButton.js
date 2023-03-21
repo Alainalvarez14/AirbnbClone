@@ -182,7 +182,7 @@ function ProfileButton({ user }) {
                             </ul>
                         )}
                         <div className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>
-                            <i class="far fa-window-close"></i>
+                            <i class="far fa-window-close" style={{ color: 'red' }}></i>
                         </div>
                         <div className="createYourSpotMessage">Create your Spot</div>
                         <ul className="inputBoxFieldsWrapper">

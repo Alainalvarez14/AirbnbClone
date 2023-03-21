@@ -188,7 +188,7 @@ const UserProfile = () => {
                         )}
                         <ul className="editSpotInputBoxFieldsWrapper">
                             <div className="windowCloseIconButton" onClick={(e) => handleCloseFormEditSpot(e)}>
-                                <i className="far fa-window-close"></i>
+                                <i className="far fa-window-close" style={{ color: 'red' }}></i>
                             </div>
                             <div className="editYourSpotMessage">Edit your spot</div>
                             <div className="editSpotInputBoxFields">
@@ -238,14 +238,14 @@ const UserProfile = () => {
                                 <input type="number" name="price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
-                        <button onClick={(e) => handleSubmit(e)} className='editSpotFormSubmitButton'>Submit</button>
+                        <button onClick={(e) => handleSubmit(e)} className='editSpotFormSubmitButton nomadColor'>Submit</button>
                     </form>
                 </div>
             )}
             {showEditBookingForm && (
                 <div className="editBookingFormWrapper">
                     <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
-                        <i className="far fa-window-close"></i>
+                        <i className="far fa-window-close" style={{ color: 'red' }}></i>
                     </div>
                     <div className="editYourReservationMessage">Edit your reservation</div>
                     <form className="editBookingForm">
@@ -261,7 +261,7 @@ const UserProfile = () => {
                                 <label>Check-out:</label>
                                 <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                             </div>
-                            <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton'>Book Now!</button>
+                            <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton nomadColor'>Book Now!</button>
                             {/* <p>You won't be charged yet</p> */}
                         </ul>
                         {/* <button onClick={(e) => handleSubmitBooking(e)}>Book Now!</button> */}
