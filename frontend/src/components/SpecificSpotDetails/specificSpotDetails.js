@@ -75,7 +75,7 @@ const SpecificSpotDetails = () => {
                         </div>
                 )}
             </div> :
-            <div>no bookings for this property</div>
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
     }
 
     const handleReviewToEdit = (review) => {
@@ -156,9 +156,9 @@ const SpecificSpotDetails = () => {
                                     </div>
                                 </div>}
                         </div>
-                        <div class="card" style={{ width: '35vw', maxWidth: '650px', marginTop: '-22vh', maxHeight: '195px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{selectedSpot.description}fhsrthsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrshtrfhsrthtrshtrshtrshrth</li>
+                        <div class="card" style={{ width: '35vw', maxWidth: '650px', marginTop: '-22vh', height: '172px' }}>
+                            <ul class="list-group list-group-flush" style={{ overflowY: 'scroll', paddingBottom: '0.5vh' }}>
+                                <li class="list-group-item">{selectedSpot.description}fhsrthsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrshtrfhsrthtrshtrshtrshrtheeeeeeeeee</li>
                             </ul>
                         </div>
                         {/* {leaveReviewForm && (
