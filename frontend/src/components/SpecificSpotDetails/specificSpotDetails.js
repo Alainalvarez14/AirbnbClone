@@ -124,7 +124,7 @@ const SpecificSpotDetails = () => {
     }
 
     return (
-        <div style={{ background: 'lightseagreen' }}>
+        <div style={{ background: 'lightseagreen', paddingBottom: '20px', paddingTop: '30px' }}>
             {selectedSpot && (
                 <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh', paddingBottom: '5vh' }}>
                     <img src={mockHome} class="card-img-top" alt="..." />
