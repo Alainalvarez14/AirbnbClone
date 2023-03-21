@@ -62,20 +62,23 @@ const SpecificSpotDetails = () => {
 
     const hasBookings = () => {
         return selectedSpot.ownerId === userId && Object.values(allBookings).length ?
-            <div className="bookingNameAndDatesWrapper">
-                {Object.values(allBookings).map(
-                    booking =>
-                        // startDateFormat = formatDate(booking.startDate)
-                        // endDateFormat = formatDate(booking.endDate)
-                        <div className="bookingNameAndDates">
-                            <p>User: {booking.User?.firstName} {booking.User?.lastName}</p>
-                            {/* <p>Check-in: {booking.startDate}</p> */}
-                            <p>Check-in: {formatDate(booking.startDate)}</p>
-                            <p>Check-out: {formatDate(booking.endDate)}</p>
-                        </div>
-                )}
+            <div className="confirmedBookingsList">
+                <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
+                <div className="bookingNameAndDatesWrapper">
+                    {Object.values(allBookings).map(
+                        booking =>
+                            <div className="bookingNameAndDates">
+                                <p>User: {booking.User?.firstName} {booking.User?.lastName}</p>
+                                <p>Check-in: {formatDate(booking.startDate)}</p>
+                                <p>Check-out: {formatDate(booking.endDate)}</p>
+                            </div>
+                    )}
+                </div>
             </div> :
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
+            <div className="confirmedBookingsList" style={{ overflowY: 'unset' }}>
+                <div className="confirmedBookingsTitle" style={{ marginTop: '-8vh' }}>Confirmed Bookings:</div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
+            </div>
     }
 
     const handleReviewToEdit = (review) => {
@@ -131,8 +134,7 @@ const SpecificSpotDetails = () => {
                             <p className="spotAddress">{selectedSpot.city}, {selectedSpot.state}, {selectedSpot.country}</p>
                             <p className="spotPrice">${selectedSpot.price} night</p>
                             {selectedSpot.ownerId === userId ?
-                                <div className="confirmedBookingsList">
-                                    <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
+                                <div>
                                     <div>{allBookings && hasBookings()}</div>
                                 </div> :
                                 <div style={{ maxHeight: '23vh', marginBottom: '8vh' }}>
