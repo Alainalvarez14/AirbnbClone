@@ -76,7 +76,7 @@ const SpecificSpotDetails = () => {
                 </div>
             </div> :
             <div className="confirmedBookingsList" style={{ overflowY: 'unset' }}>
-                <div className="confirmedBookingsTitle" style={{ marginTop: '-8vh' }}>Confirmed Bookings:</div>
+                <div className="confirmedBookingsTitle" style={{ marginTop: '-11vh' }}>Confirmed Bookings:</div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
             </div>
     }
