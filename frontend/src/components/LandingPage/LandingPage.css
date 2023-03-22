@@ -40,3 +40,8 @@ NavLink {
 .indivSpot {
     margin-bottom: 20px;
 }
+
+.spot:hover {
+    box-shadow: rgb(32 178 170 / 42%) 0px 6px 16px;
+    opacity: 0.8;
+}

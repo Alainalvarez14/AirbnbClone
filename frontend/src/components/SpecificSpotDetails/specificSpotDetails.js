@@ -62,20 +62,23 @@ const SpecificSpotDetails = () => {
 
     const hasBookings = () => {
         return selectedSpot.ownerId === userId && Object.values(allBookings).length ?
-            <div className="bookingNameAndDatesWrapper">
-                {Object.values(allBookings).map(
-                    booking =>
-                        // startDateFormat = formatDate(booking.startDate)
-                        // endDateFormat = formatDate(booking.endDate)
-                        <div className="bookingNameAndDates">
-                            <p>User: {booking.User?.firstName} {booking.User?.lastName}</p>
-                            {/* <p>Check-in: {booking.startDate}</p> */}
-                            <p>Check-in: {formatDate(booking.startDate)}</p>
-                            <p>Check-out: {formatDate(booking.endDate)}</p>
-                        </div>
-                )}
+            <div className="confirmedBookingsList">
+                <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
+                <div className="bookingNameAndDatesWrapper">
+                    {Object.values(allBookings).map(
+                        booking =>
+                            <div className="bookingNameAndDates">
+                                <p>User: {booking.User?.firstName} {booking.User?.lastName}</p>
+                                <p>Check-in: {formatDate(booking.startDate)}</p>
+                                <p>Check-out: {formatDate(booking.endDate)}</p>
+                            </div>
+                    )}
+                </div>
             </div> :
-            <div>no bookings for this property</div>
+            <div className="confirmedBookingsList" style={{ overflowY: 'unset' }}>
+                <div className="confirmedBookingsTitle" style={{ marginTop: '-11vh' }}>Confirmed Bookings:</div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
+            </div>
     }
 
     const handleReviewToEdit = (review) => {
@@ -91,8 +94,8 @@ const SpecificSpotDetails = () => {
                     {/* <div style={{ fontWeight: 'bold' }}>{review.User.firstName}</div> */}
                     <div>{review.review}</div>
                     <div>Stars: {review.stars}</div>
-                    <button type="button" class="btn btn airbnbColor" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
-                    <button type="button" class="btn btn airbnbColor" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
+                    <button type="button" class="btn btn nomadColor" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
+                    <button type="button" class="btn btn nomadColor" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
                 </div>
             })}</div>
             : <div>Be the first to leave a review!!</div>
@@ -120,10 +123,12 @@ const SpecificSpotDetails = () => {
         dispatch(editReviewThunk(editedReviewObj));
     }
 
+
+
     return (
-        <div>
+        <div style={{ background: 'lightseagreen', paddingBottom: '20px', paddingTop: '30px' }}>
             {selectedSpot && (
-                <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto' }}>
+                <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh', paddingBottom: '5vh' }}>
                     <img src={mockHome} class="card-img-top" alt="..." />
                     <div class="card-body">
                         <h3 class="card-text">{selectedSpot.name}</h3>
@@ -131,12 +136,11 @@ const SpecificSpotDetails = () => {
                             <p className="spotAddress">{selectedSpot.city}, {selectedSpot.state}, {selectedSpot.country}</p>
                             <p className="spotPrice">${selectedSpot.price} night</p>
                             {selectedSpot.ownerId === userId ?
-                                <div className="confirmedBookingsList">
-                                    <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
+                                <div>
                                     <div>{allBookings && hasBookings()}</div>
                                 </div> :
                                 <div style={{ maxHeight: '23vh', marginBottom: '8vh' }}>
-                                    <button type="button" class="btn btn airbnbColor" /* onClick={(e) => setLeaveReviewForm(!leaveReviewForm)} */ data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
+                                    <button type="button" class="btn btn nomadColor" /* onClick={(e) => setLeaveReviewForm(!leaveReviewForm)} */ data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
                                     <div className="createBookingFormWrapper">
                                         <div className="bookYourStayMessage">Book your stay</div>
                                         <form className="createBookingForm">
@@ -149,48 +153,23 @@ const SpecificSpotDetails = () => {
                                                     <label>Check-out:</label>
                                                     <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                                                 </div>
-                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton'>Book Now!</button>
+                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton nomadColor'>Book Now!</button>
                                                 <p>You won't be charged yet</p>
                                             </ul>
                                         </form>
                                     </div>
                                 </div>}
                         </div>
-                        <div class="card" style={{ width: '35vw', maxWidth: '650px', marginTop: '-22vh', maxHeight: '195px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{selectedSpot.description}fhsrthsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrshtrfhsrthtrshtrshtrshrth</li>
+                        <div class="card" style={{ width: '35vw', maxWidth: '650px', marginTop: '-22vh', height: '172px' }}>
+                            <ul class="list-group list-group-flush" style={{ paddingBottom: '0.5vh', overflowY: 'scroll' }}>
+                                <li class="list-group-item">{selectedSpot.description}fhsrthsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrshtrfhsrthtrshtrshtrshrtheeeeeeeeee</li>
                             </ul>
                         </div>
-                        {/* {leaveReviewForm && (
-                            <form>
-                                <div>
-                                    <label>Review:</label>
-                                    <input onChange={(e) => setReview(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <label>Stars:</label>
-                                    <input onChange={(e) => setStars(e.target.value)}></input>
-                                </div>
-                                <button onClick={(e) => handleSubmitReviewForm(e)}>Submit</button>
-                            </form>
-                        )} */}
+
                         {selectedSpot.numReviews >= 1 && (
                             <div style={{ marginTop: '10vh' }}>{hasReviews()}</div>
                         )}
-                        {/* {openEditReviewForm && (
-                            <form>
-                                <div>
-                                    <label>Review:</label>
-                                    <input onChange={(e) => setReview(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <label>Stars:</label>
-                                    <input onChange={(e) => setStars(e.target.value)}></input>
-                                </div>
-                                <button onClick={(e) => submitEditReview(e)}>Submit</button>
-                                <button onClick={() => setOpenEditReviewForm(false)}>Close Edit Form</button>
-                            </form>
-                        )} */}
+
                     </div>
                 </div>
             )}
@@ -214,7 +193,7 @@ const SpecificSpotDetails = () => {
                                 {review && stars && stars > 0 && stars <= 5 && (
                                     disabled = false
                                 )}
-                                <button type="submit" data-bs-dismiss="modal" class="btn btn airbnbColor" disabled={disabled}>Submit review</button>
+                                <button type="submit" data-bs-dismiss="modal" class="btn btn nomadColor" disabled={disabled}>Submit review</button>
                             </form>
                         </div>
                     </div>
@@ -237,7 +216,7 @@ const SpecificSpotDetails = () => {
                                     <input type="number" min="1" max="5" class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setEditedStars(e.target.value)}></input>
                                     <small>Stars must be from 1-5</small>
                                 </div>
-                                <button type='submit' data-bs-dismiss="modal" class="btn btn airbnbColor" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn btn nomadColor" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
                             </form>
                         </div>
                     </div>

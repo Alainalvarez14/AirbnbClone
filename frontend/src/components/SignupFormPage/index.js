@@ -104,7 +104,7 @@ const SignupFormPage = () => {
                         className='InputBox'
                     />
                 </label>
-                <button type="submit" className='SignupButton'>Sign Up</button>
+                <button type="submit" className='SignupButton nomadColor'>Sign Up</button>
             </form>
         </div>
     );

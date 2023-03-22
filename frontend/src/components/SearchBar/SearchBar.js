@@ -13,7 +13,15 @@ const SearchBar = () => {
 
 
     useEffect(() => {
-        setSearchResults(Object.values(allSpots).filter(spot => spot.city.toLowerCase().includes(city.toLowerCase())));
+        let results = [];
+        Object.values(allSpots).map(spot => {
+            if (spot.city.toLowerCase().includes(city.toLowerCase())) {
+                if (!results.some(result => result.city.toLowerCase() === spot.city.toLowerCase() && result.state.toLowerCase() === spot.state.toLowerCase())) {
+                    results.push(spot);
+                }
+            }
+        })
+        setSearchResults(results)
     }, [city]);
 
     // const handleSearchSubmit = (e) => {
@@ -25,42 +33,43 @@ const SearchBar = () => {
     //     });
     // }
 
-    const handleSearchSelection = (e, city) => {
+    const handleSearchSelection = (e, city, state) => {
         e.preventDefault();
         setSearchResults('');
-        history.push(`/${city}`);
-        // history.push("/Miami");
+        setCity('');
+        history.push(`/${city}-${state}`);
     }
 
 
     return (
         // <nav class="navbar bg-body-tertiary">
         <div>
-            <div class="container-fluid" style={{ maxWidth: '400px', marginTop: '-3.5vh', marginBottom: '1vh' }}>
+            <div class="container-fluid" style={{ maxWidth: '400px', marginTop: '-4.8vh', marginBottom: '1vh' }}>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search by city" aria-label="Search" style={{ borderRadius: '20px' }} onChange={(e) => setCity(e.target.value)} />
+                    <input class="form-control me-2" type="search" placeholder="Search by city" aria-label="Search" style={{ borderRadius: '20px', borderColor: 'lightseagreen' }} value={city} onChange={(e) => setCity(e.target.value)} />
                 </form>
             </div>
 
             {searchResults && city && (
                 <ul class="list-group" style={{
                     position: 'absolute',
-                    width: '23.7rem',
+                    width: '23rem',
                     maxHeight: '15rem',
                     overflow: 'auto',
                     zIndex: '100',
-                    marginLeft: '30vw'
+                    left: '0',
+                    right: '0',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
                 }}>
                     {searchResults.map(spot => {
                         return (
                             <li style={{
                                 cursor: "pointer",
                                 display: 'flex',
-                            }} class="list-group-item list-group-item-action" onClick={(e) => handleSearchSelection(e, spot.city)}>
+                            }} class="list-group-item list-group-item-action nomadColor" onClick={(e) => handleSearchSelection(e, spot.city, spot.state)}>
                                 <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                    {/* {spot.name}
-                                    <small><br></br>{spot.city}</small> */}
-                                    {spot.city}
+                                    {spot.city}, {spot.state}
                                 </div>
                             </li>
                         )

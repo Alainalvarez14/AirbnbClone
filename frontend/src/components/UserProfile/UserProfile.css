@@ -84,8 +84,8 @@ NavLink {
 .editSpotFormSubmitButton {
     width: 200px;
     border-radius: 8px;
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
-    color: white;
+    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
+    /* color: white; */
     height: 40px;
     font-size: 18px;
     margin-left: auto;
@@ -98,6 +98,7 @@ NavLink {
     justify-content: center;
     margin-bottom: 20px;
     font-size: 30px;
+    color: lightseagreen;
 }
 
 .windowCloseIconButton {
@@ -124,6 +125,7 @@ NavLink {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    bottom: 50%;
 }
 
 .editBookingForm {
@@ -160,8 +162,8 @@ NavLink {
 .editBookingFormSubmitButton {
     width: 180px;
     border-radius: 8px;
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
-    color: white;
+    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
+    /* color: white; */
     height: 40px;
     font-size: 18px;
     margin-left: auto;
@@ -188,6 +190,7 @@ NavLink {
     flex-direction: column;
     align-items: center;
     font-size: 30px;
+    color: lightseagreen;
 }
 
 .individualSpotsWrapper>div {

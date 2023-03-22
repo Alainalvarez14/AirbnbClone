@@ -188,7 +188,7 @@ const UserProfile = () => {
                         )}
                         <ul className="editSpotInputBoxFieldsWrapper">
                             <div className="windowCloseIconButton" onClick={(e) => handleCloseFormEditSpot(e)}>
-                                <i className="far fa-window-close"></i>
+                                <i className="far fa-window-close" style={{ color: 'red' }}></i>
                             </div>
                             <div className="editYourSpotMessage">Edit your spot</div>
                             <div className="editSpotInputBoxFields">
@@ -211,10 +211,63 @@ const UserProfile = () => {
                                 {/* <label>City:</label> */}
                                 <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)}></input>
                             </div>
-                            <div className="editSpotInputBoxFields">
-                                {/* <label>State:</label> */}
+                            {/* <div className="editSpotInputBoxFields">
                                 <input type="text" name="state" value={state} onChange={(e) => setTheState(e.target.value)}></input>
-                            </div>
+                            </div> */}
+                            <select name="state" size="1" value={state} onChange={(e) => setTheState(e.target.value)} className="inputBoxFieldsOption">
+                                <option value="">State</option>
+                                <option value="AK">AK</option>
+                                <option value="AL">AL</option>
+                                <option value="AR">AR</option>
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>
+                                <option value="ND">ND</option>
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VA">VA</option>
+                                <option value="VT">VT</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>
                             <div className="editSpotInputBoxFields">
                                 {/* <label>Country:</label> */}
                                 <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
@@ -238,14 +291,14 @@ const UserProfile = () => {
                                 <input type="number" name="price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
-                        <button onClick={(e) => handleSubmit(e)} className='editSpotFormSubmitButton'>Submit</button>
+                        <button onClick={(e) => handleSubmit(e)} className='editSpotFormSubmitButton nomadColor'>Submit</button>
                     </form>
                 </div>
             )}
             {showEditBookingForm && (
                 <div className="editBookingFormWrapper">
                     <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
-                        <i className="far fa-window-close"></i>
+                        <i className="far fa-window-close" style={{ color: 'red' }}></i>
                     </div>
                     <div className="editYourReservationMessage">Edit your reservation</div>
                     <form className="editBookingForm">
@@ -261,7 +314,7 @@ const UserProfile = () => {
                                 <label>Check-out:</label>
                                 <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                             </div>
-                            <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton'>Book Now!</button>
+                            <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton nomadColor'>Book Now!</button>
                             {/* <p>You won't be charged yet</p> */}
                         </ul>
                         {/* <button onClick={(e) => handleSubmitBooking(e)}>Book Now!</button> */}
@@ -297,7 +350,7 @@ const UserProfile = () => {
                     {Object.values(bookingsList).filter(booking => booking.userId === user.id).map(booking => {
                         const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
                         return (
-                            <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
+                            <div class="card spot" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." />
                                     <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>
@@ -307,8 +360,8 @@ const UserProfile = () => {
                                         <div class="card-text">Check-out: {formatDate(booking.endDate)}</div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor userProfileButtons" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
-                                <button className="btn airbnbColor userProfileButtons" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
+                                <button className="btn nomadColor userProfileButtons" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
                             </div>
                         );
                     })}
@@ -339,7 +392,7 @@ const UserProfile = () => {
                 }
             </div> */}
 
-            <div className="individualSpotsWrapper">
+            <div className="individualSpotsWrapper" style={{ marginBottom: '6vh' }}>
                 {
                     Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
                         return (
@@ -356,7 +409,7 @@ const UserProfile = () => {
                             //     <button className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
                             //     <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
                             // </div>
-                            <div class="card" style={{ width: "18rem", marginRight: '1vw' }}>
+                            <div class="card spot" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img style={{ height: '20vh' }} src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." />
                                     <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>
@@ -365,8 +418,8 @@ const UserProfile = () => {
                                         <div>${spot.price} </div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn airbnbColor userProfileButtons" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                <button className="btn airbnbColor userProfileButtons" onClick={() => openEditSpotForm(spot)}>Edit</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                                <button className="btn nomadColor userProfileButtons" onClick={() => openEditSpotForm(spot)}>Edit</button>
                             </div>
                         )
                     })
