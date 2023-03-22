@@ -24,11 +24,8 @@ const SpecificSpotDetails = () => {
     const [endDate, setEndDate] = useState(new Date());
     const dispatch = useDispatch();
     const history = useHistory();
-    const [leaveReviewForm, setLeaveReviewForm] = useState(false);
     const [review, setReview] = useState('');
     const [stars, setStars] = useState('');
-    const [openEditReviewForm, setOpenEditReviewForm] = useState(false);
-    const [reviewId, setReviewId] = useState('');
     let disabled = false;
     const [reviewToEdit, setReviewToEdit] = useState('');
     const [editedReview, setEditedReview] = useState(reviewToEdit.review);
@@ -75,7 +72,7 @@ const SpecificSpotDetails = () => {
                     )}
                 </div>
             </div> :
-            <div className="confirmedBookingsList" style={{ overflowY: 'unset' }}>
+            <div className="confirmedBookingsList" style={{ overflowY: 'unset', left: '60%' }}>
                 <div className="confirmedBookingsTitle" style={{ marginTop: '-11vh' }}>Confirmed Bookings:</div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
             </div>
@@ -99,15 +96,6 @@ const SpecificSpotDetails = () => {
                 </div>
             })}</div>
             : <div>Be the first to leave a review!!</div>
-    }
-
-    const handleEditReview = (e, review) => {
-        e.preventDefault();
-        console.log(review);
-        setReviewId(review.id);
-        setReview(review.review);
-        setStars(review.stars);
-        setOpenEditReviewForm(true);
     }
 
     const handleSubmitReviewForm = (e) => {

@@ -71,14 +71,6 @@
     border-bottom: 0.7px solid rgb(181, 180, 180);
 }
 
-/* .logoText {
-    text-decoration: none;
-    color: rgb(230, 30, 77);
-    font-weight: bold;
-    font-size: 40px;
-    margin-left: 1.8vw;
-} */
-
 .createSpotForm {
     display: flex;
     flex-direction: column;
@@ -127,33 +119,35 @@
     height: 30px;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 3px;
 }
 
 .loginButton {
-    border: 1.2px solid rgb(181, 180, 180);
+    border: 1.2px solid lightseagreen;
     display: flex;
     justify-content: center;
     width: 100px;
     border-radius: 8px;
-    color: rgb(226, 43, 135);
+    color: lightseagreen;
     text-decoration: none;
     float: right;
-    margin-top: 10px;
+    margin-top: 2vh;
     margin-left: 20px;
     font-size: 25px;
     font-weight: bold;
+    margin-right: 2vw;
 }
 
 .signupButton {
-    border: 1.2px solid rgb(181, 180, 180);
+    border: 1.2px solid lightseagreen;
     display: flex;
     justify-content: center;
     width: 100px;
     border-radius: 8px;
-    color: rgb(230, 30, 77);
+    color: lightseagreen;
     text-decoration: none;
     float: right;
-    margin-top: 10px;
+    margin-top: 2vh;
     font-size: 25px;
     font-weight: bold;
 }
