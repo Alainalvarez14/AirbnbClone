@@ -72,7 +72,7 @@ const SpecificSpotDetails = () => {
                     )}
                 </div>
             </div> :
-            <div className="confirmedBookingsList" style={{ overflowY: 'unset', left: '60%' }}>
+            <div className="confirmedBookingsList" style={{ overflowY: 'unset' }}>
                 <div className="confirmedBookingsTitle" style={{ marginTop: '-11vh' }}>Confirmed Bookings:</div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
             </div>
@@ -128,7 +128,7 @@ const SpecificSpotDetails = () => {
                                     <div>{allBookings && hasBookings()}</div>
                                 </div> :
                                 <div style={{ maxHeight: '23vh', marginBottom: '8vh' }}>
-                                    <button type="button" class="btn btn nomadColor" /* onClick={(e) => setLeaveReviewForm(!leaveReviewForm)} */ data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
+                                    <button type="button" class="btn btn nomadColor" data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
                                     <div className="createBookingFormWrapper">
                                         <div className="bookYourStayMessage">Book your stay</div>
                                         <form className="createBookingForm">
