@@ -116,6 +116,19 @@
     border: 1.2px solid rgb(181, 180, 180);
 }
 
+.inputBoxFieldsOption {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    border: 1.2px solid rgb(181, 180, 180);
+    width: 200px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .loginButton {
     border: 1.2px solid rgb(181, 180, 180);
     display: flex;

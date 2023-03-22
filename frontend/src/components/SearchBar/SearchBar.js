@@ -33,12 +33,11 @@ const SearchBar = () => {
     //     });
     // }
 
-    const handleSearchSelection = (e, city) => {
+    const handleSearchSelection = (e, city, state) => {
         e.preventDefault();
         setSearchResults('');
         setCity('');
-        history.push(`/${city}`);
-        // history.push("/Miami");
+        history.push(`/${city}-${state}`);
     }
 
 
@@ -68,7 +67,7 @@ const SearchBar = () => {
                             <li style={{
                                 cursor: "pointer",
                                 display: 'flex',
-                            }} class="list-group-item list-group-item-action nomadColor" onClick={(e) => handleSearchSelection(e, spot.city)}>
+                            }} class="list-group-item list-group-item-action nomadColor" onClick={(e) => handleSearchSelection(e, spot.city, spot.state)}>
                                 <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                                     {spot.city}, {spot.state}
                                 </div>

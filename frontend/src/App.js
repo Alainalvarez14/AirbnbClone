@@ -41,7 +41,7 @@ function App() {
           <Route path='/user-profile'>
             <UserProfile />
           </Route>
-          <Route path='/:specificCity'>
+          <Route path='/:cityState'>
             <SpecificCity />
           </Route>
         </Switch>

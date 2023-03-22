@@ -10,7 +10,10 @@ import { getAllSpots } from "../../store/spots";
 
 const SpecificCity = () => {
 
-    let { specificCity } = useParams();
+    let { cityState } = useParams();
+    let myCity = cityState.split('-')[0];
+    let myState = cityState.split('-')[1];
+
     const dispatch = useDispatch();
     const spotList = useSelector(state => state.spots);
     const [showEditSpotForm, setShowEditSpotForm] = useState(false);
@@ -24,10 +27,7 @@ const SpecificCity = () => {
     const [lat, setLat] = useState(0);
     const [price, setPrice] = useState(0);
     const [id, setId] = useState(0);
-    // if (spotList) {
-    let filteredSpots = Object.values(spotList)?.filter(spot => spot.city === specificCity)
-    // console.log(filteredSpots)
-    // }
+    let filteredSpots = Object.values(spotList)?.filter(spot => spot.city.toLowerCase() === myCity.toLowerCase() && spot.state === myState);
 
     useEffect(() => {
         dispatch(getAllSpots());
