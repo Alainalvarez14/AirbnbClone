@@ -13,7 +13,15 @@ const SearchBar = () => {
 
 
     useEffect(() => {
-        setSearchResults(Object.values(allSpots).filter(spot => spot.city.toLowerCase().includes(city.toLowerCase())));
+        let results = [];
+        Object.values(allSpots).map(spot => {
+            if (spot.city.toLowerCase().includes(city.toLowerCase())) {
+                if (!results.some(result => result.city.toLowerCase() === spot.city.toLowerCase() && result.state.toLowerCase() === spot.state.toLowerCase())) {
+                    results.push(spot);
+                }
+            }
+        })
+        setSearchResults(results)
     }, [city]);
 
     // const handleSearchSubmit = (e) => {
@@ -45,11 +53,14 @@ const SearchBar = () => {
             {searchResults && city && (
                 <ul class="list-group" style={{
                     position: 'absolute',
-                    width: '23.7rem',
+                    width: '23rem',
                     maxHeight: '15rem',
                     overflow: 'auto',
                     zIndex: '100',
-                    marginLeft: '23rem'
+                    left: '0',
+                    right: '0',
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
                 }}>
                     {searchResults.map(spot => {
                         return (
