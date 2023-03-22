@@ -29,7 +29,7 @@ const LoginFormPage = () => {
         <div className="formWrapper">
             <form onSubmit={handleSubmit} className='loginForm'>
                 <div className="welcomeMessage">Welcome to Airbnb</div>
-                <ul>
+                <ul style={{ color: 'red', listStyleType: 'none' }}>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <label className="textLabelWrapper">
@@ -54,7 +54,7 @@ const LoginFormPage = () => {
                         className="inputBox"
                     />
                 </label>
-                <button type="submit" className="LoginButton">Log In</button>
+                <button type="submit" className="LoginButton nomadColor">Log In</button>
             </form>
         </div>
 
