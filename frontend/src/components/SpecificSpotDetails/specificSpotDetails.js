@@ -123,6 +123,8 @@ const SpecificSpotDetails = () => {
         dispatch(editReviewThunk(editedReviewObj));
     }
 
+
+
     return (
         <div style={{ background: 'lightseagreen', paddingBottom: '20px', paddingTop: '30px' }}>
             {selectedSpot && (
@@ -159,40 +161,15 @@ const SpecificSpotDetails = () => {
                                 </div>}
                         </div>
                         <div class="card" style={{ width: '35vw', maxWidth: '650px', marginTop: '-22vh', height: '172px' }}>
-                            <ul class="list-group list-group-flush" style={{ overflowY: 'scroll', paddingBottom: '0.5vh' }}>
+                            <ul class="list-group list-group-flush" style={{ paddingBottom: '0.5vh', overflowY: 'scroll' }}>
                                 <li class="list-group-item">{selectedSpot.description}fhsrthsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrshtrfhsrthtrshtrshtrshrtheeeeeeeeee</li>
                             </ul>
                         </div>
-                        {/* {leaveReviewForm && (
-                            <form>
-                                <div>
-                                    <label>Review:</label>
-                                    <input onChange={(e) => setReview(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <label>Stars:</label>
-                                    <input onChange={(e) => setStars(e.target.value)}></input>
-                                </div>
-                                <button onClick={(e) => handleSubmitReviewForm(e)}>Submit</button>
-                            </form>
-                        )} */}
+
                         {selectedSpot.numReviews >= 1 && (
                             <div style={{ marginTop: '10vh' }}>{hasReviews()}</div>
                         )}
-                        {/* {openEditReviewForm && (
-                            <form>
-                                <div>
-                                    <label>Review:</label>
-                                    <input onChange={(e) => setReview(e.target.value)}></input>
-                                </div>
-                                <div>
-                                    <label>Stars:</label>
-                                    <input onChange={(e) => setStars(e.target.value)}></input>
-                                </div>
-                                <button onClick={(e) => submitEditReview(e)}>Submit</button>
-                                <button onClick={() => setOpenEditReviewForm(false)}>Close Edit Form</button>
-                            </form>
-                        )} */}
+
                     </div>
                 </div>
             )}

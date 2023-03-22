@@ -36,6 +36,7 @@ const SearchBar = () => {
     const handleSearchSelection = (e, city) => {
         e.preventDefault();
         setSearchResults('');
+        setCity('');
         history.push(`/${city}`);
         // history.push("/Miami");
     }
@@ -46,7 +47,7 @@ const SearchBar = () => {
         <div>
             <div class="container-fluid" style={{ maxWidth: '400px', marginTop: '-4.8vh', marginBottom: '1vh' }}>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search by city" aria-label="Search" style={{ borderRadius: '20px', borderColor: 'lightseagreen' }} onChange={(e) => setCity(e.target.value)} />
+                    <input class="form-control me-2" type="search" placeholder="Search by city" aria-label="Search" style={{ borderRadius: '20px', borderColor: 'lightseagreen' }} value={city} onChange={(e) => setCity(e.target.value)} />
                 </form>
             </div>
 
@@ -69,10 +70,7 @@ const SearchBar = () => {
                                 display: 'flex',
                             }} class="list-group-item list-group-item-action nomadColor" onClick={(e) => handleSearchSelection(e, spot.city)}>
                                 <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                    {/* {spot.name}
-                                    <small><br></br>{spot.city}</small> */}
                                     {spot.city}, {spot.state}
-
                                 </div>
                             </li>
                         )
