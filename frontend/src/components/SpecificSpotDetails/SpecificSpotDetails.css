@@ -146,8 +146,8 @@
     flex-direction: column;
     justify-content: center;
     box-shadow: rgb(0 0 0 / 42%) 0px 6px 16px;
-    overflow-y: scroll;
-    padding-top: 13vh;
+    /* overflow-y: scroll; */
+    /* padding-top: 13vh; */
     padding-bottom: 2vh;
     left: 60%;
 }

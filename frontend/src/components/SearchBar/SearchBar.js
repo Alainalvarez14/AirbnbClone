@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./SearchBar.css"
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 
 const SearchBar = () => {
 
@@ -10,7 +10,7 @@ const SearchBar = () => {
     const allSpots = useSelector(state => state.spots);
     const [searchResults, setSearchResults] = useState('');
     const history = useHistory();
-
+    const location = useLocation()
 
     useEffect(() => {
         let results = [];
@@ -24,14 +24,9 @@ const SearchBar = () => {
         setSearchResults(results)
     }, [city]);
 
-    // const handleSearchSubmit = (e) => {
-    //     e.preventDefault();
-    //     Object.values(allSpots).filter(spot => {
-    //         if (spot.city === city) {
-
-    //         }
-    //     });
-    // }
+    useEffect(() => {
+        setCity('');
+    }, [location]);
 
     const handleSearchSelection = (e, city, state) => {
         e.preventDefault();

@@ -65,8 +65,8 @@ const SpecificSpotDetails = () => {
 
     const hasBookings = () => {
         return selectedSpot.ownerId === user.id && Object.values(allBookings).length ?
-            <div className="confirmedBookingsList">
-                <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
+            <div className="confirmedBookingsList" style={{ overflowY: 'auto' }}>
+                <div className="confirmedBookingsTitle" style={{}}>Confirmed Bookings:</div>
                 <div className="bookingNameAndDatesWrapper">
                     {Object.values(allBookings).map(
                         booking =>
@@ -78,7 +78,7 @@ const SpecificSpotDetails = () => {
                     )}
                 </div>
             </div> :
-            <div className="confirmedBookingsList" style={{ overflowY: 'unset' }}>
+            <div className="confirmedBookingsList" style={{ overflowY: 'unset', paddingTop: '13vh' }}>
                 <div className="confirmedBookingsTitle" style={{ marginTop: '-11vh' }}>Confirmed Bookings:</div>
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>no bookings for this property</div>
             </div>
@@ -154,14 +154,12 @@ const SpecificSpotDetails = () => {
                                 </div>}
                         </div>
                         <div class="card" style={{ width: '35vw', maxWidth: '650px', marginTop: '-22vh', height: '172px' }}>
-                            <ul class="list-group list-group-flush" style={{ paddingBottom: '0.5vh', overflowY: 'scroll' }}>
-                                <li class="list-group-item">{selectedSpot.description}fhsrthsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrfhsrthtrshtrshtrfhsrthtrshtrshtrshrtheeeeeeeeee</li>
+                            <ul class="list-group list-group-flush" style={{ paddingBottom: '0.5vh', overflowY: 'auto' }}>
+                                <li class="list-group-item">{selectedSpot.description}</li>
                             </ul>
                         </div>
 
-                        {/* {selectedSpot.numReviews >= 1 && ( */}
                         <div style={{ marginTop: '10vh' }}>{hasReviews()}</div>
-                        {/* )} */}
 
                     </div>
                 </div>
