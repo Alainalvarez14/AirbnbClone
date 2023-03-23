@@ -19,7 +19,8 @@ const SpecificSpotDetails = () => {
     const allBookings = useSelector(state => state.bookings);
     const allReviews = useSelector(state => state.reviews);
     const selectedSpot = Object.values(allSpots).find(spot => spot.id === parseInt(spotId));
-    const userId = useSelector(state => state.session.user.id);
+    const user = useSelector(state => state.session.user);
+    // const userId = useSelector(state => state.session.user.id);
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const dispatch = useDispatch();
@@ -33,14 +34,19 @@ const SpecificSpotDetails = () => {
 
     const handleClick = (e) => {
         e.preventDefault();
-        const bookingObj = { userId, spotId: parseInt(spotId), startDate, endDate };
+        const bookingObj = { userId: user.id, spotId: parseInt(spotId), startDate, endDate };
         dispatch(createBookingThunk(bookingObj));
         history.push("/user-profile");
     };
 
     useEffect(() => {
-        dispatch(getAllBookingsBySpotIdThunk(spotId));
-        dispatch(getAllReviewsThunk(spotId));
+        if (user) {
+            dispatch(getAllBookingsBySpotIdThunk(spotId));
+            dispatch(getAllReviewsThunk(spotId));
+        }
+        else {
+            history.push("/");
+        }
     }, [dispatch]);
 
     const formatDate = (date) => {
@@ -58,7 +64,7 @@ const SpecificSpotDetails = () => {
     };
 
     const hasBookings = () => {
-        return selectedSpot.ownerId === userId && Object.values(allBookings).length ?
+        return selectedSpot.ownerId === user.id && Object.values(allBookings).length ?
             <div className="confirmedBookingsList">
                 <div className="confirmedBookingsTitle">Confirmed Bookings:</div>
                 <div className="bookingNameAndDatesWrapper">
@@ -85,29 +91,28 @@ const SpecificSpotDetails = () => {
     }
 
     const hasReviews = () => {
-        return Object.values(allReviews).length
-            ? <div>{Object.values(allReviews).map(review => {
+        return Object.values(allReviews).filter(review => review.spotId === Number(spotId)).length
+            ? <div>{Object.values(allReviews).filter(review => review.spotId === Number(spotId)).map(review => {
                 return <div>
-                    {/* <div style={{ fontWeight: 'bold' }}>{review.User.firstName}</div> */}
                     <div>{review.review}</div>
                     <div>Stars: {review.stars}</div>
-                    <button type="button" class="btn btn nomadColor" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
-                    <button type="button" class="btn btn nomadColor" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
+                    <button type="button" class="btn nomadColor" style={{ marginRight: '1vw', border: '1px solid lightseagreen' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
+                    <button type="button" class="btn nomadColor" style={{ border: '1px solid lightseagreen' }} data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
                 </div>
             })}</div>
-            : <div>Be the first to leave a review!!</div>
+            : <div>No reviews have been left yet!</div>
     }
 
     const handleSubmitReviewForm = (e) => {
         e.preventDefault();
-        const reviewObj = { userId, spotId: parseInt(spotId), review, stars: Number(stars) };
+        const reviewObj = { userId: user.id, spotId: parseInt(spotId), review, stars: Number(stars) };
         console.log(reviewObj);
         dispatch(createReviewThunk(reviewObj));
     }
 
     const submitEditReview = (e) => {
         e.preventDefault();
-        let editedReviewObj = { id: reviewToEdit.id, userId, spotId: parseInt(spotId), review: editedReview, stars: Number(editedStars) };
+        let editedReviewObj = { id: reviewToEdit.id, userId: user.id, spotId: parseInt(spotId), review: editedReview, stars: Number(editedStars) };
         dispatch(editReviewThunk(editedReviewObj));
     }
 
@@ -115,7 +120,7 @@ const SpecificSpotDetails = () => {
 
     return (
         <div style={{ background: 'lightseagreen', paddingBottom: '20px', paddingTop: '30px' }}>
-            {selectedSpot && (
+            {selectedSpot && user && (
                 <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh', paddingBottom: '5vh' }}>
                     <img src={mockHome} class="card-img-top" alt="..." />
                     <div class="card-body">
@@ -123,12 +128,12 @@ const SpecificSpotDetails = () => {
                         <div>
                             <p className="spotAddress">{selectedSpot.city}, {selectedSpot.state}, {selectedSpot.country}</p>
                             <p className="spotPrice">${selectedSpot.price} night</p>
-                            {selectedSpot.ownerId === userId ?
+                            {selectedSpot.ownerId === user.id ?
                                 <div>
                                     <div>{allBookings && hasBookings()}</div>
                                 </div> :
                                 <div style={{ maxHeight: '23vh', marginBottom: '8vh' }}>
-                                    <button type="button" class="btn btn nomadColor" data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
+                                    <button type="button" class="btn nomadColor" style={{ border: '1px solid lightseagreen' }} data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
                                     <div className="createBookingFormWrapper">
                                         <div className="bookYourStayMessage">Book your stay</div>
                                         <form className="createBookingForm">
@@ -154,9 +159,9 @@ const SpecificSpotDetails = () => {
                             </ul>
                         </div>
 
-                        {selectedSpot.numReviews >= 1 && (
-                            <div style={{ marginTop: '10vh' }}>{hasReviews()}</div>
-                        )}
+                        {/* {selectedSpot.numReviews >= 1 && ( */}
+                        <div style={{ marginTop: '10vh' }}>{hasReviews()}</div>
+                        {/* )} */}
 
                     </div>
                 </div>

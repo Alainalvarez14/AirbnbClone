@@ -86,7 +86,6 @@
 .createBookingFormSubmitButton {
     width: 180px;
     border-radius: 8px;
-    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
     color: white;
     height: 40px;
     font-size: 18px;
@@ -98,6 +97,11 @@
     align-items: center;
 }
 
+.createBookingFormSubmitButton:hover {
+    color: lightseagreen;
+    background-color: white;
+    border: 1px solid lightseagreen;
+}
 
 /* .windowCloseIconButtonCreateBookingForm {
     font-size: 25px;
