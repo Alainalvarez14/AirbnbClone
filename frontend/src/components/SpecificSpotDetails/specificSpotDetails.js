@@ -147,7 +147,7 @@ const SpecificSpotDetails = () => {
                                                     <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                                                 </div>
                                                 <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton nomadColor'>Book Now!</button>
-                                                <p>You won't be charged yet</p>
+                                                <div style={{ paddingTop: '0.7vh', textAlign: 'center' }}>You won't be charged yet!</div>
                                             </ul>
                                         </form>
                                     </div>
