@@ -66,7 +66,7 @@ const SpecificSpotDetails = () => {
     const hasBookings = () => {
         return selectedSpot.ownerId === user.id && Object.values(allBookings).length ?
             <div className="confirmedBookingsList" style={{ overflowY: 'auto' }}>
-                <div className="confirmedBookingsTitle" style={{}}>Confirmed Bookings:</div>
+                <div className="confirmedBookingsTitle" style={{ marginTop: Object.values(allBookings).length > 2 ? '150px' : '0' }}>Confirmed Bookings:</div>
                 <div className="bookingNameAndDatesWrapper">
                     {Object.values(allBookings).map(
                         booking =>
@@ -122,7 +122,7 @@ const SpecificSpotDetails = () => {
         <div style={{ background: 'lightseagreen', paddingBottom: '20px', paddingTop: '30px' }}>
             {selectedSpot && user && (
                 <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh', paddingBottom: '5vh' }}>
-                    <img src={mockHome} class="card-img-top" alt="..." />
+                    <img src={selectedSpot.previewImage ? selectedSpot.previewImage : mockHome} class="card-img-top" alt="..." />
                     <div class="card-body">
                         <h3 class="card-text">{selectedSpot.name}</h3>
                         <div>
