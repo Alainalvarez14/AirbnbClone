@@ -38,6 +38,7 @@ const UserProfile = () => {
     const [id, setId] = useState(0);
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
+    const [image, setImage] = useState('');
 
     const openEditBookingForm = (booking) => {
         if (showEditBookingForm || showEditSpotForm) return;
@@ -115,11 +116,11 @@ const UserProfile = () => {
             setShowErrors(true);
         }
         else {
-            let spotObj = { id, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
+            let spotObj = { id, previewImage: image, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
             dispatch(editSpot(spotObj));
-            let imageObj = { userId: user.id, spotImageId: id, reviewImageId: null, url: imageUrl, preview: true };
-            dispatch(createImageThunk(imageObj))
-            // dispatch(getAllSpots())
+            // let imageObj = { userId: user.id, spotImageId: id, reviewImageId: null, url: imageUrl, preview: true };
+            // dispatch(createImageThunk(imageObj))
+
             setShowEditSpotForm(false);
             setShowErrors(false);
             setName('');
@@ -180,6 +181,11 @@ const UserProfile = () => {
         setPrice();
     }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
+
     return (
         <div style={{ marginLeft: '2vw', marginRight: '2vw' }}>
             {showEditSpotForm && (
@@ -201,8 +207,11 @@ const UserProfile = () => {
                             <div className="editSpotInputBoxFields">
                                 <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
                             </div>
-                            <div className="editSpotInputBoxFields">
+                            {/* <div className="editSpotInputBoxFields">
                                 <input type="text" name="image" value={imageUrl} placeholder='Image URL' onChange={(e) => setImageUrl(e.target.value)} required></input>
+                            </div> */}
+                            <div className="editSpotInputBoxFields">
+                                <input type="file" onChange={updateFile} required></input>
                             </div>
                             <div className="editSpotInputBoxFields">
                                 <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>

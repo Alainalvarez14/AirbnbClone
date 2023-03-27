@@ -315,7 +315,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
 
 //edit a spot
-router.put('/:spotId', requireAuth, async (req, res, next) => {
+router.patch('/:spotId', singleMulterUpload("previewImage"), requireAuth, asyncHandler(async (req, res, next) => {
 
     const spot = await Spot.findOne({
         where: {
@@ -326,6 +326,11 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         }
     });
     const userId = req.user.id;
+    let previewImage;
+
+    if (req.file) {
+        previewImage = await singlePublicFileUpload(req.file);
+    }
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
     if (!spot) {
@@ -346,13 +351,13 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     if (userId === spot.ownerId) {
 
         await spot.update({
-            address, city, state, country, lat, lng, name, description, price
+            address, previewImage, city, state, country, lat, lng, name, description, price
         });
 
         return res.json(spot);
     }
 
-});
+}));
 
 // add an image to a spot based on spot id
 router.post('/:spotId/images', requireAuth, async (req, res) => {
