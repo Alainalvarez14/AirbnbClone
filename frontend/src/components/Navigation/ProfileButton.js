@@ -24,6 +24,7 @@ function ProfileButton({ user }) {
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
     const spots = useSelector(state => state.spots);
+    const [image, setImage] = useState();
 
     //errors = [{name : 'error'}, {},{}]
 
@@ -100,7 +101,7 @@ function ProfileButton({ user }) {
             setShowErrors(true);
         }
         else {
-            let spotObj = { address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
+            let spotObj = { address, city, previewImage: image, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
 
             dispatch(createSpot(spotObj))
 
@@ -141,6 +142,11 @@ function ProfileButton({ user }) {
         setPrice();
         setErrors([]);
     }
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
 
     return (
         <>
@@ -187,9 +193,11 @@ function ProfileButton({ user }) {
                                 {/* <label>Description:</label> */}
                                 <input type="text" name="description" value={description} placeholder='Description' onChange={(e) => setDescription(e.target.value)}></input>
                             </div>
-                            <div className="inputBoxFields">
-                                {/* <label>Address:</label> */}
+                            {/* <div className="inputBoxFields">
                                 <input type="text" name="image" value={imageUrl} placeholder='Image URL must be set on Edit' onChange={(e) => setImageUrl(e.target.value)} disabled></input>
+                            </div> */}
+                            <div className="inputBoxFields">
+                                <input type="file" onChange={updateFile}></input>
                             </div>
                             <div className="inputBoxFields">
                                 {/* <label>Address:</label> */}
@@ -199,9 +207,6 @@ function ProfileButton({ user }) {
                                 {/* <label>City:</label> */}
                                 <input type="text" name="city" value={city} placeholder='City' onChange={(e) => setCity(e.target.value)}></input>
                             </div>
-                            {/* <div className="inputBoxFields">
-                                <input type="text" name="state" value={state} placeholder='State' onChange={(e) => setTheState(e.target.value)}></input>
-                            </div> */}
                             <select name="state" size="1" value={state} onChange={(e) => setTheState(e.target.value)} className="inputBoxFieldsOption">
                                 <option value="">State</option>
                                 <option value="AK">AK</option>

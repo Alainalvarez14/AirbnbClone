@@ -27,12 +27,39 @@ export const getAllSpots = () => async dispatch => {
 
 export const createSpot = (spot) => async dispatch => {
 
+    const { previewImage, name, description, address, city, state, country, lat, lng, price } = spot;
+
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("address", address);
+    formData.append("city", city);
+    formData.append("state", state);
+    formData.append("country", country);
+    formData.append("lat", lat);
+    formData.append("lng", lng);
+    formData.append("price", price);
+
+    if (previewImage) formData.append("previewImage", previewImage);
+
+    // const response = await csrfFetch('/api/spots', {
+    //     method: "POST",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     },
+    //     body: JSON.stringify(spot)
+    // });
+
+    // if (response.ok) {
+    //     const spot2 = await response.json();
+    //     dispatch(createSpotAction(spot2));
+    // }
     const response = await csrfFetch('/api/spots', {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "multipart/form-data",
         },
-        body: JSON.stringify(spot)
+        body: formData,
     });
 
     if (response.ok) {
