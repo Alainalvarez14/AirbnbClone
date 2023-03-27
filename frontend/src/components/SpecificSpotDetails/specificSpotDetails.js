@@ -21,8 +21,6 @@ const SpecificSpotDetails = () => {
     const selectedSpot = Object.values(allSpots).find(spot => spot.id === parseInt(spotId));
     const user = useSelector(state => state.session.user);
     const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
-    // const [startDate, setStartDate] = useState(new Date());
-    // const [endDate, setEndDate] = useState(new Date());
     let tomorrow = new Date();
     tomorrow.setDate(new Date().getDate() + 1);
     tomorrow = tomorrow.toISOString().split('T')[0];
@@ -112,6 +110,13 @@ const SpecificSpotDetails = () => {
         e.preventDefault();
         const reviewObj = { userId: user.id, spotId: parseInt(spotId), review, stars: Number(stars) };
         console.log(reviewObj);
+        console.log(Object.values(allReviews))
+        Object.values(allReviews).map(review => {
+            if (review.userId === user.id) {
+                alert('Cannot leave more than one review!');
+                return;
+            }
+        });
         dispatch(createReviewThunk(reviewObj));
     }
 
@@ -167,7 +172,7 @@ const SpecificSpotDetails = () => {
                                                 </div>
                                                 <div className='createBookingFormInputFields'>
                                                     <label>Check-out:</label>
-                                                    <input type="date" name="endDate" min={endDate} value={endDate} onChange={(e) => setEndDate(e.target.value)} onKeyDown={(e) => e.preventDefault()}></input>
+                                                    <input type="date" name="endDate" min={tomorrow} value={endDate} onChange={(e) => setEndDate(e.target.value)} onKeyDown={(e) => e.preventDefault()}></input>
                                                 </div>
                                                 {endDate <= startDate
                                                     ? <div style={{ fontSize: 'smaller', textAlign: 'center', color: 'red' }}>Please select check out date</div>
