@@ -91,16 +91,23 @@ const SpecificSpotDetails = () => {
         setReviewToEdit(review)
         setEditedStars(review.stars)
         setEditedReview(review.review)
+        setReview(review.review);
+        setStars(review.stars);
     }
 
     const hasReviews = () => {
         return Object.values(allReviews).filter(review => review.spotId === Number(spotId)).length
             ? <div>{Object.values(allReviews).filter(review => review.spotId === Number(spotId)).map(review => {
-                return <div>
+                return <div style={{ marginBottom: '2vh', borderBottom: '1px solid lightgray' }}>
                     <div>{review.review}</div>
-                    <div>Stars: {review.stars}</div>
-                    <button type="button" class="btn nomadColor buttons" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
-                    <button type="button" class="btn nomadColor buttons" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
+                    <div style={{ marginBottom: '1vh' }}>Stars: {review.stars}</div>
+                    {review.userId === user.id
+                        ? <div>
+                            <button type="button" class="btn nomadColor buttons" style={{ marginRight: '1vw', marginBottom: '1vh' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
+                            <button type="button" class="btn nomadColor buttons" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)} style={{ marginBottom: '1vh' }}>Edit Review</button>
+                        </div>
+                        : null
+                    }
                 </div>
             })}</div>
             : <div>No reviews have been left yet!</div>
@@ -118,6 +125,8 @@ const SpecificSpotDetails = () => {
             }
         });
         dispatch(createReviewThunk(reviewObj));
+        setReview('');
+        setStars('');
     }
 
     const submitEditReview = (e) => {
@@ -139,11 +148,6 @@ const SpecificSpotDetails = () => {
         return Math.round(timeDifference / singleDayInMilliseconds);
     }
 
-    // if (endDate < startDate) {
-    //     alert('Check in must be before check out');
-    //     setStartDate(new Date().toISOString().split('T')[0]);
-    //     setEndDate(tomorrow);
-    // }
 
 
     return (
@@ -186,7 +190,7 @@ const SpecificSpotDetails = () => {
                                                         <div style={{ fontWeight: 'bold' }}>Total price: ${selectedSpot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate)) + 49}</div>
                                                     </div>
                                                 }
-                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton nomadColor' disabled={endDate <= startDate}>Book Now!</button>
+                                                <button onClick={(e) => handleClick(e)} className={endDate <= startDate ? 'createBookingFormSubmitButton nomadColor disabled' : 'createBookingFormSubmitButton nomadColor'}>Book Now!</button>
                                                 <div style={{ paddingTop: '0.7vh', textAlign: 'center' }}>You won't be charged yet!</div>
                                             </ul>
                                         </form>
@@ -198,9 +202,7 @@ const SpecificSpotDetails = () => {
                                 <li class="list-group-item">{selectedSpot.description}</li>
                             </ul>
                         </div>
-
                         <div style={{ marginTop: '10vh' }}>{hasReviews()}</div>
-
                     </div>
                 </div>
             )}
@@ -210,7 +212,7 @@ const SpecificSpotDetails = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Leave a review!</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => { setReview(''); setStars(''); }}></button>
                         </div>
                         <div class="modal-body">
                             <form onSubmit={(e) => handleSubmitReviewForm(e)}>
@@ -221,10 +223,7 @@ const SpecificSpotDetails = () => {
                                     <input type="number" min="1" max="5" class="form-control" placeholder='Stars' value={stars} onChange={(e) => setStars(e.target.value)}></input>
                                     <small>Stars must be from 1-5</small>
                                 </div>
-                                {review && stars && stars > 0 && stars <= 5 && (
-                                    disabled = false
-                                )}
-                                <button type="submit" data-bs-dismiss="modal" class="btn nomadColor submitReviewButton" disabled={disabled}>Submit review</button>
+                                <button type="submit" data-bs-dismiss="modal" class="btn nomadColor submitReviewButton" disabled={!(review && stars && stars > 0 && stars <= 5)}>Submit review</button>
                             </form>
                         </div>
                     </div>
@@ -236,9 +235,10 @@ const SpecificSpotDetails = () => {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel">Edit a review!</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => { setReview(''); setStars(''); }}></button>
                         </div>
                         <div class="modal-body">
+                            <div style={{ color: 'red', paddingBottom: '1vh' }}>Make a change to the review or the stars to submit!</div>
                             <form onSubmit={(e) => submitEditReview(e)}>
                                 <div class="form-group" style={{ marginBottom: '0.5vh' }}>
                                     <input class="form-control" placeholder='Review' defaultValue={reviewToEdit.review} onChange={(e) => setEditedReview(e.target.value)}></input>
@@ -247,7 +247,9 @@ const SpecificSpotDetails = () => {
                                     <input type="number" min="1" max="5" class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setEditedStars(e.target.value)}></input>
                                     <small>Stars must be from 1-5</small>
                                 </div>
-                                <button type='submit' data-bs-dismiss="modal" class="btn nomadColor submitEditReviewButton" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn nomadColor submitEditReviewButton"
+                                    disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length) || editedReview === review && editedStars === stars}
+                                >Submit</button>
                             </form>
                         </div>
                     </div>

@@ -151,7 +151,6 @@ function ProfileButton({ user }) {
     return (
         <>
             <button onClick={openMenu} id='profileButton' style={{ borderColor: 'lightseagreen', color: 'lightseagreen', background: 'white' }}>
-                {/* {user.username} */}
                 <div className="profileIcon">
                     <i className="fas fa-user-circle" />
                 </div>
@@ -165,10 +164,10 @@ function ProfileButton({ user }) {
                         <button onClick={openCreateSpotForm} className='btn nomadColor hostASpotButton buttons'>Host a Spot</button>
                     </li>
                     <li>
-                        <button onClick={logout} className='btn nomadColor logOutButton buttons'>Log Out</button>
+                        <button onClick={handleOpenProfile} className='btn nomadColor profileButton buttons'>Profile</button>
                     </li>
                     <li>
-                        <button onClick={handleOpenProfile} className='btn nomadColor profileButton buttons'>Profile</button>
+                        <button onClick={logout} className='btn nomadColor logOutButton buttons'>Log Out</button>
                     </li>
                 </ul>
             )}
