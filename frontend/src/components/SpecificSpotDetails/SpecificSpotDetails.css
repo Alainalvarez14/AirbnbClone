@@ -51,11 +51,12 @@
     flex-direction: column;
     justify-content: center;
     box-shadow: rgb(0 0 0 / 42%) 0px 6px 16px;
+    left: 60%;
 }
 
 .createBookingForm {
     /* background-color: blue; */
-    width: 200px;
+    width: 209px;
     border-radius: 8px;
     font-size: 18px;
     margin-left: auto;
@@ -64,7 +65,7 @@
 
 .createBookingFormInputFieldsWrapper {
     margin-bottom: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     padding-inline-start: 0;
 }
 
@@ -85,18 +86,22 @@
 .createBookingFormSubmitButton {
     width: 180px;
     border-radius: 8px;
-    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
     color: white;
     height: 40px;
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    margin-top: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid lightseagreen;
 }
 
+.createBookingFormSubmitButton:hover {
+    color: lightseagreen;
+    background-color: white;
+}
 
 /* .windowCloseIconButtonCreateBookingForm {
     font-size: 25px;
@@ -141,7 +146,41 @@
     flex-direction: column;
     justify-content: center;
     box-shadow: rgb(0 0 0 / 42%) 0px 6px 16px;
-    overflow-y: scroll;
-    padding-top: 13vh;
+    /* overflow-y: scroll; */
+    /* padding-top: 13vh; */
     padding-bottom: 2vh;
+    left: 60%;
+}
+
+.buttons {
+    border: 1px solid lightseagreen;
+}
+
+.buttons:hover {
+    border: 1px solid lightseagreen;
+    color: lightseagreen;
+}
+
+input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.submitReviewButton {
+    border: 1px solid lightseagreen;
+}
+
+.submitReviewButton:hover {
+    color: lightseagreen;
+    border: 1px solid lightseagreen;
+    background: white;
+}
+
+.submitEditReviewButton {
+    border: 1px solid lightseagreen;
+}
+
+.submitEditReviewButton:hover {
+    color: lightseagreen;
+    border: 1px solid lightseagreen;
+    background: white;
 }

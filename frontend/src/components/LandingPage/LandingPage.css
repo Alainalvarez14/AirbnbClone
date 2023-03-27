@@ -45,3 +45,44 @@ NavLink {
     box-shadow: rgb(32 178 170 / 42%) 0px 6px 16px;
     opacity: 0.8;
 }
+
+.loginButton {
+    border: 1.2px solid lightseagreen;
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    border-radius: 8px;
+    color: lightseagreen;
+    text-decoration: none;
+    float: right;
+    margin-top: 2vh;
+    margin-left: 20px;
+    font-size: 25px;
+    font-weight: bold;
+    margin-right: 2vw;
+    cursor: pointer;
+}
+
+.signupButton {
+    border: 1.2px solid lightseagreen;
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    border-radius: 8px;
+    color: lightseagreen;
+    text-decoration: none;
+    float: right;
+    margin-top: 2vh;
+    font-size: 25px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.loginButton:hover {
+    /* opacity: 0.7; */
+    box-shadow: rgb(32 178 170 / 28%) 0px 0px 10px;
+}
+
+.signupButton:hover {
+    box-shadow: rgb(32 178 170 / 28%) 0px 0px 10px;
+}

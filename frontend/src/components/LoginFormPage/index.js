@@ -25,6 +25,16 @@ const LoginFormPage = () => {
             });
     };
 
+    const handleDemoUser = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+    }
+
     return (
         <div className="formWrapper">
             <form onSubmit={handleSubmit} className='loginForm'>
@@ -55,6 +65,7 @@ const LoginFormPage = () => {
                     />
                 </label>
                 <button type="submit" className="LoginButton nomadColor">Log In</button>
+                <button style={{ marginTop: '0.5vh' }} className="LoginButton nomadColor" onClick={(e) => handleDemoUser(e)}>Demo User</button>
             </form>
         </div>
 

@@ -156,13 +156,13 @@ function ProfileButton({ user }) {
             {showMenu && (
                 <ul className="profile-dropdown">
                     <li>
-                        <button onClick={openCreateSpotForm} className='btn nomadColor hostASpotButton'>Host a Spot</button>
+                        <button onClick={openCreateSpotForm} className='btn nomadColor hostASpotButton buttons'>Host a Spot</button>
                     </li>
                     <li>
-                        <button onClick={logout} className='btn nomadColor logOutButton'>Log Out</button>
+                        <button onClick={logout} className='btn nomadColor logOutButton buttons'>Log Out</button>
                     </li>
                     <li>
-                        <button onClick={handleOpenProfile} className='btn nomadColor profileButton'>Profile</button>
+                        <button onClick={handleOpenProfile} className='btn nomadColor profileButton buttons'>Profile</button>
                     </li>
                 </ul>
             )}
@@ -175,7 +175,7 @@ function ProfileButton({ user }) {
                             </ul>
                         )}
                         <div className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>
-                            <i class="far fa-window-close" style={{ color: 'red' }}></i>
+                            <i class="far fa-window-close windowCloseButton"></i>
                         </div>
                         <div className="createYourSpotMessage">Create your Spot</div>
                         <ul className="inputBoxFieldsWrapper">
