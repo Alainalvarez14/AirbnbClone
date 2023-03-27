@@ -81,6 +81,21 @@ NavLink {
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid lightseagreen;
+}
+
+.editSpotFormSubmitButton:hover {
+    background: white;
+    color: lightseagreen;
+}
+
+.windowCloseButton {
+    color: red;
+}
+
+.windowCloseButton:hover {
+    cursor: pointer;
+    box-shadow: rgba(233, 4, 4, 0.28) 0px 0px 10px;
 }
 
 .editYourSpotMessage {
@@ -157,6 +172,12 @@ NavLink {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid lightseagreen;
+}
+
+.editBookingFormSubmitButton:hover {
+    color: lightseagreen;
+    background: white
 }
 
 .windowCloseIconButtonEditBookingForm {

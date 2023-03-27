@@ -20,9 +20,14 @@ const SpecificSpotDetails = () => {
     const allReviews = useSelector(state => state.reviews);
     const selectedSpot = Object.values(allSpots).find(spot => spot.id === parseInt(spotId));
     const user = useSelector(state => state.session.user);
-    // const userId = useSelector(state => state.session.user.id);
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+    // const [startDate, setStartDate] = useState(new Date());
+    // const [endDate, setEndDate] = useState(new Date());
+    let tomorrow = new Date();
+    tomorrow.setDate(new Date().getDate() + 1);
+    tomorrow = tomorrow.toISOString().split('T')[0];
+    const [endDate, setEndDate] = useState(tomorrow);
+
     const dispatch = useDispatch();
     const history = useHistory();
     const [review, setReview] = useState('');
@@ -96,8 +101,8 @@ const SpecificSpotDetails = () => {
                 return <div>
                     <div>{review.review}</div>
                     <div>Stars: {review.stars}</div>
-                    <button type="button" class="btn nomadColor" style={{ marginRight: '1vw', border: '1px solid lightseagreen' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
-                    <button type="button" class="btn nomadColor" style={{ border: '1px solid lightseagreen' }} data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
+                    <button type="button" class="btn nomadColor buttons" style={{ marginRight: '1vw' }} onClick={(e) => dispatch(deleteReviewThunk(review))}>Delete Review</button>
+                    <button type="button" class="btn nomadColor buttons" data-bs-toggle="modal" data-bs-target="#EditReviewModal" onClick={() => handleReviewToEdit(review)}>Edit Review</button>
                 </div>
             })}</div>
             : <div>No reviews have been left yet!</div>
@@ -116,6 +121,24 @@ const SpecificSpotDetails = () => {
         dispatch(editReviewThunk(editedReviewObj));
     }
 
+    const getNumberOfDays = (startDate, endDate) => {
+        const beginningDate = new Date(startDate);
+        const endingDate = new Date(endDate);
+
+        const singleDayInMilliseconds = 86400000;
+
+        // TD between two days
+        const timeDifference = endingDate.getTime() - beginningDate.getTime();
+
+        // # of days between two specific dates
+        return Math.round(timeDifference / singleDayInMilliseconds);
+    }
+
+    // if (endDate < startDate) {
+    //     alert('Check in must be before check out');
+    //     setStartDate(new Date().toISOString().split('T')[0]);
+    //     setEndDate(tomorrow);
+    // }
 
 
     return (
@@ -133,20 +156,32 @@ const SpecificSpotDetails = () => {
                                     <div>{allBookings && hasBookings()}</div>
                                 </div> :
                                 <div style={{ maxHeight: '23vh', marginBottom: '8vh' }}>
-                                    <button type="button" class="btn nomadColor" style={{ border: '1px solid lightseagreen' }} data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
+                                    <button type="button" class="btn nomadColor buttons" data-bs-toggle="modal" data-bs-target="#leaveReviewModal">Leave a review</button>
                                     <div className="createBookingFormWrapper">
                                         <div className="bookYourStayMessage">Book your stay</div>
                                         <form className="createBookingForm">
                                             <ul className="createBookingFormInputFieldsWrapper">
                                                 <div className='createBookingFormInputFields'>
                                                     <label>Check-in:</label>
-                                                    <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
+                                                    <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} value={startDate} onChange={(e) => setStartDate(e.target.value)} onKeyDown={(e) => e.preventDefault()}></input>
                                                 </div>
                                                 <div className='createBookingFormInputFields'>
                                                     <label>Check-out:</label>
-                                                    <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
+                                                    <input type="date" name="endDate" min={endDate} value={endDate} onChange={(e) => setEndDate(e.target.value)} onKeyDown={(e) => e.preventDefault()}></input>
                                                 </div>
-                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton nomadColor'>Book Now!</button>
+                                                {endDate <= startDate
+                                                    ? <div style={{ fontSize: 'smaller', textAlign: 'center', color: 'red' }}>Please select check out date</div>
+                                                    : <div style={{ fontSize: 'smaller', textAlign: 'center' }}>
+                                                        ${selectedSpot.price} x {' '}
+                                                        {startDate && endDate !== new Date() && endDate !== '' && (
+                                                            getNumberOfDays(startDate, endDate) <= 1 ? 1 + ' night: ' : getNumberOfDays(startDate, endDate) + ' nights: '
+                                                        )}
+                                                        ${selectedSpot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate))}<br></br>
+                                                        Nomad fee: $49 <br></br>
+                                                        <div style={{ fontWeight: 'bold' }}>Total price: ${selectedSpot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate)) + 49}</div>
+                                                    </div>
+                                                }
+                                                <button onClick={(e) => handleClick(e)} className='createBookingFormSubmitButton nomadColor' disabled={endDate <= startDate}>Book Now!</button>
                                                 <div style={{ paddingTop: '0.7vh', textAlign: 'center' }}>You won't be charged yet!</div>
                                             </ul>
                                         </form>
@@ -184,7 +219,7 @@ const SpecificSpotDetails = () => {
                                 {review && stars && stars > 0 && stars <= 5 && (
                                     disabled = false
                                 )}
-                                <button type="submit" data-bs-dismiss="modal" class="btn btn nomadColor" disabled={disabled}>Submit review</button>
+                                <button type="submit" data-bs-dismiss="modal" class="btn nomadColor submitReviewButton" disabled={disabled}>Submit review</button>
                             </form>
                         </div>
                     </div>
@@ -207,7 +242,7 @@ const SpecificSpotDetails = () => {
                                     <input type="number" min="1" max="5" class="form-control" placeholder='Stars' defaultValue={reviewToEdit.stars} onChange={(e) => setEditedStars(e.target.value)}></input>
                                     <small>Stars must be from 1-5</small>
                                 </div>
-                                <button type='submit' data-bs-dismiss="modal" class="btn btn nomadColor" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
+                                <button type='submit' data-bs-dismiss="modal" class="btn nomadColor submitEditReviewButton" disabled={!((editedStars > 0 && editedStars <= 5) && editedReview.length)}>Submit</button>
                             </form>
                         </div>
                     </div>

@@ -59,12 +59,12 @@
     width: 150px;
 }
 
-.profile-dropdown li:hover {
+/* .profile-dropdown li:hover {
     color: #FFFFFF;
     opacity: 0.5;
     border-radius: 12px;
     background-color: lightseagreen;
-}
+} */
 
 .logoContainer {
     list-style: none;
@@ -155,12 +155,17 @@
 .hostSpotSubmitButton {
     width: 200px;
     border-radius: 8px;
-    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
     color: white;
     height: 40px;
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid lightseagreen;
+}
+
+.hostSpotSubmitButton:hover {
+    background: white;
+    color: lightseagreen;
 }
 
 .createYourSpotMessage {
@@ -193,4 +198,13 @@
 .nomadColor {
     color: white;
     background-color: lightseagreen;
+}
+
+.windowCloseButton {
+    color: red;
+}
+
+.windowCloseButton:hover {
+    cursor: pointer;
+    box-shadow: rgba(233, 4, 4, 0.28) 0px 0px 10px;
 }

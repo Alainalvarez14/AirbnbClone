@@ -56,7 +56,7 @@ const LandingPage = () => {
                 {
                     Object.values(spotList)?.map(spot => {
                         return (
-                            <div class="card spot nomadColor" style={{ width: "18rem", marginTop: '1vh', marginLeft: '1vh', marginRight: '1vh', marginBottom: '1vh' }}>
+                            <div class="card spot nomadColor" style={{ width: "18rem", marginTop: '1vh', marginLeft: '1vh', marginRight: '1vh', marginBottom: '1vh', cursor: 'pointer' }}>
                                 {/* <NavLink to={`/spots/${spot.id}`} className='eachSpotOnLandingPage'> */}
                                 <div className='eachSpotOnLandingPage' onClick={(e) => handleSpotClick(e, spot)} data-bs-toggle="modal" data-bs-target={user ? "" : "#alertModal"}>
                                     <img src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." style={{ height: '20vh' }} />

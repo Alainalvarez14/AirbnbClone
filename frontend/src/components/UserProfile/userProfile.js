@@ -41,10 +41,14 @@ const UserProfile = () => {
 
     const openEditBookingForm = (booking) => {
         if (showEditBookingForm || showEditSpotForm) return;
+        // console.log('inside function' + booking.startDate);
+        // console.log(booking.startDate.split('T')[0]);
         setUserId(booking.userId);
         setSpotId(booking.spotId);
-        setStartDate(booking.startDate);
-        setEndDate(booking.endDate);
+        setStartDate(booking.startDate.split('T')[0]);
+        setEndDate(booking.endDate.split('T')[0]);
+        // setStartDate(booking.startDate);
+        // setEndDate(booking.endDate);
         setBookingId(booking.id);
         setShowEditBookingForm(true);
     };
@@ -188,32 +192,24 @@ const UserProfile = () => {
                         )}
                         <ul className="editSpotInputBoxFieldsWrapper">
                             <div className="windowCloseIconButton" onClick={(e) => handleCloseFormEditSpot(e)}>
-                                <i className="far fa-window-close" style={{ color: 'red' }}></i>
+                                <i className="far fa-window-close windowCloseButton"></i>
                             </div>
                             <div className="editYourSpotMessage">Edit your spot</div>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>Name:</label> */}
                                 <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)}></input>
                             </div>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>Description:</label> */}
                                 <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
                             </div>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>Address:</label> */}
                                 <input type="text" name="image" value={imageUrl} placeholder='Image URL' onChange={(e) => setImageUrl(e.target.value)} required></input>
                             </div>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>Address:</label> */}
                                 <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
                             </div>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>City:</label> */}
                                 <input type="text" name="city" value={city} onChange={(e) => setCity(e.target.value)}></input>
                             </div>
-                            {/* <div className="editSpotInputBoxFields">
-                                <input type="text" name="state" value={state} onChange={(e) => setTheState(e.target.value)}></input>
-                            </div> */}
                             <select name="state" size="1" value={state} onChange={(e) => setTheState(e.target.value)} className="inputBoxFieldsOption">
                                 <option value="">State</option>
                                 <option value="AK">AK</option>
@@ -269,18 +265,8 @@ const UserProfile = () => {
                                 <option value="WY">WY</option>
                             </select>
                             <div className="editSpotInputBoxFields">
-                                {/* <label>Country:</label> */}
                                 <input type="text" name="country" value={country} onChange={(e) => setCountry(e.target.value)}></input>
                             </div>
-                            {/* <div className="editSpotInputBoxFields">
-                                <input type="text" name="lng" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}></input>
-                            </div>
-                            <div className="editSpotInputBoxFields">
-                                <input type="text" name="lat" placeholder="Latitude" value={lat} onChange={(e) => setLat(e.target.value)}></input>
-                            </div>
-                            <div className="editSpotInputBoxFields">
-                                <input type="text" name="price" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)}></input>
-                            </div> */}
                             <div className="editSpotInputBoxFields">
                                 <input type="number" name="lng" value={lng} placeholder="Longitude" onChange={(e) => setLng(e.target.value)}></input>
                             </div>
@@ -298,54 +284,34 @@ const UserProfile = () => {
             {showEditBookingForm && (
                 <div className="editBookingFormWrapper">
                     <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
-                        <i className="far fa-window-close" style={{ color: 'red' }}></i>
+                        <i className="far fa-window-close windowCloseButton"></i>
                     </div>
                     <div className="editYourReservationMessage">Edit your reservation</div>
                     <form className="editBookingForm">
                         <ul className="editBookingFormInputFieldsWrapper">
-                            {/* <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
-                                <i className="far fa-window-close"></i>
-                            </div> */}
                             <div className="editBookingFormInputFields">
                                 <label>Check-in:</label>
-                                <input type="date" name="startDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
+                                <input type="date" name="startDate" value={startDate} min={new Date().toISOString().split('T')[0]} onChange={(e) => setStartDate(e.target.value)}></input>
                             </div>
                             <div className="editBookingFormInputFields">
                                 <label>Check-out:</label>
-                                <input type="date" name="endDate" min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
+                                <input type="date" name="endDate" value={endDate} min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                             </div>
-                            <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton nomadColor'>Book Now!</button>
-                            {/* <p>You won't be charged yet</p> */}
+                            {endDate <= startDate && (
+                                <div style={{ fontSize: 'smaller', textAlign: 'center', color: 'red' }}>Please select check out date</div>
+                            )}
+                            <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton nomadColor' disabled={endDate <= startDate}>Book Now!</button>
                         </ul>
-                        {/* <button onClick={(e) => handleSubmitBooking(e)}>Book Now!</button> */}
                     </form>
                 </div>
             )}
             <div>
-                <h2>{user.firstName} {user.lastName}</h2>
+                <h2 style={{ paddingTop: '2vh' }}>{user.firstName} {user.lastName}</h2>
                 <p>User Name: {user.username}</p>
                 <p>Email: {user.email}</p>
             </div>
             <h2>Reservations</h2>
             {bookingsList && (
-                // <div className="individualSpotsWrapper">
-                //     {Object.values(bookingsList).filter(booking => booking.userId === user.id).map(booking => {
-                //         const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
-                //         return (
-                //             <div>
-                //                 <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
-                //                     <img className="mock-image" src={specificSpot.previewImage ? specificSpot.previewImage : mockHome}></img>
-                //                     <div>{specificSpot.name}</div>
-                //                     <div>{specificSpot.city}, {specificSpot.state}</div>
-                //                     <div>Check-in: {formatDate(booking.startDate)}</div>
-                //                     <div>Check-out: {formatDate(booking.endDate)}</div>
-                //                 </NavLink>
-                //                 <button className="btn airbnbColor" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
-                //                 <button className="btn airbnbColor" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
-                //             </div>
-                //         );
-                //     })}
-                // </div>
                 <div className="individualSpotsWrapper">
                     {Object.values(bookingsList).filter(booking => booking.userId === user.id).map(booking => {
                         const specificSpot = Object.values(spotList).find(spot => spot.id === booking.spotId)
@@ -360,55 +326,20 @@ const UserProfile = () => {
                                         <div class="card-text">Check-out: {formatDate(booking.endDate)}</div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
-                                <button className="btn nomadColor userProfileButtons" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons buttons" onClick={() => dispatch(deleteBookingThunk(booking))}>Delete Booking</button>
+                                <button className="btn nomadColor userProfileButtons buttons" onClick={() => openEditBookingForm(booking)}>Edit Booking</button>
                             </div>
                         );
                     })}
                 </div>
-
             )}
 
-            <h2>My Spots</h2>
-            {/* <div className="individualSpotsWrapper">
-                {
-                    Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
-                        return (
-                            <div key={spot.id}>
-                                <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
-                                    <img className="mock-image" src={spot.previewImage ? spot.previewImage : mockHome}></img>
-                                    <div>{spot.name} </div>
-                                    <div>
-                                        <div>{spot.city}, {spot.state} </div>
-                                    </div>
-                                    <div>${spot.price} </div>
-                                </NavLink>
-
-                                <button className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
-                            </div>
-                        )
-                    })
-                }
-            </div> */}
+            <h2 style={{ paddingTop: '3vh' }}>My Spots</h2>
 
             <div className="individualSpotsWrapper" style={{ marginBottom: '6vh' }}>
                 {
                     Object.values(spotList)?.filter(spot => spot.ownerId === user.id).map(spot => {
                         return (
-                            // <div key={spot.id}>
-                            //     <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
-                            //         <img className="mock-image" src={spot.previewImage ? spot.previewImage : mockHome}></img>
-                            //         <div>{spot.name} </div>
-                            //         <div>
-                            //             <div>{spot.city}, {spot.state} </div>
-                            //         </div>
-                            //         <div>${spot.price} </div>
-                            //     </NavLink>
-
-                            //     <button className="btn airbnbColor" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                            //     <button className="btn airbnbColor" onClick={() => openEditSpotForm(spot)}>Edit</button>
-                            // </div>
                             <div class="card spot" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink to={`/spots/${spot.id}`} className='eachSpotOnUserProfilePage'>
                                     <img style={{ height: '20vh' }} src={spot.previewImage ? spot.previewImage : mockHome} class="card-img-top" alt="..." />
@@ -418,8 +349,8 @@ const UserProfile = () => {
                                         <div>${spot.price} </div>
                                     </div>
                                 </NavLink>
-                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
-                                <button className="btn nomadColor userProfileButtons" onClick={() => openEditSpotForm(spot)}>Edit</button>
+                                <button style={{ marginBottom: '0.5vh' }} className="btn nomadColor userProfileButtons buttons" onClick={() => dispatch(deleteSpot(spot))}>Delete</button>
+                                <button className="btn nomadColor userProfileButtons buttons" onClick={() => openEditSpotForm(spot)}>Edit</button>
                             </div>
                         )
                     })
