@@ -192,8 +192,10 @@ const UserProfile = () => {
                 <div className="editSpotFormWrapper">
                     <form className="editSpotForm">
                         {showErrors && (
-                            <ul className="errors">
-                                {errors}
+                            <ul className="errors" style={{ marginTop: '-1vh', marginBottom: '-0.5vh' }}>
+                                {errors.map(error => (
+                                    <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+                                ))}
                             </ul>
                         )}
                         <ul className="editSpotInputBoxFieldsWrapper">

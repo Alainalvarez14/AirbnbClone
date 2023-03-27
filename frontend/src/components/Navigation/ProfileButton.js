@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import { createSpot, getAllSpots } from "../../store/spots";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { createImageThunk } from "../../store/images";
 import { useSelector } from "react-redux";
 
@@ -25,8 +25,7 @@ function ProfileButton({ user }) {
     const [showErrors, setShowErrors] = useState(false);
     const spots = useSelector(state => state.spots);
     const [image, setImage] = useState();
-
-    //errors = [{name : 'error'}, {},{}]
+    const location = useLocation();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -37,6 +36,10 @@ function ProfileButton({ user }) {
         if (showCreateSpotForm) return;
         setShowCreateSpotForm(true);
     }
+
+    useEffect(() => {
+        setShowCreateSpotForm(false);
+    }, [location]);
 
     useEffect(() => {
         const errorsArray = [];
@@ -176,7 +179,9 @@ function ProfileButton({ user }) {
                     <form className='createSpotForm'>
                         {showErrors && (
                             <ul className="errors">
-                                {errors}
+                                {errors.map(error => (
+                                    <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+                                ))}
                             </ul>
                         )}
                         <div className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>

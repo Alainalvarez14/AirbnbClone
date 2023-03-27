@@ -190,7 +190,7 @@ const SpecificSpotDetails = () => {
                                                         <div style={{ fontWeight: 'bold' }}>Total price: ${selectedSpot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate)) + 49}</div>
                                                     </div>
                                                 }
-                                                <button onClick={(e) => handleClick(e)} className={endDate <= startDate ? 'createBookingFormSubmitButton nomadColor disabled' : 'createBookingFormSubmitButton nomadColor'}>Book Now!</button>
+                                                <button onClick={(e) => handleClick(e)} className={`createBookingFormSubmitButton nomadColor ${endDate <= startDate ? 'disabled' : ''}`}>Book Now!</button>
                                                 <div style={{ paddingTop: '0.7vh', textAlign: 'center' }}>You won't be charged yet!</div>
                                             </ul>
                                         </form>

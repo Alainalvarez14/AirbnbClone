@@ -78,8 +78,8 @@
     margin-bottom: 10px;
     border: 1.2px solid rgb(181, 180, 180);
     border-radius: 20px;
-    height: 600px;
-    width: 400px;
+    height: 730px;
+    width: 450px;
     margin-left: auto;
     margin-right: auto;
     border: 1.2px solid rgb(181, 180, 180);
@@ -180,7 +180,7 @@
     position: fixed;
     z-index: 10001;
     left: 50%;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 32%);
 }
 
 .profileButton {
