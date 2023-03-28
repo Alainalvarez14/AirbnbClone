@@ -56,13 +56,16 @@ function ProfileButton({ user }) {
             errorsArray.push("Must have an address");
         }
         if (!city) {
-            errorsArray.push("Must have an city");
+            errorsArray.push("Must have a city");
         }
         if (!state) {
-            errorsArray.push("Must have an state");
+            errorsArray.push("Must have a state");
         }
         if (!country) {
-            errorsArray.push("Must have an country");
+            errorsArray.push("Must have a country");
+        }
+        if (!image) {
+            errorsArray.push("Must have an image");
         }
         // if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN) {
         //     errorsArray.push("Latitude must be a number!");
@@ -75,7 +78,7 @@ function ProfileButton({ user }) {
         }
 
         setErrors(errorsArray)
-    }, [name, description, address, city, state, country, price])
+    }, [name, description, address, image, city, state, country, price])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -201,7 +204,7 @@ function ProfileButton({ user }) {
                                 <input type="text" name="image" value={imageUrl} placeholder='Image URL must be set on Edit' onChange={(e) => setImageUrl(e.target.value)} disabled></input>
                             </div> */}
                             <div className="inputBoxFields">
-                                <input type="file" onChange={updateFile}></input>
+                                <input type="file" onChange={updateFile} required></input>
                             </div>
                             <div className="inputBoxFields">
                                 {/* <label>Address:</label> */}

@@ -1,4 +1,4 @@
-import { editBookingThunk } from "../../store/bookings";
+import { editBookingThunk, getAllBookingsBySpotId } from "../../store/bookings";
 import { deleteBookingThunk } from "../../store/bookings";
 import { getAllBookingsThunk } from "../../store/bookings";
 import { useSelector } from "react-redux";
@@ -66,7 +66,10 @@ const UserProfile = () => {
         setLat(spot.lat);
         setPrice(spot.price);
         setId(spot.id);
-        setImageUrl(spot.previewImage ? spot.previewImage : '')
+        // setImageUrl(spot.previewImage ? spot.previewImage : '')
+        setImage('')
+        console.log(image)
+        console.log(spot.previewImage)
         setShowEditSpotForm(true);
     }
 
@@ -89,14 +92,17 @@ const UserProfile = () => {
             errorsArray.push("Must have an address");
         }
         if (!city) {
-            errorsArray.push("Must have an city");
+            errorsArray.push("Must have a city");
         }
         if (!state) {
-            errorsArray.push("Must have an state");
+            errorsArray.push("Must have a state");
         }
         if (!country) {
-            errorsArray.push("Must have an country");
+            errorsArray.push("Must have a country");
         }
+        // if (!image) {
+        //     errorsArray.push("Must have an image");
+        // }
         if (price <= 0) {
             errorsArray.push("Must have a valid price per night!");
         }
@@ -118,9 +124,6 @@ const UserProfile = () => {
         else {
             let spotObj = { id, previewImage: image, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
             dispatch(editSpot(spotObj));
-            // let imageObj = { userId: user.id, spotImageId: id, reviewImageId: null, url: imageUrl, preview: true };
-            // dispatch(createImageThunk(imageObj))
-
             setShowEditSpotForm(false);
             setShowErrors(false);
             setName('');
@@ -192,7 +195,7 @@ const UserProfile = () => {
                 <div className="editSpotFormWrapper">
                     <form className="editSpotForm">
                         {showErrors && (
-                            <ul className="errors" style={{ marginTop: '-1vh', marginBottom: '-0.5vh' }}>
+                            <ul className="errors" style={{ marginBottom: '-0.5vh' }}>
                                 {errors.map(error => (
                                     <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
                                 ))}

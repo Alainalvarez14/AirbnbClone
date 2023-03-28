@@ -106,6 +106,7 @@ export const editSpot = (spot) => async dispatch => {
     if (response.ok) {
         const spot = await response.json();
         dispatch(createSpotAction(spot));
+        dispatch(getAllSpots());
     }
 
     // const response = await csrfFetch(`/api/spots/${spot.id}`, {
