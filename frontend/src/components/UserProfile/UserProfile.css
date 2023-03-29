@@ -188,7 +188,7 @@ NavLink {
     width: 40px;
     color: rgb(181, 180, 180);
     margin-left: 280px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .editYourReservationMessage {

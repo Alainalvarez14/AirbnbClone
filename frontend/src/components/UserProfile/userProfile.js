@@ -72,6 +72,10 @@ const UserProfile = () => {
     }
 
     useEffect(() => {
+        if (endDate <= startDate) setErrors([]);
+    }, [endDate, startDate]);
+
+    useEffect(() => {
         dispatch(getAllBookingsThunk());
     }, [dispatch]);
 
@@ -98,9 +102,6 @@ const UserProfile = () => {
         if (!country) {
             errorsArray.push("Must have a country");
         }
-        // if (!image) {
-        //     errorsArray.push("Must have an image");
-        // }
         if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN || !lat) {
             errorsArray.push("Latitude must be a number between -90 and 90!");
         }
@@ -115,10 +116,51 @@ const UserProfile = () => {
 
     const handleSubmitBooking = (e) => {
         e.preventDefault();
-        let bookingObj = { id: bookingId, userId, spotId, startDate, endDate };
-        dispatch(editBookingThunk(bookingObj));
-        setShowEditBookingForm(false);
+
+        const errorsArray = [];
+        setErrors([]);
+
+        for (let reservation of Object.values(bookingsList)) {
+            if (isSameDate(new Date(startDate), new Date(reservation.startDate)) && isSameDate(new Date(endDate), new Date(reservation.endDate)) && reservation.id !== specificBooking.id) {
+                errorsArray.push("This spot is already booked for the specified dates");
+                setErrors(errorsArray);
+                setShowErrors(true);
+                return;
+            }
+
+            else if (new Date(startDate) >= new Date(reservation.startDate) && new Date(startDate) <= new Date(reservation.endDate) && reservation.id !== specificBooking.id) {
+                errorsArray.push("Start date conflicts with an existing booking");
+                setErrors(errorsArray);
+                setShowErrors(true);
+                return;
+            }
+
+            else if (new Date(endDate) <= new Date(reservation.endDate) && new Date(endDate) >= new Date(reservation.startDate) && reservation.id !== specificBooking.id) {
+                errorsArray.push("End date conflicts with an existing booking");
+                setErrors(errorsArray);
+                setShowErrors(true);
+                return;
+            }
+        }
+        setErrors(errorsArray);
+
+        if (errorsArray.length) {
+            setShowErrors(true);
+        }
+        else {
+            let bookingObj = { id: bookingId, userId, spotId, startDate, endDate };
+            dispatch(editBookingThunk(bookingObj));
+            setShowEditBookingForm(false);
+        }
     };
+
+    function isSameDate(date1, date2) {
+        console.log(date1);
+        console.log(date2);
+        return date1.getFullYear() === date2.getFullYear()
+            && date1.getMonth() === date2.getMonth()
+            && date1.getDate() === date2.getDate()
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -315,10 +357,17 @@ const UserProfile = () => {
             {showEditBookingForm && (
                 <div className="editBookingFormWrapper">
                     <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
-                        <i className="far fa-window-close windowCloseButton"></i>
+                        <i className="far fa-window-close windowCloseButton" onClick={() => setErrors([])}></i>
                     </div>
                     <div className="editYourReservationMessage">Edit your reservation</div>
                     <form className="editBookingForm">
+                        {showErrors && (
+                            <div className="errors" style={{ marginBottom: '-0.5vh' }}>
+                                {errors.map(error => (
+                                    <div style={{ color: 'red', textAlign: 'center', fontSize: 'smaller' }}>{error}</div>
+                                ))}
+                            </div>
+                        )}
                         <ul className="editBookingFormInputFieldsWrapper">
                             <div className="editBookingFormInputFields">
                                 <label>Check-in:</label>
