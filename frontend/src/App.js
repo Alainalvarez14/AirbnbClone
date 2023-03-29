@@ -9,6 +9,8 @@ import LandingPage from "./components/LandingPage/landingPage";
 import SpecificSpotDetails from "./components/SpecificSpotDetails/specificSpotDetails";
 import UserProfile from "./components/UserProfile/userProfile";
 import { getAllSpots } from "./store/spots";
+import SpecificCity from "./components/SpecificCity/SpecificCity";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +23,7 @@ function App() {
   return isLoaded && (
     <>
       <Navigation isLoaded={isLoaded} />
+      <Footer />
       {isLoaded && (
         <Switch>
           <Route exact path='/'>
@@ -37,6 +40,9 @@ function App() {
           </Route>
           <Route path='/user-profile'>
             <UserProfile />
+          </Route>
+          <Route path='/:cityState'>
+            <SpecificCity />
           </Route>
         </Switch>
       )}

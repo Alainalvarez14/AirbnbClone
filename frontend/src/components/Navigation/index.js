@@ -2,6 +2,8 @@ import { NavLink } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import { useSelector } from "react-redux";
 import './Navigation.css';
+import SearchBar from "../SearchBar/SearchBar";
+import logo from "../../Logos/nomadTransparentBackground.png";
 
 const Navigation = ({ isLoaded }) => {
     const sessionUser = useSelector(state => state.session.user);
@@ -21,12 +23,13 @@ const Navigation = ({ isLoaded }) => {
     }
 
     return (
-        <ul className="logoContainer">
+        <div className="logoContainer">
             <li>
-                <NavLink exact to='/' className='logoText'>airbnb</NavLink>
+                <NavLink exact to='/'><img src={`${logo}`} style={{ height: '4vh', width: '20vw', marginTop: '1.5vh', marginBottom: '1.5vh', maxWidth: '280px', marginLeft: '2.5vw' }} /></NavLink>
                 {isLoaded && sessionLinks}
+                <SearchBar />
             </li>
-        </ul>
+        </div>
     );
 }
 

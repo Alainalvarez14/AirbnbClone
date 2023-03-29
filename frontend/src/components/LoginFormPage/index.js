@@ -25,11 +25,21 @@ const LoginFormPage = () => {
             });
     };
 
+    const handleDemoUser = (e) => {
+        e.preventDefault();
+        setErrors([]);
+        return dispatch(sessionActions.login({ credential: 'demo@user.io', password: 'password' }))
+            .catch(async (res) => {
+                const data = await res.json();
+                if (data && data.errors) setErrors(data.errors);
+            });
+    }
+
     return (
         <div className="formWrapper">
             <form onSubmit={handleSubmit} className='loginForm'>
                 <div className="welcomeMessage">Welcome to Airbnb</div>
-                <ul>
+                <ul style={{ color: 'red', listStyleType: 'none' }}>
                     {errors.map((error, idx) => <li key={idx}>{error}</li>)}
                 </ul>
                 <label className="textLabelWrapper">
@@ -54,7 +64,8 @@ const LoginFormPage = () => {
                         className="inputBox"
                     />
                 </label>
-                <button type="submit" className="LoginButton">Log In</button>
+                <button type="submit" className="LoginButton nomadColor">Log In</button>
+                <button style={{ marginTop: '0.5vh' }} className="LoginButton nomadColor" onClick={(e) => handleDemoUser(e)}>Demo User</button>
             </form>
         </div>
 

@@ -1,5 +1,10 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -12,12 +17,14 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('Spots', [
+    options.tableName = 'Spots'
+
+    return queryInterface.bulkInsert(options, [
       {
         ownerId: 1,
         address: '123 yellow brick road',
         city: 'Miami',
-        state: 'Florida',
+        state: 'FL',
         country: 'USA',
         lat: 38.5678555,
         lng: 120.7658333,
@@ -31,7 +38,7 @@ module.exports = {
         ownerId: 2,
         address: '3955 sw 127 ave',
         city: 'Los Angeles',
-        state: 'California',
+        state: 'CA',
         country: 'USA',
         lat: 39.5558111,
         lng: 50.7459222,
@@ -45,7 +52,7 @@ module.exports = {
         ownerId: 3,
         address: '555 programmer way',
         city: 'Miami',
-        state: 'Florida',
+        state: 'FL',
         country: 'USA',
         lat: 20.7778888,
         lng: 160.8898777,
@@ -66,9 +73,13 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('Spots', {
-      address: { [Op.in]: ['123 yellow brick road', '3955 sw 127 ave', '555 programmer way'] }
-    }, {});
+
+    options.tableName = 'Spots';
+    return queryInterface.bulkDelete(options);
+
+    // const Op = Sequelize.Op;
+    // return queryInterface.bulkDelete('Spots', {
+    //   address: { [Op.in]: ['123 yellow brick road', '3955 sw 127 ave', '555 programmer way'] }
+    // }, {});
   }
 };

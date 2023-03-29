@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 import { createSpot, getAllSpots } from "../../store/spots";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { createImageThunk } from "../../store/images";
 import { useSelector } from "react-redux";
 
@@ -18,14 +18,14 @@ function ProfileButton({ user }) {
     const [city, setCity] = useState('');
     const [state, setTheState] = useState('');
     const [country, setCountry] = useState('');
-    const [lng, setLng] = useState();
-    const [lat, setLat] = useState();
+    const [lng, setLng] = useState('');
+    const [lat, setLat] = useState('');
     const [price, setPrice] = useState();
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
     const spots = useSelector(state => state.spots);
-
-    //errors = [{name : 'error'}, {},{}]
+    const [image, setImage] = useState();
+    const location = useLocation();
 
     const openMenu = () => {
         if (showMenu) return;
@@ -36,6 +36,10 @@ function ProfileButton({ user }) {
         if (showCreateSpotForm) return;
         setShowCreateSpotForm(true);
     }
+
+    useEffect(() => {
+        setShowCreateSpotForm(false);
+    }, [location]);
 
     useEffect(() => {
         const errorsArray = [];
@@ -52,26 +56,29 @@ function ProfileButton({ user }) {
             errorsArray.push("Must have an address");
         }
         if (!city) {
-            errorsArray.push("Must have an city");
+            errorsArray.push("Must have a city");
         }
         if (!state) {
-            errorsArray.push("Must have an state");
+            errorsArray.push("Must have a state");
         }
         if (!country) {
-            errorsArray.push("Must have an country");
+            errorsArray.push("Must have a country");
         }
-        // if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN) {
-        //     errorsArray.push("Latitude must be a number!");
-        // }
-        // if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN) {
-        //     errorsArray.push("Latitude must be a number!");
-        // }
-        if (price <= 0) {
+        if (!image) {
+            errorsArray.push("Must have an image");
+        }
+        if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN || !lat) {
+            errorsArray.push("Latitude must be a number between -90 and 90!");
+        }
+        if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN || !lng) {
+            errorsArray.push("Longitude must be a number between -180 and 180!");
+        }
+        if (price <= 0 || !price) {
             errorsArray.push("Must have a valid price per night!");
         }
 
         setErrors(errorsArray)
-    }, [name, description, address, city, state, country, price])
+    }, [name, description, address, image, city, lng, lat, state, country, price])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -100,16 +107,9 @@ function ProfileButton({ user }) {
             setShowErrors(true);
         }
         else {
-            let spotObj = { address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
+            let spotObj = { address, city, previewImage: image, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
 
             dispatch(createSpot(spotObj))
-            // dispatch(getAllSpots())
-
-            // let spotsArr = Object.values(spots)
-            // let spotImageId = spotsArr[spotsArr.length - 1].id
-            // let imageObj = { userId: user.id, spotImageId, reviewImageId: null, url: imageUrl, preview: true };
-            // dispatch(createImageThunk(imageObj))
-
 
             setShowCreateSpotForm(false);
             setShowErrors(false);
@@ -149,10 +149,14 @@ function ProfileButton({ user }) {
         setErrors([]);
     }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
+
     return (
         <>
-            <button onClick={openMenu} id='profileButton'>
-                {/* {user.username} */}
+            <button onClick={openMenu} id='profileButton' style={{ borderColor: 'lightseagreen', color: 'lightseagreen', background: 'white' }}>
                 <div className="profileIcon">
                     <i className="fas fa-user-circle" />
                 </div>
@@ -163,13 +167,13 @@ function ProfileButton({ user }) {
             {showMenu && (
                 <ul className="profile-dropdown">
                     <li>
-                        <button onClick={openCreateSpotForm} className='hostASpotButton'>Host a Spot</button>
+                        <button onClick={openCreateSpotForm} className='btn nomadColor hostASpotButton buttons'>Host a Spot</button>
                     </li>
                     <li>
-                        <button onClick={logout} className='logOutButton'>Log Out</button>
+                        <button onClick={handleOpenProfile} className='btn nomadColor profileButton buttons'>Profile</button>
                     </li>
                     <li>
-                        <button onClick={handleOpenProfile} className='profileButton'>Profile</button>
+                        <button onClick={logout} className='btn nomadColor logOutButton buttons'>Log Out</button>
                     </li>
                 </ul>
             )}
@@ -178,11 +182,13 @@ function ProfileButton({ user }) {
                     <form className='createSpotForm'>
                         {showErrors && (
                             <ul className="errors">
-                                {errors}
+                                {errors.map(error => (
+                                    <div style={{ color: 'red', textAlign: 'center', fontSize: 'small' }}>{error}</div>
+                                ))}
                             </ul>
                         )}
                         <div className="windowCloseIcon" onClick={(e) => handleCloseForm(e)}>
-                            <i class="far fa-window-close"></i>
+                            <i class="far fa-window-close windowCloseButton"></i>
                         </div>
                         <div className="createYourSpotMessage">Create your Spot</div>
                         <ul className="inputBoxFieldsWrapper">
@@ -194,9 +200,11 @@ function ProfileButton({ user }) {
                                 {/* <label>Description:</label> */}
                                 <input type="text" name="description" value={description} placeholder='Description' onChange={(e) => setDescription(e.target.value)}></input>
                             </div>
-                            <div className="inputBoxFields">
-                                {/* <label>Address:</label> */}
+                            {/* <div className="inputBoxFields">
                                 <input type="text" name="image" value={imageUrl} placeholder='Image URL must be set on Edit' onChange={(e) => setImageUrl(e.target.value)} disabled></input>
+                            </div> */}
+                            <div className="inputBoxFields">
+                                <input type="file" onChange={updateFile} required></input>
                             </div>
                             <div className="inputBoxFields">
                                 {/* <label>Address:</label> */}
@@ -206,10 +214,60 @@ function ProfileButton({ user }) {
                                 {/* <label>City:</label> */}
                                 <input type="text" name="city" value={city} placeholder='City' onChange={(e) => setCity(e.target.value)}></input>
                             </div>
-                            <div className="inputBoxFields">
-                                {/* <label>State:</label> */}
-                                <input type="text" name="state" value={state} placeholder='State' onChange={(e) => setTheState(e.target.value)}></input>
-                            </div>
+                            <select name="state" size="1" value={state} onChange={(e) => setTheState(e.target.value)} className="inputBoxFieldsOption">
+                                <option value="">State</option>
+                                <option value="AK">AK</option>
+                                <option value="AL">AL</option>
+                                <option value="AR">AR</option>
+                                <option value="AZ">AZ</option>
+                                <option value="CA">CA</option>
+                                <option value="CO">CO</option>
+                                <option value="CT">CT</option>
+                                <option value="DC">DC</option>
+                                <option value="DE">DE</option>
+                                <option value="FL">FL</option>
+                                <option value="GA">GA</option>
+                                <option value="HI">HI</option>
+                                <option value="IA">IA</option>
+                                <option value="ID">ID</option>
+                                <option value="IL">IL</option>
+                                <option value="IN">IN</option>
+                                <option value="KS">KS</option>
+                                <option value="KY">KY</option>
+                                <option value="LA">LA</option>
+                                <option value="MA">MA</option>
+                                <option value="MD">MD</option>
+                                <option value="ME">ME</option>
+                                <option value="MI">MI</option>
+                                <option value="MN">MN</option>
+                                <option value="MO">MO</option>
+                                <option value="MS">MS</option>
+                                <option value="MT">MT</option>
+                                <option value="NC">NC</option>
+                                <option value="ND">ND</option>
+                                <option value="NE">NE</option>
+                                <option value="NH">NH</option>
+                                <option value="NJ">NJ</option>
+                                <option value="NM">NM</option>
+                                <option value="NV">NV</option>
+                                <option value="NY">NY</option>
+                                <option value="OH">OH</option>
+                                <option value="OK">OK</option>
+                                <option value="OR">OR</option>
+                                <option value="PA">PA</option>
+                                <option value="RI">RI</option>
+                                <option value="SC">SC</option>
+                                <option value="SD">SD</option>
+                                <option value="TN">TN</option>
+                                <option value="TX">TX</option>
+                                <option value="UT">UT</option>
+                                <option value="VA">VA</option>
+                                <option value="VT">VT</option>
+                                <option value="WA">WA</option>
+                                <option value="WI">WI</option>
+                                <option value="WV">WV</option>
+                                <option value="WY">WY</option>
+                            </select>
                             <div className="inputBoxFields">
                                 {/* <label>Country:</label> */}
                                 <input type="text" name="country" value={country} placeholder='Country' onChange={(e) => setCountry(e.target.value)}></input>
@@ -233,7 +291,8 @@ function ProfileButton({ user }) {
                                 <input type="number" name="price" min="0.00" value={price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
-                        <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton'>Submit</button>
+                        {/* <button onClick={(e) => handleSubmitCreateSpot(e)} className={`hostSpotSubmitButton nomadColor ${errors.length ? 'disabled' : ''}`}>Submit</button> */}
+                        <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton nomadColor'>Submit</button>
                     </form>
                 </div>
             )}

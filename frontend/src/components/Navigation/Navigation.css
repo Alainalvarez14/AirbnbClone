@@ -1,10 +1,7 @@
 #profileButton {
     margin-right: 50px;
     float: right;
-    /* background-color: rgb(230, 30, 77); */
-    /* background-color: rgb(181, 180, 180); */
-    /* color: white; */
-    color: rgb(98, 97, 97);
+    /* color: rgb(98, 97, 97); */
     font-size: 16px;
     height: 40px;
     width: 80px;
@@ -12,18 +9,19 @@
     border: 1px solid rgb(181, 180, 180);
     display: inline-block;
     position: relative;
-    /* cursor: pointer; */
+    margin-top: 2vh;
+    cursor: pointer;
 }
 
 .profileIcon {
-    font-size: 20px;
+    font-size: 25px;
     display: inline-block;
     margin-right: 7px;
 }
 
 .hamburgerMenuIcon {
     display: inline-block;
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .windowCloseIcon {
@@ -36,57 +34,41 @@
     width: 40px;
 }
 
-/* #profileButton:hover {
-    height: 70px;
-} */
-
 .profile-dropdown {
-    /* margin-right: 50px;
-    float: right;
-    position: relative;
-    display: inline-block; */
-
-
-    /* display: none; */
     position: absolute;
-    width: 150px;
+    width: 170px;
+    height: 150px;
     overflow: auto;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     right: 60px;
     padding-inline-start: 0;
     border-radius: 12px;
     background-color: white;
+    z-index: 10000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-
-/* #profileButton:hover {
-    display: block;
-} */
 
 .profile-dropdown li {
     display: block;
     color: #000000;
     padding: 5px;
     text-decoration: none;
+    width: 150px;
 }
 
-.profile-dropdown li:hover {
+/* .profile-dropdown li:hover {
     color: #FFFFFF;
-    /* background-color: rgb(229, 229, 229); */
-    opacity: 0.9;
-    border-radius: 20px;
-}
+    opacity: 0.5;
+    border-radius: 12px;
+    background-color: lightseagreen;
+} */
 
 .logoContainer {
     list-style: none;
-    /* border-bottom: 1px solid rgb(230, 30, 77); */
     border-bottom: 0.7px solid rgb(181, 180, 180);
-}
-
-.logoText {
-    text-decoration: none;
-    color: rgb(230, 30, 77);
-    font-weight: bold;
-    font-size: 40px;
 }
 
 .createSpotForm {
@@ -96,8 +78,8 @@
     margin-bottom: 10px;
     border: 1.2px solid rgb(181, 180, 180);
     border-radius: 20px;
-    height: 600px;
-    width: 400px;
+    height: 760px;
+    width: 450px;
     margin-left: auto;
     margin-right: auto;
     border: 1.2px solid rgb(181, 180, 180);
@@ -105,23 +87,14 @@
     background-color: white;
 }
 
-/* label {
-    display: inline-block;
-    width: 100px;
-    margin-bottom: 10px;
-    text-align: right;
-} */
-
 .inputBoxFieldsWrapper {
     margin-bottom: 10px;
     margin-top: 20px;
     padding-inline-start: 0;
-
 }
 
 .inputBoxFields {
     margin-bottom: 10px;
-    /* height: 50px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -134,32 +107,46 @@
     border: 1.2px solid rgb(181, 180, 180);
 }
 
-.loginButton {
+.inputBoxFieldsOption {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
     border: 1.2px solid rgb(181, 180, 180);
+    width: 200px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3px;
+}
+
+.loginButton {
+    border: 1.2px solid lightseagreen;
     display: flex;
     justify-content: center;
     width: 100px;
     border-radius: 8px;
-    color: rgb(226, 43, 135);
+    color: lightseagreen;
     text-decoration: none;
     float: right;
-    margin-top: 10px;
+    margin-top: 2vh;
     margin-left: 20px;
     font-size: 25px;
     font-weight: bold;
+    margin-right: 2vw;
 }
 
 .signupButton {
-    border: 1.2px solid rgb(181, 180, 180);
+    border: 1.2px solid lightseagreen;
     display: flex;
     justify-content: center;
     width: 100px;
     border-radius: 8px;
-    color: rgb(230, 30, 77);
+    color: lightseagreen;
     text-decoration: none;
     float: right;
-    margin-top: 10px;
-    /* margin-left: 20px; */
+    margin-top: 2vh;
     font-size: 25px;
     font-weight: bold;
 }
@@ -167,12 +154,23 @@
 .hostSpotSubmitButton {
     width: 200px;
     border-radius: 8px;
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
     color: white;
     height: 40px;
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid lightseagreen;
+}
+
+.hostSpotSubmitButton:hover:not(.disabled) {
+    background: white;
+    color: lightseagreen;
+}
+
+.disabled {
+    background: white;
+    color: grey;
+    border: 1px solid grey;
 }
 
 .createYourSpotMessage {
@@ -180,13 +178,14 @@
     flex-direction: column;
     align-items: center;
     font-size: 30px;
+    color: lightseagreen;
 }
 
 .createSpotFormWrapper {
     position: fixed;
-    z-index: 9999;
+    z-index: 10001;
     left: 50%;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 22%);
 }
 
 .profileButton {
@@ -199,4 +198,18 @@
 
 .hostASpotButton {
     width: 100%;
+}
+
+.nomadColor {
+    color: white;
+    background-color: lightseagreen;
+}
+
+.windowCloseButton {
+    color: red;
+}
+
+.windowCloseButton:hover {
+    cursor: pointer;
+    box-shadow: rgba(233, 4, 4, 0.28) 0px 0px 10px;
 }

@@ -84,6 +84,7 @@ export const editBookingThunk = (booking) => async dispatch => {
     if (response.ok) {
         const booking = await response.json();
         dispatch(createBooking(booking));
+        dispatch(getAllBookingsThunk());
     }
 }
 

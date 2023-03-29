@@ -1,10 +1,3 @@
-/* .eachSpotOnLandingPage {
-    text-decoration: none !important;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    margin-top: 50px;
-} */
-
 .individualSpotsWrapper {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -42,7 +35,7 @@ NavLink {
     position: fixed;
     z-index: 9999;
     left: 50%;
-    transform: translate(-50%, 50%);
+    transform: translate(-50%, 14%);
 }
 
 .editSpotForm {
@@ -52,8 +45,8 @@ NavLink {
     margin-bottom: 10px;
     border: 1.2px solid rgb(181, 180, 180);
     border-radius: 20px;
-    height: 600px;
-    width: 400px;
+    height: 780px;
+    width: 450px;
     margin-left: auto;
     margin-right: auto;
     border: 1.2px solid rgb(181, 180, 180);
@@ -63,7 +56,7 @@ NavLink {
 
 .editSpotInputBoxFieldsWrapper {
     margin-bottom: 10px;
-    margin-top: 20px;
+    margin-top: 15px;
     padding-inline-start: 0;
 }
 
@@ -84,12 +77,25 @@ NavLink {
 .editSpotFormSubmitButton {
     width: 200px;
     border-radius: 8px;
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
-    color: white;
     height: 40px;
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid lightseagreen;
+}
+
+.editSpotFormSubmitButton:hover {
+    background: white;
+    color: lightseagreen;
+}
+
+.windowCloseButton {
+    color: red;
+}
+
+.windowCloseButton:hover {
+    cursor: pointer;
+    box-shadow: rgba(233, 4, 4, 0.28) 0px 0px 10px;
 }
 
 .editYourSpotMessage {
@@ -98,10 +104,10 @@ NavLink {
     justify-content: center;
     margin-bottom: 20px;
     font-size: 30px;
+    color: lightseagreen;
 }
 
 .windowCloseIconButton {
-    /* color: red; */
     font-size: 25px;
     display: flex;
     flex-direction: row;
@@ -116,7 +122,7 @@ NavLink {
     z-index: 9999;
     left: 50%;
     transform: translate(-50%, 50%);
-    height: 400px;
+    height: 430px;
     width: 350px;
     background-color: white;
     border-radius: 8px;
@@ -124,13 +130,12 @@ NavLink {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    bottom: 50%;
 }
 
 .editBookingForm {
     width: 200px;
     border-radius: 8px;
-    /* background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important; */
-    /* height: 40px; */
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
@@ -140,7 +145,6 @@ NavLink {
     margin-bottom: 10px;
     margin-top: 20px;
     padding-inline-start: 0;
-    /* background-color: blue; */
 }
 
 .editBookingFormInputFields {
@@ -160,8 +164,6 @@ NavLink {
 .editBookingFormSubmitButton {
     width: 180px;
     border-radius: 8px;
-    background: linear-gradient(to right, rgb(230, 30, 77) 0%, rgb(227, 28, 95) 50%, rgb(215, 4, 102) 100%) !important;
-    color: white;
     height: 40px;
     font-size: 18px;
     margin-left: auto;
@@ -170,6 +172,12 @@ NavLink {
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid lightseagreen;
+}
+
+.editBookingFormSubmitButton:hover {
+    color: lightseagreen;
+    background: white
 }
 
 .windowCloseIconButtonEditBookingForm {
@@ -180,7 +188,7 @@ NavLink {
     width: 40px;
     color: rgb(181, 180, 180);
     margin-left: 280px;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
 }
 
 .editYourReservationMessage {
@@ -188,8 +196,29 @@ NavLink {
     flex-direction: column;
     align-items: center;
     font-size: 30px;
+    color: lightseagreen;
 }
 
 .individualSpotsWrapper>div {
     margin-bottom: 20px;
+}
+
+.userProfileButtons {
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 1vh;
+}
+
+.inputBoxFieldsOption {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    border: 1.2px solid rgb(181, 180, 180);
+    width: 200px;
+    height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3px;
 }
