@@ -1,5 +1,10 @@
 'use strict';
 
+let options = {};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     /**
@@ -12,7 +17,9 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert('Spots', [
+    options.tableName = 'Spots'
+
+    return queryInterface.bulkInsert(options, [
       {
         ownerId: 1,
         address: '123 yellow brick road',
@@ -66,9 +73,13 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete('Spots', {
-      address: { [Op.in]: ['123 yellow brick road', '3955 sw 127 ave', '555 programmer way'] }
-    }, {});
+
+    options.tableName = 'Spots';
+    return queryInterface.bulkDelete(options);
+
+    // const Op = Sequelize.Op;
+    // return queryInterface.bulkDelete('Spots', {
+    //   address: { [Op.in]: ['123 yellow brick road', '3955 sw 127 ave', '555 programmer way'] }
+    // }, {});
   }
 };

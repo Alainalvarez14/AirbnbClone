@@ -5,6 +5,9 @@ const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 const { Op } = require('sequelize');
 const { validationGetAllUsersEndpoint } = require('../../utils/validation');
+const { singleMulterUpload } = require('../../awsS3');
+const { singlePublicFileUpload } = require('../../awsS3');
+const asyncHandler = require('express-async-handler');
 
 
 //get all spots owned by the current user
@@ -122,10 +125,35 @@ router.get('/', validationGetAllUsersEndpoint, async (req, res) => {
 });
 
 
-// create a spot
-router.post('/', requireAuth, async (req, res, next) => {
-    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+// // create a spot
+// router.post('/', requireAuth, async (req, res, next) => {
+//     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
+//     try {
+//         const spot = await Spot.create({
+//             ownerId: req.user.id,
+//             address,
+//             city,
+//             state,
+//             country,
+//             lat,
+//             lng,
+//             name,
+//             description,
+//             price
+//         });
+
+//         return res.status(201).json(spot);
+//     } catch (e) {
+//         e.status = 400;
+//         next(e);
+//     }
+// });
+
+// create a spot
+router.post('/', singleMulterUpload("previewImage"), requireAuth, asyncHandler(async (req, res, next) => {
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+    const previewImage = await singlePublicFileUpload(req.file);
     try {
         const spot = await Spot.create({
             ownerId: req.user.id,
@@ -135,6 +163,7 @@ router.post('/', requireAuth, async (req, res, next) => {
             country,
             lat,
             lng,
+            previewImage,
             name,
             description,
             price
@@ -145,7 +174,7 @@ router.post('/', requireAuth, async (req, res, next) => {
         e.status = 400;
         next(e);
     }
-});
+}));
 
 // // add an image to a spot based on spot id
 // router.post('/:spotId/images', requireAuth, async (req, res) => {
@@ -286,7 +315,7 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
 
 
 //edit a spot
-router.put('/:spotId', requireAuth, async (req, res, next) => {
+router.patch('/:spotId', singleMulterUpload("previewImage"), requireAuth, asyncHandler(async (req, res, next) => {
 
     const spot = await Spot.findOne({
         where: {
@@ -297,6 +326,11 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
         }
     });
     const userId = req.user.id;
+    let previewImage;
+
+    if (req.file) {
+        previewImage = await singlePublicFileUpload(req.file);
+    }
     const { address, city, state, country, lat, lng, name, description, price } = req.body;
 
     if (!spot) {
@@ -317,13 +351,13 @@ router.put('/:spotId', requireAuth, async (req, res, next) => {
     if (userId === spot.ownerId) {
 
         await spot.update({
-            address, city, state, country, lat, lng, name, description, price
+            address, previewImage, city, state, country, lat, lng, name, description, price
         });
 
         return res.json(spot);
     }
 
-});
+}));
 
 // add an image to a spot based on spot id
 router.post('/:spotId/images', requireAuth, async (req, res) => {

@@ -62,6 +62,31 @@ router.post('/', validateSignup, async (req, res, next) => {
 }
 );
 
+// // Sign up
+// router.post(
+//     "/",
+//     singleMulterUpload("image"),
+//     validateSignup,
+//     asyncHandler(async (req, res) => {
+//         const { email, firstName, lastName, password, username } = req.body;
+//         const profileImageUrl = await singlePublicFileUpload(req.file);
+//         const user = await User.signup({
+//             username,
+//             email,
+//             firstName,
+//             lastName,
+//             password,
+//             profileImageUrl,
+//         });
+
+//         setTokenCookie(res, user);
+
+//         return res.json({
+//             user,
+//         });
+//     })
+// );
+
 
 
 module.exports = router;

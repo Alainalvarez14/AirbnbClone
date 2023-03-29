@@ -38,16 +38,6 @@ const LandingPage = () => {
         if (user) {
             history.push(`/spots/${spot.id}`);
         }
-        else {
-            // alert("Must sign in to view spot!")
-
-
-        }
-    }
-
-    const handleOpenSignUpModal = (e) => {
-        e.preventDefault();
-        history.push("/login");
     }
 
     return (
@@ -71,7 +61,7 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         )
-                    })
+                    }).reverse()
                 }
             </div>
             {showEditSpotForm && (

@@ -1,4 +1,4 @@
-import { editBookingThunk } from "../../store/bookings";
+import { editBookingThunk, getAllBookingsBySpotId } from "../../store/bookings";
 import { deleteBookingThunk } from "../../store/bookings";
 import { getAllBookingsThunk } from "../../store/bookings";
 import { useSelector } from "react-redux";
@@ -38,18 +38,17 @@ const UserProfile = () => {
     const [id, setId] = useState(0);
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
+    const [image, setImage] = useState('');
+    const [specificBooking, setSpecificBooking] = useState('');
 
     const openEditBookingForm = (booking) => {
         if (showEditBookingForm || showEditSpotForm) return;
-        // console.log('inside function' + booking.startDate);
-        // console.log(booking.startDate.split('T')[0]);
         setUserId(booking.userId);
         setSpotId(booking.spotId);
         setStartDate(booking.startDate.split('T')[0]);
         setEndDate(booking.endDate.split('T')[0]);
-        // setStartDate(booking.startDate);
-        // setEndDate(booking.endDate);
         setBookingId(booking.id);
+        setSpecificBooking(booking);
         setShowEditBookingForm(true);
     };
 
@@ -65,9 +64,16 @@ const UserProfile = () => {
         setLat(spot.lat);
         setPrice(spot.price);
         setId(spot.id);
-        setImageUrl(spot.previewImage ? spot.previewImage : '')
+        // setImageUrl(spot.previewImage ? spot.previewImage : '')
+        setImage('')
+        console.log(image)
+        console.log(spot.previewImage)
         setShowEditSpotForm(true);
     }
+
+    useEffect(() => {
+        if (endDate <= startDate) setErrors([]);
+    }, [endDate, startDate]);
 
     useEffect(() => {
         dispatch(getAllBookingsThunk());
@@ -88,26 +94,73 @@ const UserProfile = () => {
             errorsArray.push("Must have an address");
         }
         if (!city) {
-            errorsArray.push("Must have an city");
+            errorsArray.push("Must have a city");
         }
         if (!state) {
-            errorsArray.push("Must have an state");
+            errorsArray.push("Must have a state");
         }
         if (!country) {
-            errorsArray.push("Must have an country");
+            errorsArray.push("Must have a country");
         }
-        if (price <= 0) {
+        if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN || !lat) {
+            errorsArray.push("Latitude must be a number between -90 and 90!");
+        }
+        if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN || !lng) {
+            errorsArray.push("Longitude must be a number between -180 and 180!");
+        }
+        if (price <= 0 || !price) {
             errorsArray.push("Must have a valid price per night!");
         }
         setErrors(errorsArray)
-    }, [name, description, address, city, state, country, price]);
+    }, [name, description, lat, lng, address, city, state, country, price]);
 
     const handleSubmitBooking = (e) => {
         e.preventDefault();
-        let bookingObj = { id: bookingId, userId, spotId, startDate, endDate };
-        dispatch(editBookingThunk(bookingObj));
-        setShowEditBookingForm(false);
+
+        const errorsArray = [];
+        setErrors([]);
+
+        for (let reservation of Object.values(bookingsList)) {
+            if (isSameDate(new Date(startDate), new Date(reservation.startDate)) && isSameDate(new Date(endDate), new Date(reservation.endDate)) && reservation.id !== specificBooking.id) {
+                errorsArray.push("This spot is already booked for the specified dates");
+                setErrors(errorsArray);
+                setShowErrors(true);
+                return;
+            }
+
+            else if (new Date(startDate) >= new Date(reservation.startDate) && new Date(startDate) <= new Date(reservation.endDate) && reservation.id !== specificBooking.id) {
+                errorsArray.push("Start date conflicts with an existing booking");
+                setErrors(errorsArray);
+                setShowErrors(true);
+                return;
+            }
+
+            else if (new Date(endDate) <= new Date(reservation.endDate) && new Date(endDate) >= new Date(reservation.startDate) && reservation.id !== specificBooking.id) {
+                errorsArray.push("End date conflicts with an existing booking");
+                setErrors(errorsArray);
+                setShowErrors(true);
+                return;
+            }
+        }
+        setErrors(errorsArray);
+
+        if (errorsArray.length) {
+            setShowErrors(true);
+        }
+        else {
+            let bookingObj = { id: bookingId, userId, spotId, startDate, endDate };
+            dispatch(editBookingThunk(bookingObj));
+            setShowEditBookingForm(false);
+        }
     };
+
+    function isSameDate(date1, date2) {
+        console.log(date1);
+        console.log(date2);
+        return date1.getFullYear() === date2.getFullYear()
+            && date1.getMonth() === date2.getMonth()
+            && date1.getDate() === date2.getDate()
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -115,11 +168,8 @@ const UserProfile = () => {
             setShowErrors(true);
         }
         else {
-            let spotObj = { id, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
+            let spotObj = { id, previewImage: image, address, city, state, country, lat: Number(lat), lng: Number(lng), name, description, price: Number(price) };
             dispatch(editSpot(spotObj));
-            let imageObj = { userId: user.id, spotImageId: id, reviewImageId: null, url: imageUrl, preview: true };
-            dispatch(createImageThunk(imageObj))
-            // dispatch(getAllSpots())
             setShowEditSpotForm(false);
             setShowErrors(false);
             setName('');
@@ -180,14 +230,34 @@ const UserProfile = () => {
         setPrice();
     }
 
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
+
+    const getNumberOfDays = (startDate, endDate) => {
+        const beginningDate = new Date(startDate);
+        const endingDate = new Date(endDate);
+
+        const singleDayInMilliseconds = 86400000;
+
+        // TD between two days
+        const timeDifference = endingDate.getTime() - beginningDate.getTime();
+
+        // # of days between two specific dates
+        return Math.round(timeDifference / singleDayInMilliseconds);
+    }
+
     return (
         <div style={{ marginLeft: '2vw', marginRight: '2vw' }}>
             {showEditSpotForm && (
                 <div className="editSpotFormWrapper">
                     <form className="editSpotForm">
                         {showErrors && (
-                            <ul className="errors">
-                                {errors}
+                            <ul className="errors" style={{ marginBottom: '-0.5vh' }}>
+                                {errors.map(error => (
+                                    <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+                                ))}
                             </ul>
                         )}
                         <ul className="editSpotInputBoxFieldsWrapper">
@@ -201,8 +271,11 @@ const UserProfile = () => {
                             <div className="editSpotInputBoxFields">
                                 <input type="text" name="description" value={description} onChange={(e) => setDescription(e.target.value)}></input>
                             </div>
-                            <div className="editSpotInputBoxFields">
+                            {/* <div className="editSpotInputBoxFields">
                                 <input type="text" name="image" value={imageUrl} placeholder='Image URL' onChange={(e) => setImageUrl(e.target.value)} required></input>
+                            </div> */}
+                            <div className="editSpotInputBoxFields">
+                                <input type="file" onChange={updateFile} required></input>
                             </div>
                             <div className="editSpotInputBoxFields">
                                 <input type="text" name="address" value={address} onChange={(e) => setAddress(e.target.value)}></input>
@@ -284,10 +357,17 @@ const UserProfile = () => {
             {showEditBookingForm && (
                 <div className="editBookingFormWrapper">
                     <div className="windowCloseIconButtonEditBookingForm" onClick={(e) => handleCloseFormEditBooking(e)}>
-                        <i className="far fa-window-close windowCloseButton"></i>
+                        <i className="far fa-window-close windowCloseButton" onClick={() => setErrors([])}></i>
                     </div>
                     <div className="editYourReservationMessage">Edit your reservation</div>
                     <form className="editBookingForm">
+                        {showErrors && (
+                            <div className="errors" style={{ marginBottom: '-0.5vh' }}>
+                                {errors.map(error => (
+                                    <div style={{ color: 'red', textAlign: 'center', fontSize: 'smaller' }}>{error}</div>
+                                ))}
+                            </div>
+                        )}
                         <ul className="editBookingFormInputFieldsWrapper">
                             <div className="editBookingFormInputFields">
                                 <label>Check-in:</label>
@@ -297,9 +377,21 @@ const UserProfile = () => {
                                 <label>Check-out:</label>
                                 <input type="date" name="endDate" value={endDate} min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                             </div>
-                            {endDate <= startDate && (
+                            {/* {endDate <= startDate && (
                                 <div style={{ fontSize: 'smaller', textAlign: 'center', color: 'red' }}>Please select check out date</div>
-                            )}
+                            )} */}
+                            {endDate <= startDate
+                                ? <div style={{ fontSize: 'smaller', textAlign: 'center', color: 'red' }}>Please select check out date</div>
+                                : <div style={{ fontSize: 'smaller', textAlign: 'center' }}>
+                                    ${specificBooking.Spot.price} x {' '}
+                                    {startDate && endDate !== new Date() && endDate !== '' && (
+                                        getNumberOfDays(startDate, endDate) <= 1 ? 1 + ' night: ' : getNumberOfDays(startDate, endDate) + ' nights: '
+                                    )}
+                                    ${specificBooking.Spot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate))}<br></br>
+                                    Nomad fee: $49 <br></br>
+                                    <div style={{ fontWeight: 'bold' }}>Total price: ${specificBooking.Spot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate)) + 49}</div>
+                                </div>
+                            }
                             <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton nomadColor' disabled={endDate <= startDate}>Book Now!</button>
                         </ul>
                     </form>
@@ -318,7 +410,7 @@ const UserProfile = () => {
                         return (
                             <div class="card spot" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
-                                    <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." />
+                                    <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." style={{ height: '20vh' }} />
                                     <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>
                                         <div class="card-text">{specificSpot.name}</div>
                                         <div class="card-text">{specificSpot.city}, {specificSpot.state}</div>

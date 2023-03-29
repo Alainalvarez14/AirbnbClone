@@ -98,9 +98,16 @@
     border: 1px solid lightseagreen;
 }
 
-.createBookingFormSubmitButton:hover {
+.createBookingFormSubmitButton:hover:not(.disabled) {
     color: lightseagreen;
     background-color: white;
+}
+
+.disabled {
+    color: grey;
+    border: 1px solid grey;
+    background-color: white;
+    pointer-events: none;
 }
 
 /* .windowCloseIconButtonCreateBookingForm {
