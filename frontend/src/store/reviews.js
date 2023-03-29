@@ -25,16 +25,13 @@ export const getAllReviewsThunk = (spotId) => async dispatch => {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
     if (response.ok) {
         const allReviews = await response.json();
-        // console.log('all', allReviews);
+
         dispatch(getAllReviews(allReviews.Reviews));
     }
 };
 
 export const createReviewThunk = (review) => async dispatch => {
-    console.log('inside create review thunk');
-    console.log(review);
-    console.log(review.spotId);
-    console.log(typeof review.spotId);
+
     const response = await csrfFetch(`/api/spots/${review.spotId}/reviews`, {
         method: "POST",
         headers: {
@@ -59,7 +56,7 @@ export const deleteReviewThunk = (review) => async dispatch => {
 };
 
 export const editReviewThunk = (review) => async dispatch => {
-    console.log(review)
+   
 
     const response = await csrfFetch(`/api/reviews/${review.id}`, {
         method: "PUT",

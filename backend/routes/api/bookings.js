@@ -110,8 +110,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         }
     });
 
-    console.log(myBooking);
-
     if (userId !== myBooking.userId) {
         const myError = {
             message: "must be the owner of the booking in order to edit the booking."
@@ -144,7 +142,6 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
 
     for (let reservation of allBookingsForSpot) {
         if (isSameDate(new Date(startDate), reservation.startDate) && isSameDate(new Date(endDate), reservation.endDate)) {
-            console.log('equal')
             const myError = {
                 "message": "Sorry, this spot is already booked for the specified dates",
                 "statusCode": 403
@@ -153,7 +150,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         }
 
         if (new Date(startDate) >= reservation.startDate && new Date(startDate) <= reservation.endDate && reservation.id !== myBooking.id) {
-            console.log('start')
+
             const myError = {
                 "message": "Start date conflicts with an existing booking",
                 "statusCode": 403
@@ -162,7 +159,7 @@ router.put('/:bookingId', requireAuth, async (req, res) => {
         }
 
         if (new Date(endDate) <= reservation.endDate && new Date(endDate) >= reservation.startDate && reservation.id !== myBooking.id) {
-            console.log('end')
+           
 
             const myError = {
                 "message": "End date conflicts with an existing booking",

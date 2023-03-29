@@ -584,7 +584,7 @@ router.post('/:spotId/bookings', requireAuth, async (req, res) => {
     }
 
     await myReservation.save();
-    console.log(myReservation);
+  
     return res.json(myReservation);
 });
 

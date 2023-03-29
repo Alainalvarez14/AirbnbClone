@@ -20,7 +20,7 @@ export const getAllSpots = () => async dispatch => {
 
     if (response.ok) {
         const list = await response.json();
-        // console.log(list, 'ggggggsssasdgfgfs');
+
         dispatch(load(list.Spots));
     }
 }
@@ -142,7 +142,7 @@ export const spotsReducer = (state = defaultState, action) => {
         case 'DELETE_SPOT': {
             newState = { ...state };
             delete newState[action.payload.id];
-            console.log(newState);
+
             // return Object.values(newState).filter(spot => spot.id !== action.payload.id);
             return newState;
         }

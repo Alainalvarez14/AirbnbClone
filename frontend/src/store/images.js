@@ -14,7 +14,7 @@ export const createImageThunk = (image) => async dispatch => {
         },
         body: JSON.stringify(image)
     });
-    console.log(response)
+    
 
     // if (response.ok) {
     //     const image = await response.json();

@@ -17,7 +17,7 @@ const SignupFormPage = () => {
     const sessionUser = useSelector((state) => state.session.user);
 
     if (sessionUser) return <Redirect to="/" />;
-    console.log(sessionActions);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (password === confirmPassword) {

@@ -59,8 +59,7 @@ const SpecificSpotDetails = () => {
 
         if (errorsArray.length) {
             setShowErrors(true);
-            console.log("in here")
-            console.log(errors)
+
         }
         else {
             const bookingObj = { userId: user.id, spotId: parseInt(spotId), startDate, endDate };
@@ -85,8 +84,7 @@ const SpecificSpotDetails = () => {
     }, [endDate, startDate]);
 
     function isSameDate(date1, date2) {
-        console.log(date1);
-        console.log(date2);
+
         return date1.getFullYear() === date2.getFullYear()
             && date1.getMonth() === date2.getMonth()
             && date1.getDate() === date2.getDate()
@@ -156,8 +154,7 @@ const SpecificSpotDetails = () => {
     const handleSubmitReviewForm = (e) => {
         e.preventDefault();
         const reviewObj = { userId: user.id, spotId: parseInt(spotId), review, stars: Number(stars) };
-        console.log(reviewObj);
-        console.log(Object.values(allReviews))
+       
         Object.values(allReviews).map(review => {
             if (review.userId === user.id) {
                 alert('Cannot leave more than one review!');
