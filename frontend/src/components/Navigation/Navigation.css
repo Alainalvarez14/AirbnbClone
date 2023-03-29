@@ -78,7 +78,7 @@
     margin-bottom: 10px;
     border: 1.2px solid rgb(181, 180, 180);
     border-radius: 20px;
-    height: 750px;
+    height: 760px;
     width: 450px;
     margin-left: auto;
     margin-right: auto;
@@ -162,9 +162,15 @@
     border: 1px solid lightseagreen;
 }
 
-.hostSpotSubmitButton:hover {
+.hostSpotSubmitButton:hover:not(.disabled) {
     background: white;
     color: lightseagreen;
+}
+
+.disabled {
+    background: white;
+    color: grey;
+    border: 1px solid grey;
 }
 
 .createYourSpotMessage {
@@ -179,7 +185,7 @@
     position: fixed;
     z-index: 10001;
     left: 50%;
-    transform: translate(-50%, 32%);
+    transform: translate(-50%, 22%);
 }
 
 .profileButton {

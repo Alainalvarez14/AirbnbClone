@@ -34,12 +34,40 @@ const SpecificSpotDetails = () => {
     const [reviewToEdit, setReviewToEdit] = useState('');
     const [editedReview, setEditedReview] = useState(reviewToEdit.review);
     const [editedStars, setEditedStars] = useState(reviewToEdit.stars);
+    const [errors, setErrors] = useState([]);
+    const [showErrors, setShowErrors] = useState(false);
 
     const handleClick = (e) => {
         e.preventDefault();
-        const bookingObj = { userId: user.id, spotId: parseInt(spotId), startDate, endDate };
-        dispatch(createBookingThunk(bookingObj));
-        history.push("/user-profile");
+        const errorsArray = [];
+        setErrors([]);
+
+        for (let reservation of Object.values(allBookings)) {
+            if (isSameDate(new Date(startDate), new Date(reservation.startDate)) && isSameDate(new Date(endDate), new Date(reservation.endDate))) {
+                errorsArray.push("This spot is already booked for the specified dates");
+            }
+
+            else if (new Date(startDate) >= new Date(reservation.startDate) && new Date(startDate) <= new Date(reservation.endDate)) {
+                errorsArray.push("Start date conflicts with an existing booking");
+            }
+
+            else if (new Date(endDate) <= new Date(reservation.endDate) && new Date(endDate) >= new Date(reservation.startDate)) {
+                errorsArray.push("End date conflicts with an existing booking");
+            }
+        }
+        setErrors(errorsArray);
+
+        if (errorsArray.length) {
+            setShowErrors(true);
+            console.log("in here")
+            console.log(errors)
+        }
+        else {
+            const bookingObj = { userId: user.id, spotId: parseInt(spotId), startDate, endDate };
+            dispatch(createBookingThunk(bookingObj));
+            setShowErrors(false);
+            history.push("/user-profile");
+        }
     };
 
     useEffect(() => {
@@ -51,6 +79,18 @@ const SpecificSpotDetails = () => {
             history.push("/");
         }
     }, [dispatch]);
+
+    useEffect(() => {
+        if (endDate <= startDate) setErrors([]);
+    }, [endDate, startDate]);
+
+    function isSameDate(date1, date2) {
+        console.log(date1);
+        console.log(date2);
+        return date1.getFullYear() === date2.getFullYear()
+            && date1.getMonth() === date2.getMonth()
+            && date1.getDate() === date2.getDate()
+    }
 
     const formatDate = (date) => {
         let myDate = new Date(date);
@@ -148,13 +188,11 @@ const SpecificSpotDetails = () => {
         return Math.round(timeDifference / singleDayInMilliseconds);
     }
 
-
-
     return (
         <div style={{ background: 'lightseagreen', paddingBottom: '20px', paddingTop: '30px' }}>
             {selectedSpot && user && (
                 <div class="card" style={{ maxWidth: '90vw', display: 'flex', marginLeft: 'auto', marginRight: 'auto', marginBottom: '7vh', paddingBottom: '5vh' }}>
-                    <img src={selectedSpot.previewImage ? selectedSpot.previewImage : mockHome} class="card-img-top" alt="..." />
+                    <img src={selectedSpot.previewImage ? selectedSpot.previewImage : mockHome} class="card-img-top" alt="..." style={{ maxHeight: '70vh' }} />
                     <div class="card-body">
                         <h3 class="card-text">{selectedSpot.name}</h3>
                         <div>
@@ -169,6 +207,13 @@ const SpecificSpotDetails = () => {
                                     <div className="createBookingFormWrapper">
                                         <div className="bookYourStayMessage">Book your stay</div>
                                         <form className="createBookingForm">
+                                            {showErrors && (
+                                                <div className="errors" style={{ marginBottom: '-0.5vh' }}>
+                                                    {errors.map(error => (
+                                                        <div style={{ color: 'red', textAlign: 'center', fontSize: 'smaller' }}>{error}</div>
+                                                    ))}
+                                                </div>
+                                            )}
                                             <ul className="createBookingFormInputFieldsWrapper">
                                                 <div className='createBookingFormInputFields'>
                                                     <label>Check-in:</label>
@@ -190,8 +235,9 @@ const SpecificSpotDetails = () => {
                                                         <div style={{ fontWeight: 'bold' }}>Total price: ${selectedSpot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate)) + 49}</div>
                                                     </div>
                                                 }
+
                                                 <button onClick={(e) => handleClick(e)} className={`createBookingFormSubmitButton nomadColor ${endDate <= startDate ? 'disabled' : ''}`}>Book Now!</button>
-                                                <div style={{ paddingTop: '0.7vh', textAlign: 'center' }}>You won't be charged yet!</div>
+                                                {/* <div style={{ paddingTop: '0.7vh', textAlign: 'center' }}>You won't be charged yet!</div> */}
                                             </ul>
                                         </form>
                                     </div>

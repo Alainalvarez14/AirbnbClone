@@ -18,8 +18,8 @@ function ProfileButton({ user }) {
     const [city, setCity] = useState('');
     const [state, setTheState] = useState('');
     const [country, setCountry] = useState('');
-    const [lng, setLng] = useState();
-    const [lat, setLat] = useState();
+    const [lng, setLng] = useState('');
+    const [lat, setLat] = useState('');
     const [price, setPrice] = useState();
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
@@ -67,18 +67,18 @@ function ProfileButton({ user }) {
         if (!image) {
             errorsArray.push("Must have an image");
         }
-        // if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN) {
-        //     errorsArray.push("Latitude must be a number!");
-        // }
-        // if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN) {
-        //     errorsArray.push("Latitude must be a number!");
-        // }
-        if (price <= 0) {
+        if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN || !lat) {
+            errorsArray.push("Latitude must be a number between -90 and 90!");
+        }
+        if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN || !lng) {
+            errorsArray.push("Longitude must be a number between -180 and 180!");
+        }
+        if (price <= 0 || !price) {
             errorsArray.push("Must have a valid price per night!");
         }
 
         setErrors(errorsArray)
-    }, [name, description, address, image, city, state, country, price])
+    }, [name, description, address, image, city, lng, lat, state, country, price])
 
     useEffect(() => {
         if (!showMenu) return;
@@ -183,7 +183,7 @@ function ProfileButton({ user }) {
                         {showErrors && (
                             <ul className="errors">
                                 {errors.map(error => (
-                                    <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+                                    <div style={{ color: 'red', textAlign: 'center', fontSize: 'small' }}>{error}</div>
                                 ))}
                             </ul>
                         )}
@@ -291,6 +291,7 @@ function ProfileButton({ user }) {
                                 <input type="number" name="price" min="0.00" value={price} placeholder='Price' onChange={(e) => setPrice(e.target.value)}></input>
                             </div>
                         </ul>
+                        {/* <button onClick={(e) => handleSubmitCreateSpot(e)} className={`hostSpotSubmitButton nomadColor ${errors.length ? 'disabled' : ''}`}>Submit</button> */}
                         <button onClick={(e) => handleSubmitCreateSpot(e)} className='hostSpotSubmitButton nomadColor'>Submit</button>
                     </form>
                 </div>

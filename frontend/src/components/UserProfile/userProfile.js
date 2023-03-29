@@ -39,18 +39,16 @@ const UserProfile = () => {
     const [errors, setErrors] = useState([]);
     const [showErrors, setShowErrors] = useState(false);
     const [image, setImage] = useState('');
+    const [specificBooking, setSpecificBooking] = useState('');
 
     const openEditBookingForm = (booking) => {
         if (showEditBookingForm || showEditSpotForm) return;
-        // console.log('inside function' + booking.startDate);
-        // console.log(booking.startDate.split('T')[0]);
         setUserId(booking.userId);
         setSpotId(booking.spotId);
         setStartDate(booking.startDate.split('T')[0]);
         setEndDate(booking.endDate.split('T')[0]);
-        // setStartDate(booking.startDate);
-        // setEndDate(booking.endDate);
         setBookingId(booking.id);
+        setSpecificBooking(booking);
         setShowEditBookingForm(true);
     };
 
@@ -103,11 +101,17 @@ const UserProfile = () => {
         // if (!image) {
         //     errorsArray.push("Must have an image");
         // }
-        if (price <= 0) {
+        if (typeof Number(lat) !== 'number' || typeof Number(lat) === NaN || !lat) {
+            errorsArray.push("Latitude must be a number between -90 and 90!");
+        }
+        if (typeof Number(lng) !== 'number' || typeof Number(lng) === NaN || !lng) {
+            errorsArray.push("Longitude must be a number between -180 and 180!");
+        }
+        if (price <= 0 || !price) {
             errorsArray.push("Must have a valid price per night!");
         }
         setErrors(errorsArray)
-    }, [name, description, address, city, state, country, price]);
+    }, [name, description, lat, lng, address, city, state, country, price]);
 
     const handleSubmitBooking = (e) => {
         e.preventDefault();
@@ -188,6 +192,19 @@ const UserProfile = () => {
         const file = e.target.files[0];
         if (file) setImage(file);
     };
+
+    const getNumberOfDays = (startDate, endDate) => {
+        const beginningDate = new Date(startDate);
+        const endingDate = new Date(endDate);
+
+        const singleDayInMilliseconds = 86400000;
+
+        // TD between two days
+        const timeDifference = endingDate.getTime() - beginningDate.getTime();
+
+        // # of days between two specific dates
+        return Math.round(timeDifference / singleDayInMilliseconds);
+    }
 
     return (
         <div style={{ marginLeft: '2vw', marginRight: '2vw' }}>
@@ -311,9 +328,21 @@ const UserProfile = () => {
                                 <label>Check-out:</label>
                                 <input type="date" name="endDate" value={endDate} min={new Date().toISOString().split('T')[0]} onChange={(e) => setEndDate(e.target.value)}></input>
                             </div>
-                            {endDate <= startDate && (
+                            {/* {endDate <= startDate && (
                                 <div style={{ fontSize: 'smaller', textAlign: 'center', color: 'red' }}>Please select check out date</div>
-                            )}
+                            )} */}
+                            {endDate <= startDate
+                                ? <div style={{ fontSize: 'smaller', textAlign: 'center', color: 'red' }}>Please select check out date</div>
+                                : <div style={{ fontSize: 'smaller', textAlign: 'center' }}>
+                                    ${specificBooking.Spot.price} x {' '}
+                                    {startDate && endDate !== new Date() && endDate !== '' && (
+                                        getNumberOfDays(startDate, endDate) <= 1 ? 1 + ' night: ' : getNumberOfDays(startDate, endDate) + ' nights: '
+                                    )}
+                                    ${specificBooking.Spot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate))}<br></br>
+                                    Nomad fee: $49 <br></br>
+                                    <div style={{ fontWeight: 'bold' }}>Total price: ${specificBooking.Spot.price * (getNumberOfDays(startDate, endDate) === 0 ? 1 : getNumberOfDays(startDate, endDate)) + 49}</div>
+                                </div>
+                            }
                             <button onClick={(e) => handleSubmitBooking(e)} className='editBookingFormSubmitButton nomadColor' disabled={endDate <= startDate}>Book Now!</button>
                         </ul>
                     </form>
@@ -332,7 +361,7 @@ const UserProfile = () => {
                         return (
                             <div class="card spot" style={{ width: "18rem", marginRight: '1vw' }}>
                                 <NavLink key={booking.id} to={`/spots/${specificSpot.id}`} className='eachSpotOnUserProfilePage'>
-                                    <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." />
+                                    <img src={specificSpot.previewImage ? specificSpot.previewImage : mockHome} class="card-img-top" alt="..." style={{ height: '20vh' }} />
                                     <div class="card-body" style={{ color: 'black', fontWeight: 'lighter' }}>
                                         <div class="card-text">{specificSpot.name}</div>
                                         <div class="card-text">{specificSpot.city}, {specificSpot.state}</div>
