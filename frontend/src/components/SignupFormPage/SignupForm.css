@@ -37,4 +37,10 @@
     font-size: 18px;
     margin-left: auto;
     margin-right: auto;
+    border: 1px solid lightseagreen;
+}
+
+.SignupButton:hover {
+    color: lightseagreen;
+    background-color: white;
 }

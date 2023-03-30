@@ -42,6 +42,11 @@ const LandingPage = () => {
 
     return (
         <div>
+            <div class="card" style={{ height: '8vh' }}>
+                <div class="card-body bannerText">
+                    Exhilaration awaits. Find your next getaway.
+                </div>
+            </div>
             <div className="notOwnedSpotsList" style={{ marginBottom: '7vh', marginLeft: '1vw' }}>
                 {
                     Object.values(spotList)?.map(spot => {
