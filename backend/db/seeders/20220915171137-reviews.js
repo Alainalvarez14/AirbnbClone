@@ -21,21 +21,21 @@ module.exports = {
 
     return queryInterface.bulkInsert(options, [
       {
-        userId: 1,
+        userId: 2,
         spotId: 1,
-        review: 'efkjbdskjlvbdskvbdsvb kwjerbvekrbverov ebvoaerovervreovreo',
+        review: 'The best house I have ever stayed in!! amazing experience!!',
         stars: 1
       },
       {
-        userId: 2,
+        userId: 3,
         spotId: 2,
-        review: 'berkherkviue eijrhvbeiruiuv dfveaon efouvhreiohvoeirhahvioehaiopeopiaeopvaievpeaivpearpvipjevpo',
+        review: 'Would recommend this house to my closest friends! Amazing house with a surplus of amenities! Amazing experieince! Cant wait to come again!',
         stars: 4
       },
       {
-        userId: 3,
+        userId: 1,
         spotId: 3,
-        review: 'reghjrebkjrebuirebiouveroqvnoiernoveqriuvbor eofuvhoueqrnvioneroivneorinve  o3qihvnoirvnrniovnqprenqpvrqnvoqmnpoqo',
+        review: 'Exciting and interesting spot. Area is average but the house is kept well and very clean. Amazing views and friendly owners!',
         stars: 5
       }
     ], {});
