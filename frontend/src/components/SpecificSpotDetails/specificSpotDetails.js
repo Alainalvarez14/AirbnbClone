@@ -154,9 +154,9 @@ const SpecificSpotDetails = () => {
     const handleSubmitReviewForm = (e) => {
         e.preventDefault();
         const reviewObj = { userId: user.id, spotId: parseInt(spotId), review, stars: Number(stars) };
-       
+
         Object.values(allReviews).map(review => {
-            if (review.userId === user.id) {
+            if (review.userId === user.id && review.spotId === parseInt(spotId)) {
                 alert('Cannot leave more than one review!');
                 return;
             }
