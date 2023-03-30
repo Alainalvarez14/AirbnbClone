@@ -111,3 +111,51 @@ NavLink {
         background-position: 200% center;
     }
 } */
+
+.bannerCard {
+    /* height: '8vh', marginBottom: '2vh' */
+    height: 8vh;
+    margin-bottom: 2vh;
+}
+
+@media (max-height: 1050px) {
+    .bannerCard {
+        margin-bottom: 2.5vh;
+    }
+}
+
+@media (max-height: 1000px) {
+    .bannerCard {
+        margin-bottom: 2.7vh;
+    }
+}
+
+@media (max-height: 950px) {
+    .bannerCard {
+        margin-bottom: 3vh;
+    }
+}
+
+@media (max-height: 900px) {
+    .bannerCard {
+        margin-bottom: 3.5vh;
+    }
+}
+
+@media (max-height: 850px) {
+    .bannerCard {
+        margin-bottom: 4vh;
+    }
+}
+
+@media (max-height: 800px) {
+    .bannerCard {
+        margin-bottom: 4.5vh;
+    }
+}
+
+@media (max-height: 760px) {
+    .bannerCard {
+        margin-bottom: 5vh;
+    }
+}
