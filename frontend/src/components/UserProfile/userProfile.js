@@ -251,7 +251,7 @@ const UserProfile = () => {
                         {showErrors && (
                             <ul className="errors" style={{ marginBottom: '-0.5vh' }}>
                                 {errors.map(error => (
-                                    <div style={{ color: 'red', textAlign: 'center' }}>{error}</div>
+                                    <div style={{ color: 'red', textAlign: 'center', fontSize: 'small' }}>{error}</div>
                                 ))}
                             </ul>
                         )}

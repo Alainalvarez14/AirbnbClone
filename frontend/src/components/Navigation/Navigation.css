@@ -213,3 +213,166 @@
     cursor: pointer;
     box-shadow: rgba(233, 4, 4, 0.28) 0px 0px 10px;
 }
+
+
+@media (max-height: 1100px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 12%);
+    }
+}
+
+@media (max-height: 1000px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 8%);
+    }
+}
+
+@media (max-height: 950px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 3%);
+    }
+}
+
+@media (max-height: 900px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 6%);
+    }
+
+    .createSpotForm {
+        height: 670px;
+    }
+
+    .createYourSpotMessage {
+        font-size: 27px;
+    }
+
+    .windowCloseIcon {
+        font-size: 23px;
+    }
+
+    .inputBoxFieldsWrapper {
+        margin-bottom: 3px;
+        margin-top: 5px;
+    }
+
+    .inputBoxFields {
+        margin-bottom: 4px;
+    }
+
+    .inputBoxFields>input {
+        height: 28px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 5px;
+        height: 28px;
+    }
+}
+
+@media (max-height: 850px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 3%);
+    }
+
+    .createSpotForm {
+        height: 670px;
+    }
+
+    .createYourSpotMessage {
+        font-size: 27px;
+    }
+
+    .windowCloseIcon {
+        font-size: 23px;
+    }
+
+    .inputBoxFieldsWrapper {
+        margin-bottom: 3px;
+        margin-top: 5px;
+    }
+
+    .inputBoxFields {
+        margin-bottom: 4px;
+    }
+
+    .inputBoxFields>input {
+        height: 28px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 5px;
+        height: 28px;
+    }
+}
+
+@media (max-height: 800px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 2%);
+    }
+
+    .createSpotForm {
+        height: 645px;
+    }
+
+    .createYourSpotMessage {
+        font-size: 25px;
+    }
+
+    .windowCloseIcon {
+        font-size: 21px;
+    }
+
+    .inputBoxFieldsWrapper {
+        margin-bottom: 2px;
+        margin-top: 3px;
+    }
+
+    .inputBoxFields {
+        margin-bottom: 3.5px;
+    }
+
+    .inputBoxFields>input {
+        height: 27px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 4px;
+        height: 27px;
+    }
+}
+
+@media (max-height: 760px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 1%);
+    }
+
+    .createSpotForm {
+        height: 600px;
+    }
+
+    .createYourSpotMessage {
+        font-size: 23px;
+    }
+
+    .windowCloseIcon {
+        font-size: 19px;
+    }
+
+    .inputBoxFieldsWrapper {
+        margin-bottom: 1px;
+        margin-top: 2px;
+    }
+
+    .inputBoxFields {
+        margin-bottom: 3px;
+    }
+
+    .inputBoxFields>input {
+        height: 25px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 3px;
+        height: 25px;
+    }
+}

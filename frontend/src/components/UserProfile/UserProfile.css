@@ -222,3 +222,171 @@ NavLink {
     margin-right: auto;
     padding-top: 3px;
 }
+
+
+
+@media (max-height: 1100px) {
+    .editSpotFormWrapper {
+        transform: translate(-50%, 10%);
+    }
+}
+
+@media (max-height: 1000px) {
+    .editSpotFormWrapper {
+        transform: translate(-50%, 4%);
+    }
+}
+
+@media (max-height: 950px) {
+    .editSpotFormWrapper {
+        transform: translate(-50%, -1%);
+    }
+}
+
+@media (max-height: 900px) {
+    .editSpotFormWrapper {
+        transform: translate(-50%, -1%);
+    }
+
+    .editSpotForm {
+        height: 670px;
+    }
+
+    .editYourSpotMessage {
+        font-size: 27px;
+        margin-bottom: 5px;
+    }
+
+    .windowCloseIconButton {
+        font-size: 23px;
+    }
+
+    .editSpotInputBoxFieldsWrapper {
+        margin-bottom: 3px;
+        margin-top: 5px;
+    }
+
+    .editSpotInputBoxFields {
+        margin-bottom: 4px;
+    }
+
+    .editSpotInputBoxFields>input {
+        height: 28px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 5px;
+        height: 28px;
+    }
+}
+
+@media (max-height: 850px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 3%);
+    }
+
+    .editSpotForm {
+        height: 650px;
+    }
+
+    .editYourSpotMessage {
+        font-size: 25px;
+        margin-bottom: 0px;
+    }
+
+    .windowCloseIconButton {
+        font-size: 22px;
+    }
+
+    .editSpotInputBoxFieldsWrapper {
+        margin-bottom: 2px;
+        margin-top: 4px;
+    }
+
+    .editSpotInputBoxFields {
+        margin-bottom: 3.5px;
+    }
+
+    .editSpotInputBoxFields>input {
+        height: 27px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 5px;
+        height: 27px;
+    }
+}
+
+@media (max-height: 800px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 2%);
+    }
+
+    .editSpotForm {
+        height: 645px;
+    }
+
+    .editYourSpotMessage {
+        font-size: 25px;
+        margin-bottom: 0px;
+    }
+
+    .windowCloseIconButton {
+        font-size: 21px;
+    }
+
+    .editSpotInputBoxFieldsWrapper {
+        margin-bottom: 2px;
+        margin-top: 3px;
+    }
+
+    .editSpotInputBoxFields {
+        margin-bottom: 3.5px;
+    }
+
+    .editSpotInputBoxFields>input {
+        height: 27px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 4px;
+        height: 27px;
+    }
+}
+
+@media (max-height: 760px) {
+    .createSpotFormWrapper {
+        transform: translate(-50%, 1%);
+    }
+
+    .editSpotForm {
+        height: 600px;
+    }
+
+    .editYourSpotMessage {
+        font-size: 23px;
+        margin-bottom: 0px;
+    }
+
+    .windowCloseIconButton {
+        font-size: 19px;
+    }
+
+    .editSpotInputBoxFieldsWrapper {
+        margin-bottom: 1px;
+        margin-top: 2px;
+    }
+
+    .editSpotInputBoxFields {
+        margin-bottom: 3px;
+    }
+
+    .editSpotInputBoxFields>input {
+        height: 25px;
+    }
+
+    .inputBoxFieldsOption {
+        margin-bottom: 3px;
+        height: 25px;
+    }
+}
