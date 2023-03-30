@@ -42,7 +42,7 @@ const LandingPage = () => {
 
     return (
         <div>
-            <div class="card" style={{ height: '8vh', marginBottom: '1vh' }}>
+            <div class="card" style={{ height: '8vh', marginBottom: '2vh' }}>
                 <div class="card-body bannerText">
                     Exhilaration awaits. Find your next getaway.
                 </div>
