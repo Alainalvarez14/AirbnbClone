@@ -90,10 +90,11 @@ NavLink {
 .bannerText {
     display: flex;
     justify-content: center;
-    align-items: center;
     font-size: 3vh;
     background-color: lightseagreen;
     color: white;
+    font-family: fantasy;
+    padding-top: 30px;
     /* background-image: linear-gradient(-225deg,
             #01dae6 0%,
             #03d1ce 29%,
