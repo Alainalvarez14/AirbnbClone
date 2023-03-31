@@ -54,19 +54,19 @@ const LandingPage = () => {
                     <div class="carousel-item active">
                         <img src={banner5} class="d-block w-100" alt="..." />
                         <div class="carousel-caption d-none d-md-block">
-                            <h3>Exhilaration awaits...Find your next getaway</h3>
+                            <h3 style={{ fontFamily: 'fantasy' }}>Exhilaration awaits...Find your next getaway</h3>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <img src={banner6} class="d-block w-100" alt="..." />
                         <div class="carousel-caption d-none d-md-block">
-                            <h3>Book your next adventure</h3>
+                            <h3 style={{ fontFamily: 'fantasy' }}>Book your next adventure</h3>
                         </div>
                     </div>
                     <div class="carousel-item">
                         <img src={banner1} class="d-block w-100" alt="..." />
                         <div class="carousel-caption d-none d-md-block">
-                            <h3>Discover unimaginable places</h3>
+                            <h3 style={{ fontFamily: 'fantasy' }}>Discover unimaginable places</h3>
                         </div>
                     </div>
                 </div>
