@@ -1,13 +1,10 @@
-import { getAllSpots } from "../../store/spots";
 import './LandingPage.css';
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import { NavLink } from 'react-router-dom';
 import { editSpot } from "../../store/spots";
 import mockHome from '../../Images/mockHome.jpg'
 import banner1 from './banner1.jpg'
-import banner2 from './banner2.jpg'
 import banner5 from './banner5.jpg'
 import banner6 from './banner6.jpg'
 import { useHistory } from "react-router-dom";
