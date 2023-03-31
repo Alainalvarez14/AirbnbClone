@@ -87,7 +87,7 @@ NavLink {
     box-shadow: rgb(32 178 170 / 28%) 0px 0px 10px;
 }
 
-.bannerText {
+/* .bannerText {
     display: flex;
     justify-content: center;
     font-size: 3vh;
@@ -95,16 +95,7 @@ NavLink {
     color: white;
     font-family: fantasy;
     padding-top: 30px;
-    /* background-image: linear-gradient(-225deg,
-            #01dae6 0%,
-            #03d1ce 29%,
-            #02a38e 67%,
-            #0398a6 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: textclip 2s linear infinite; */
-}
+} */
 
 /* @keyframes textclip {
     to {
@@ -112,12 +103,23 @@ NavLink {
     }
 } */
 
-.bannerCard {
-    /* height: '8vh', marginBottom: '2vh' */
+/* .bannerCard {
     height: 8vh;
     margin-bottom: 2vh;
+} */
+
+.carousel-item {
+    height: 40vh;
 }
 
+.carousel-item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+/*
 @media (max-height: 1050px) {
     .bannerCard {
         margin-bottom: 2.5vh;
@@ -158,4 +160,4 @@ NavLink {
     .bannerCard {
         margin-bottom: 5vh;
     }
-}
+} */
